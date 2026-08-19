@@ -7,6 +7,8 @@
 <meta name="description" content="Опишите словами или голосом, что нужно бизнесу, — Кэби соберёт настроенный аккаунт CRM: таблицы, роли, отчёты и автоматизации. 14 дней бесплатно.">
 <meta name="theme-color" content="#4931dc">
 
+<link rel="canonical" href="https://keby.clientbase.ru/">
+
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -15,7 +17,8 @@
 <meta property="og:site_name" content="Кэби">
 <meta property="og:title" content="Кэби — соберём CRM по вашему описанию">
 <meta property="og:description" content="Опишите словами или голосом, что нужно бизнесу, — Кэби соберёт настроенный аккаунт CRM: таблицы, роли, отчёты и автоматизации. 14 дней бесплатно.">
-<meta property="og:image" content="assets/img/hero.png">
+<meta property="og:image" content="https://keby.clientbase.ru/assets/img/hero.png">
+<meta property="og:url" content="https://keby.clientbase.ru/">
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- Yandex.Metrika counter -->
@@ -557,13 +560,18 @@ class Component extends DCLogic {
 
   // ── Регистрация аккаунта ──────────────────────────────────────────────────
   // Обработчик Платформы КБ, тот же, что на clientbase.ru (main-script.js).
-  // KB_ORIGIN пустой — значит лендинг лежит на том же домене и запрос идёт
-  // на свой origin, как у них. Если лендинг на отдельном домене, впишите
-  // сюда 'https://clientbase.ru' и разрешите CORS для этого адреса.
-  KB_ORIGIN = '';
+  // Лендинг живёт на keby.clientbase.ru — для браузера это отдельный origin,
+  // поэтому запрос идёт на clientbase.ru и требует разрешённого CORS.
+  // Если client_register_fast.php отвечает и на самом keby.clientbase.ru,
+  // очистите KB_ORIGIN — тогда запрос станет свой, и CORS не понадобится.
+  KB_ORIGIN = 'https://clientbase.ru';
   REGISTER_PATH = '/client_register_fast.php';
+  // Печенька validateAcc ставится на общий домен, иначе до clientbase.ru
+  // она не доедет. keby.clientbase.ru и clientbase.ru — один сайт, так что
+  // ставить её на родительский домен браузер разрешает.
+  COOKIE_DOMAIN = '.clientbase.ru';
   MCONF_ID = 0;            // id готовой конфигурации; 0 — пустой аккаунт
-  BUILD = '2026-08-19.1';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-08-19.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -633,7 +641,13 @@ class Component extends DCLogic {
 
     // Метка времени уходит и заголовком, и печенькой — так её ждёт бэк
     const stamp = new Date(Date.now() + 60e3).toUTCString();
-    document.cookie = 'validateAcc=1; path=/; expires=' + stamp;
+    let jar = 'validateAcc=1; path=/; expires=' + stamp;
+    const base = this.COOKIE_DOMAIN.replace(/^\./, '');
+    if (base && (location.hostname === base || location.hostname.endsWith('.' + base))) {
+      jar += '; domain=' + this.COOKIE_DOMAIN;
+      if (location.protocol === 'https:') jar += '; secure';
+    }
+    document.cookie = jar;
 
     if (typeof window.gtag === 'function') window.gtag('event', 'cb_freeaccount');
 
@@ -659,6 +673,7 @@ class Component extends DCLogic {
       const wait = data.type === 'fast' ? 0 : this.SLOW_CREATE_MS;
       this.goTimer = setTimeout(() => this.openAccount(login), wait);
     } catch (err) {
+      console.error('[регистрация] запрос к ' + this.KB_ORIGIN + this.REGISTER_PATH + ' не прошёл:', err);
       this.setState({ sending: false });
       this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
                    'Could not create the account. Please try again or write to info@clientbase.ru.');

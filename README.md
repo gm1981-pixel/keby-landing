@@ -1,7 +1,7 @@
 # keby-landing
 
 Лендинг Кэби — обычный статический сайт: HTML, CSS, JS, картинки и шрифты
-лежат отдельными файлами.
+лежат отдельными файлами. Выкладывается на **https://keby.clientbase.ru/**
 
 ## Структура
 
@@ -67,18 +67,36 @@ React и шрифты лежат внутри репозитория. Наруж
 Настройки — в начале класса `Component` в конце `index.html`:
 `KB_ORIGIN`, `REGISTER_PATH`, `MCONF_ID`, `METRIKA_ID`, `GOAL`.
 
-### Два условия, без которых регистрация не заработает
+### Что нужно на стороне сервера
 
-1. **Домен.** `KB_ORIGIN` пустой — запрос идёт на тот же origin, что и
-   лендинг, как на clientbase.ru. Если лендинг живёт на отдельном домене,
-   впишите `https://clientbase.ru` и разрешите для этого адреса CORS:
-   заголовки `Access-Control-Allow-Origin` с доменом лендинга,
-   `Access-Control-Allow-Credentials: true` и
-   `Access-Control-Allow-Headers: validateAcc, Content-Type`. Иначе браузер
-   не пропустит ни сам запрос, ни предварительный `OPTIONS`.
-2. **Описание задачи.** `client_register_fast.php` поля под ТЗ не имеет.
-   Оно уходит параметром `brief` и будет молча отброшено, пока обработчик
-   не научится его принимать.
+Лендинг стоит на `keby.clientbase.ru`, обработчик — на `clientbase.ru`.
+Для браузера это **разные origin**, поэтому запрос считается межсайтовым и
+по умолчанию будет отклонён. Печенька `validateAcc` ставится на общий домен
+`.clientbase.ru`, так что до обработчика она доедет, а вот сам запрос нужно
+разрешить одним из двух способов:
+
+**Проще всего** — проверить, отвечает ли `client_register_fast.php` на самом
+`keby.clientbase.ru`. Откройте https://keby.clientbase.ru/client_register_fast.php
+Если это не 404, очистите `KB_ORIGIN` в `index.html` — запрос станет
+внутренним, и настраивать больше нечего.
+
+**Иначе** — добавить на `clientbase.ru` для этого адреса заголовки:
+
+```
+Access-Control-Allow-Origin: https://keby.clientbase.ru
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: validateAcc, Content-Type
+Access-Control-Allow-Methods: POST, OPTIONS
+```
+
+и отвечать на предварительный `OPTIONS` кодом 204. Без этого браузер не
+выпустит даже сам запрос — из-за заголовка `validateAcc` он сначала шлёт
+`OPTIONS` и ждёт разрешения.
+
+### Описание задачи
+
+`client_register_fast.php` поля под ТЗ не имеет. Оно уходит параметром
+`brief` и будет молча отброшено, пока обработчик не научится его принимать.
 
 ## Аналитика
 
