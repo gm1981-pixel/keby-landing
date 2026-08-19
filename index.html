@@ -18,6 +18,21 @@
 <meta property="og:image" content="assets/img/hero.png">
 <meta name="twitter:card" content="summary_large_image">
 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(19963723, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<!-- /Yandex.Metrika counter -->
+
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <script>window.__resources = {
@@ -27,6 +42,8 @@
 <script src="assets/js/dc-runtime.js"></script>
 </head>
 <body>
+<noscript><div><img src="https://mc.yandex.ru/watch/19963723" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,6 +116,14 @@
                   <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#1b1830;background:transparent">
                 </div>
 
+                <label style="display:flex;align-items:flex-start;gap:9px;border-top:1px solid #f0eefa;padding:11px 15px 11px;cursor:pointer">
+                  <input type="checkbox" checked="{{ agree }}" sc-camel-on-change="{{ toggleAgree }}" class="{{ agreeCls }}">
+                  <span style="{{ agreeTextStyle }}">
+                    <span data-l="ru">Нажимая кнопку, я принимаю условия <a href="https://clientbase.ru/offer_saas2024.pdf" target="_blank" rel="noopener">договора-оферты</a> и <a href="https://clientbase.ru/agreement_create.pdf" target="_blank" rel="noopener">даю своё согласие</a> на обработку моих персональных данных</span>
+                    <span data-l="en">By clicking the button I accept the <a href="https://clientbase.ru/offer_saas2024.pdf" target="_blank" rel="noopener">terms of the offer</a> and <a href="https://clientbase.ru/agreement_create.pdf" target="_blank" rel="noopener">give my consent</a> to the processing of my personal data</span>
+                  </span>
+                </label>
+
                 <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #f0eefa;padding:10px 8px 4px;flex-wrap:wrap">
                   <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
                     <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyle }}">
@@ -108,7 +133,7 @@
                   </sc-if>
                   <span style="font-size:13px;color:#a09bbb;font-family:'JetBrains Mono',monospace">{{ charCount }}</span>
                   <button sc-camel-on-click="{{ submit }}" style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:oklch(0.47 0.24 278);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 10px 22px -10px oklch(0.47 0.24 278)">
-                    <span data-l="ru">Собрать мою CRM</span><span data-l="en">Build my CRM</span> →
+                    <span data-l="ru">{{ submitRu }}</span><span data-l="en">{{ submitEn }}</span>
                   </button>
                 </div>
 
@@ -351,6 +376,14 @@
               <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
             </div>
 
+            <label style="display:flex;align-items:flex-start;gap:9px;border-top:1px solid rgba(255,255,255,0.22);padding:11px 15px;cursor:pointer">
+              <input type="checkbox" checked="{{ agree }}" sc-camel-on-change="{{ toggleAgree }}" class="{{ agreeClsDark }}">
+              <span style="{{ agreeTextStyleDark }}">
+                <span data-l="ru">Нажимая кнопку, я принимаю условия <a href="https://clientbase.ru/offer_saas2024.pdf" target="_blank" rel="noopener">договора-оферты</a> и <a href="https://clientbase.ru/agreement_create.pdf" target="_blank" rel="noopener">даю своё согласие</a> на обработку моих персональных данных</span>
+                <span data-l="en">By clicking the button I accept the <a href="https://clientbase.ru/offer_saas2024.pdf" target="_blank" rel="noopener">terms of the offer</a> and <a href="https://clientbase.ru/agreement_create.pdf" target="_blank" rel="noopener">give my consent</a> to the processing of my personal data</span>
+              </span>
+            </label>
+
             <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,0.22);padding:10px 8px 4px;flex-wrap:wrap">
               <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
                 <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyleDark }}">
@@ -415,7 +448,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280}}">
 class Component extends DCLogic {
-  state = { lang: 'ru', text: '', email: '', listening: false, phase: 'input', hint: '', sentEmail: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
+  state = { lang: 'ru', text: '', email: '', agree: false, flash: false, sending: false, listening: false, phase: 'input', hint: '', sentEmail: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
 
   SHOTS = [
     { key: 'dash', ru: 'Сводный отчёт', en: 'Dashboard', slug: 'dashboard', src: 'assets/ui-dash.png', capRu: 'Ключевые метрики, графики оплат и новые клиенты на одном экране.', capEn: 'Key metrics, payment charts and new clients on one screen.' },
@@ -424,7 +457,7 @@ class Component extends DCLogic {
     { key: 'invoice', ru: 'Счёт', en: 'Invoice card', slug: 'invoices/118', src: 'assets/ui-invoice.png', capRu: 'Карточка счёта: позиции, оплаты, печать и рассылка по e-mail.', capEn: 'Invoice card: line items, payments, printing and e-mail sending.' }
   ];
 
-  componentWillUnmount(){ this.stopVoice(); }
+  componentWillUnmount(){ this.stopVoice(); clearTimeout(this.flashTimer); }
 
   CHIPS = [
     { ru: 'Салон красоты', en: 'Beauty salon', fill: { ru: 'CRM для салона красоты: клиенты, записи в календаре, услуги и цены, напоминания по SMS, зарплата мастеров.', en: 'CRM for a beauty salon: clients, calendar bookings, services & prices, SMS reminders, staff payroll.' } },
@@ -512,7 +545,27 @@ class Component extends DCLogic {
 
   emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
-  submit = () => {
+  // ── Отправка заявки ───────────────────────────────────────────────────────
+  // Адрес обработчика на стороне КБ. Пока пусто — подтверждение показывается
+  // без запроса на сервер; проставьте адрес, и заявка уйдёт туда.
+  SUBMIT_URL = '';
+  METRIKA_ID = 19963723;
+  GOAL = 'newaccount';
+
+  toggleAgree = (e) => this.setState({ agree: !!e.target.checked, flash: false, hint: '' });
+
+  flashTimer = null;
+  askAgree = () => {
+    clearTimeout(this.flashTimer);
+    this.setState({ flash: true });
+    this.flashTimer = setTimeout(() => this.setState({ flash: false }), 3000);
+    this.setHint('Отметьте согласие с офертой и обработкой персональных данных.',
+                 'Please accept the offer and the personal data processing consent.');
+  };
+
+  submit = async () => {
+    if (this.state.sending) return;
+
     const text = this.state.text.trim();
     const email = this.state.email.trim();
 
@@ -526,14 +579,34 @@ class Component extends DCLogic {
                    'Enter your email — the account login and password will be sent there.');
       return;
     }
+    if (!this.state.agree) { this.askAgree(); return; }
 
     this.stopVoice();
-    this.setState({ phase: 'done', listening: false, hint: '', sentEmail: email });
+    this.setState({ sending: true, listening: false, hint: '' });
+
+    try {
+      if (this.SUBMIT_URL) {
+        const res = await fetch(this.SUBMIT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, brief: text, lang: this.state.lang, source: 'kebi-landing' })
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+      }
+      if (typeof window.ym === 'function') window.ym(this.METRIKA_ID, 'reachGoal', this.GOAL);
+      this.setState({ phase: 'done', sending: false, sentEmail: email });
+    } catch (err) {
+      this.setState({ sending: false });
+      this.setHint('Не удалось отправить заявку. Проверьте связь и попробуйте ещё раз.',
+                   'Could not send the request. Check your connection and try again.');
+    }
   };
 
   reset = () => {
     this.stopVoice();
-    this.setState({ phase: 'input', text: '', email: '', listening: false, hint: '', sentEmail: '' });
+    clearTimeout(this.flashTimer);
+    this.setState({ phase: 'input', text: '', email: '', agree: false, flash: false, sending: false,
+                    listening: false, hint: '', sentEmail: '' });
   };
 
   toggleMod = (k) => () => this.setState(s => ({ mods: { ...s.mods, [k]: !s.mods[k] } }));
@@ -550,6 +623,8 @@ class Component extends DCLogic {
     const hintBase = 'margin:4px 8px 6px;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;font-weight:700;';
     let hint = null;
     try { hint = this.state.hint ? JSON.parse(this.state.hint) : null; } catch (e) { hint = null; }
+    const flash = this.state.flash;
+    const agreeText = 'font-size:12.5px;line-height:1.45;font-weight:600;transition:color 0.2s;color:';
 
     return {
       lang: this.state.lang,
@@ -586,8 +661,18 @@ class Component extends DCLogic {
 
       submit: this.submit,
       reset: this.reset,
-      regRu: 'Создать аккаунт',
-      regEn: 'Create account',
+      sending: this.state.sending,
+      submitRu: this.state.sending ? 'Отправляем…' : 'Собрать мою CRM →',
+      submitEn: this.state.sending ? 'Sending…' : 'Build my CRM →',
+
+      agree: this.state.agree,
+      toggleAgree: this.toggleAgree,
+      agreeCls: 'agree-box' + (flash ? ' agree-flash' : ''),
+      agreeClsDark: 'agree-box agree-box--dark' + (flash ? ' agree-flash' : ''),
+      agreeTextStyle: agreeText + (flash ? '#e63756' : '#8a86a3'),
+      agreeTextStyleDark: agreeText + (flash ? '#ffd7de' : 'rgba(255,255,255,0.72)'),
+      regRu: this.state.sending ? 'Отправляем…' : 'Создать аккаунт',
+      regEn: this.state.sending ? 'Sending…' : 'Create account',
       regNote: ru ? 'Без карты · отписка в 1 клик' : 'No card · 1-click opt-out',
 
       mascotPoints: [
