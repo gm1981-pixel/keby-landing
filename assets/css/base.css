@@ -11,3 +11,21 @@ a:hover{color:oklch(0.4 0.24 278)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes pop{0%{opacity:0;transform:scale(0.94)}100%{opacity:1;transform:none}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* Поля формы: плейсхолдер должен читаться на обоих фонах */
+input::placeholder,
+textarea::placeholder { color: #a09bbb; opacity: 1 }
+
+#cta input::placeholder,
+#cta textarea::placeholder { color: rgba(255,255,255,0.72); opacity: 1 }
+
+#cta input, #cta textarea { caret-color: #fff }
+
+/* Chrome заливает автозаполненные поля своим фоном — вернуть наши цвета */
+#cta input:-webkit-autofill,
+#cta input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  transition: background-color 0s 600000s;
+}
+input:-webkit-autofill { transition: background-color 0s 600000s }

@@ -39,7 +39,6 @@
           <button sc-camel-on-click="{{ setRu }}" style="{{ ruBtnStyle }}">RU</button>
           <button sc-camel-on-click="{{ setEn }}" style="{{ enBtnStyle }}">EN</button>
         </div>
-        <a href="#" style="font-size:15px;font-weight:700;color:#4a4566"><span data-l="ru">Войти</span><span data-l="en">Log in</span></a>
         <a href="#cta" style="background:oklch(0.47 0.24 278);color:#fff;padding:10px 18px;border-radius:11px;font-size:15px;font-weight:800"><span data-l="ru">Создать аккаунт</span><span data-l="en">Sign up</span></a>
       </div>
     </div>
@@ -67,7 +66,7 @@
           <div style="background:#fff;border:1px solid #ebe8f5;border-radius:22px;padding:10px;box-shadow:0 24px 60px -30px rgba(60,40,160,0.35),0 2px 8px rgba(0,0,0,0.03)">
 
             <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
-              <div style="animation:pop 0.3s ease both">
+              <div>
                 <div style="position:relative">
                   <textarea value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" rows="4" style="width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:16.5px;line-height:1.5;color:#1b1830;padding:15px 15px 6px;background:transparent"></textarea>
                   <sc-if value="{{ listening }}" hint-placeholder-val="{{ false }}">
@@ -79,78 +78,44 @@
                     </div>
                   </sc-if>
                 </div>
-                <div style="display:flex;align-items:center;gap:10px;padding:6px 8px 6px;flex-wrap:wrap">
-                  <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyle }}">
-                    <span style="font-size:16px">🎙</span>
-                    <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
-                  </button>
+
+                <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #f0eefa;padding:11px 15px 11px">
+                  <span style="font-size:15px;flex:none">✉️</span>
+                  <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#1b1830;background:transparent">
+                </div>
+
+                <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #f0eefa;padding:10px 8px 4px;flex-wrap:wrap">
+                  <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
+                    <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyle }}">
+                      <span style="font-size:16px">🎙</span>
+                      <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
+                    </button>
+                  </sc-if>
                   <span style="font-size:13px;color:#a09bbb;font-family:'JetBrains Mono',monospace">{{ charCount }}</span>
                   <button sc-camel-on-click="{{ submit }}" style="margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:oklch(0.47 0.24 278);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 10px 22px -10px oklch(0.47 0.24 278)">
                     <span data-l="ru">Собрать мою CRM</span><span data-l="en">Build my CRM</span> →
                   </button>
                 </div>
-              </div>
-            </sc-if>
 
-            <sc-if value="{{ isBuilding }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:30px 24px;animation:pop 0.3s ease both">
-                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
-                  <span style="width:26px;height:26px;border:3px solid #ebe8f5;border-top-color:oklch(0.47 0.24 278);border-radius:50%;display:inline-block;animation:spin 0.8s linear infinite"></span>
-                  <span style="font-size:18px;font-weight:800"><span data-l="ru">{{ stepRu }}</span><span data-l="en">{{ stepEn }}</span></span>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:10px">
-                  <sc-for list="{{ buildLog }}" as="row" hint-placeholder-count="3">
-                    <div style="display:flex;align-items:center;gap:11px;font-size:14.5px;color:#585379;animation:fadeUp 0.35s ease both">
-                      <span style="width:20px;height:20px;border-radius:50%;background:oklch(0.72 0.16 155);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900">✓</span>
-                      <span data-l="ru">{{ row.ru }}</span><span data-l="en">{{ row.en }}</span>
-                    </div>
-                  </sc-for>
-                </div>
+                <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ hintStyle }}"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+                </sc-if>
               </div>
             </sc-if>
 
             <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:16px;animation:pop 0.35s ease both">
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-                  <span style="width:34px;height:34px;border-radius:10px;background:oklch(0.72 0.16 155);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:900">✓</span>
-                  <div>
-                    <div style="font-size:18px;font-weight:900"><span data-l="ru">Аккаунт создан и настроен</span><span data-l="en">Account created &amp; configured</span></div>
-                    <div style="font-size:13px;color:#8a86a3;font-family:'JetBrains Mono',monospace">crm.kebi.ru/{{ slug }}</div>
-                  </div>
+              <div style="padding:22px 20px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span style="width:34px;height:34px;flex:none;border-radius:10px;background:oklch(0.72 0.16 155);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:900">✓</span>
+                  <div style="font-size:19px;font-weight:900"><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></div>
                 </div>
-                <div style="border:1px solid #ebe8f5;border-radius:14px;overflow:hidden;background:#faf9ff">
-                  <div style="display:flex;align-items:center;gap:6px;padding:9px 13px;border-bottom:1px solid #f0eefa;background:#fff">
-                    <span style="width:9px;height:9px;border-radius:50%;background:#efedf7"></span>
-                    <span style="width:9px;height:9px;border-radius:50%;background:#efedf7"></span>
-                    <span style="width:9px;height:9px;border-radius:50%;background:#efedf7"></span>
-                    <span style="margin-left:8px;font-size:12.5px;font-weight:800;color:#585379"><span data-l="ru">Моя CRM</span><span data-l="en">My CRM</span></span>
-                  </div>
-                  <div style="display:grid;grid-template-columns:140px 1fr;min-height:190px">
-                    <div style="border-right:1px solid #f0eefa;padding:11px;display:flex;flex-direction:column;gap:3px">
-                      <div style="font-size:10.5px;font-weight:900;color:#b3aecf;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px"><span data-l="ru">Таблицы</span><span data-l="en">Tables</span></div>
-                      <sc-for list="{{ tables }}" as="tb" hint-placeholder-count="5">
-                        <div style="{{ tb.style }}"><span style="width:8px;height:8px;border-radius:2px;background:oklch(0.47 0.24 278);display:inline-block"></span><span data-l="ru">{{ tb.ru }}</span><span data-l="en">{{ tb.en }}</span></div>
-                      </sc-for>
-                    </div>
-                    <div style="padding:13px">
-                      <div style="display:flex;gap:8px;margin-bottom:11px">
-                        <div style="height:28px;flex:1;border-radius:7px;background:#fff;border:1px solid #f0eefa"></div>
-                        <div style="height:28px;width:80px;border-radius:7px;background:oklch(0.47 0.24 278);opacity:0.14"></div>
-                      </div>
-                      <div style="display:flex;flex-direction:column;gap:7px">
-                        <div style="height:11px;border-radius:4px;background:repeating-linear-gradient(90deg,#efedf7 0 12px,#f7f6fc 12px 24px);width:100%"></div>
-                        <div style="height:11px;border-radius:4px;background:repeating-linear-gradient(90deg,#efedf7 0 12px,#f7f6fc 12px 24px);width:92%"></div>
-                        <div style="height:11px;border-radius:4px;background:repeating-linear-gradient(90deg,#efedf7 0 12px,#f7f6fc 12px 24px);width:96%"></div>
-                        <div style="height:11px;border-radius:4px;background:repeating-linear-gradient(90deg,#efedf7 0 12px,#f7f6fc 12px 24px);width:80%"></div>
-                        <div style="height:11px;border-radius:4px;background:repeating-linear-gradient(90deg,#efedf7 0 12px,#f7f6fc 12px 24px);width:88%"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-                  <a href="#cta" style="flex:1;min-width:170px;text-align:center;background:oklch(0.47 0.24 278);color:#fff;padding:13px;border-radius:12px;font-weight:800"><span data-l="ru">Забрать по email</span><span data-l="en">Claim by email</span></a>
-                  <button sc-camel-on-click="{{ reset }}" style="background:#fff;border:1px solid #ddd8ee;border-radius:12px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:800;color:#4a4566;cursor:pointer"><span data-l="ru">Заново</span><span data-l="en">Restart</span></button>
-                </div>
+                <p style="font-size:15px;line-height:1.55;color:#585379;margin:14px 0 0">
+                  <span data-l="ru">Собираем аккаунт по вашему ТЗ. Адрес вида <b style="color:#1b1830">имя.clientbase.ru</b>, а логин и пароль пришлём на {{ sentEmail }}.</span>
+                  <span data-l="en">We are assembling your account. It will live at <b style="color:#1b1830">name.clientbase.ru</b>, and we will email the login and password to {{ sentEmail }}.</span>
+                </p>
+                <button sc-camel-on-click="{{ reset }}" style="margin-top:18px;background:#fff;border:1px solid #ddd8ee;border-radius:12px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:800;color:#4a4566;cursor:pointer">
+                  <span data-l="ru">Отправить ещё одну заявку</span><span data-l="en">Send another request</span>
+                </button>
               </div>
             </sc-if>
 
@@ -360,14 +325,52 @@
       <div style="position:absolute;inset:0;background:radial-gradient(600px 320px at 50% -10%,rgba(255,255,255,0.22),transparent 70%)"></div>
       <div style="position:relative">
         <h2 style="font-size:clamp(30px,5vw,52px);letter-spacing:-0.035em;font-weight:900;color:#fff;margin:0;line-height:1.05"><span data-l="ru">Опишите — и заберите свою CRM</span><span data-l="en">Describe it — claim your CRM</span></h2>
-        <p style="font-size:17px;color:rgba(255,255,255,0.82);margin:18px auto 0;max-width:48ch"><span data-l="ru">Оставьте email — сохраним собранный аккаунт и откроем доступ на 14 дней бесплатно.</span><span data-l="en">Leave your email — we'll save your account and open 14 days free.</span></p>
-        <div style="display:flex;gap:10px;max-width:480px;margin:30px auto 0;flex-wrap:wrap">
-          <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" placeholder="{{ emailPh }}" style="flex:1;min-width:220px;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.14);color:#fff;border-radius:12px;padding:15px 18px;font-family:inherit;font-size:16px;outline:none">
-          <button sc-camel-on-click="{{ register }}" style="background:#fff;color:oklch(0.44 0.24 278);border:none;border-radius:12px;padding:15px 26px;font-family:inherit;font-size:16px;font-weight:900;cursor:pointer">
-            <span data-l="ru">{{ regRu }}</span><span data-l="en">{{ regEn }}</span>
-          </button>
-        </div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;font-family:'JetBrains Mono',monospace">{{ regNote }}</div>
+        <p style="font-size:17px;color:rgba(255,255,255,0.82);margin:18px auto 0;max-width:48ch"><span data-l="ru">Опишите задачу и оставьте email — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
+
+        <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+          <div style="max-width:560px;margin:30px auto 0;text-align:left;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:20px;padding:6px">
+            <textarea value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" rows="3" style="width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:15.5px;line-height:1.5;color:#fff;padding:14px 15px 8px;background:transparent"></textarea>
+
+            <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,0.22);padding:11px 15px">
+              <span style="font-size:15px;flex:none">✉️</span>
+              <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,0.22);padding:10px 8px 4px;flex-wrap:wrap">
+              <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
+                <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyleDark }}">
+                  <span style="font-size:16px">🎙</span>
+                  <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
+                </button>
+              </sc-if>
+              <span style="font-size:13px;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace">{{ charCount }}</span>
+              <button sc-camel-on-click="{{ submit }}" style="margin-left:auto;background:#fff;color:oklch(0.44 0.24 278);border:none;border-radius:12px;padding:13px 24px;font-family:inherit;font-size:16px;font-weight:900;cursor:pointer">
+                <span data-l="ru">{{ regRu }}</span><span data-l="en">{{ regEn }}</span>
+              </button>
+            </div>
+
+            <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ hintStyleDark }}"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+            </sc-if>
+          </div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;font-family:'JetBrains Mono',monospace">{{ regNote }}</div>
+        </sc-if>
+
+        <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:560px;margin:30px auto 0;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:20px;padding:26px 24px">
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+              <span style="width:34px;height:34px;flex:none;border-radius:10px;background:#fff;color:oklch(0.44 0.24 278);display:grid;place-items:center;font-size:18px;font-weight:900">✓</span>
+              <div style="font-size:19px;font-weight:900;color:#fff"><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></div>
+            </div>
+            <p style="font-size:15px;line-height:1.55;color:rgba(255,255,255,0.85);margin:14px 0 0">
+              <span data-l="ru">Собираем аккаунт по вашему ТЗ. Адрес вида <b style="color:#fff">имя.clientbase.ru</b>, а логин и пароль пришлём на {{ sentEmail }}.</span>
+              <span data-l="en">We are assembling your account. It will live at <b style="color:#fff">name.clientbase.ru</b>, and we will email the login and password to {{ sentEmail }}.</span>
+            </p>
+            <button sc-camel-on-click="{{ reset }}" style="margin-top:18px;background:transparent;border:1px solid rgba(255,255,255,0.45);border-radius:12px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:800;color:#fff;cursor:pointer">
+              <span data-l="ru">Отправить ещё одну заявку</span><span data-l="en">Send another request</span>
+            </button>
+          </div>
+        </sc-if>
       </div>
     </div>
   </section>
@@ -390,14 +393,14 @@
         </div>
       </sc-for>
     </div>
-    <div style="border-top:1px solid #ebe8f5"><div style="max-width:1200px;margin:0 auto;padding:20px 28px;font-size:13px;color:#a09bbb;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><span>© 2009–2026 Кэби</span><span style="font-family:'JetBrains Mono',monospace">info@clientbase.ru · 8 800 100-09-36</span></div></div>
+    <div style="border-top:1px solid #ebe8f5"><div style="max-width:1200px;margin:0 auto;padding:20px 28px;font-size:13px;color:#a09bbb;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><span>© 2026 Кэби</span><span style="font-family:'JetBrains Mono',monospace">info@clientbase.ru · 8 800 100-09-36</span></div></div>
   </footer>
 
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280}}">
 class Component extends DCLogic {
-  state = { lang: 'ru', text: '', listening: false, phase: 'input', step: 0, email: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
+  state = { lang: 'ru', text: '', email: '', listening: false, phase: 'input', hint: '', sentEmail: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
 
   SHOTS = [
     { key: 'dash', ru: 'Сводный отчёт', en: 'Dashboard', slug: 'dashboard', src: 'assets/ui-dash.png', capRu: 'Ключевые метрики, графики оплат и новые клиенты на одном экране.', capEn: 'Key metrics, payment charts and new clients on one screen.' },
@@ -406,16 +409,7 @@ class Component extends DCLogic {
     { key: 'invoice', ru: 'Счёт', en: 'Invoice card', slug: 'invoices/118', src: 'assets/ui-invoice.png', capRu: 'Карточка счёта: позиции, оплаты, печать и рассылка по e-mail.', capEn: 'Invoice card: line items, payments, printing and e-mail sending.' }
   ];
 
-  timers = [];
-  componentWillUnmount(){ this.timers.forEach(clearTimeout); }
-
-  BUILD = [
-    { ru: 'Анализирую ваше ТЗ', en: 'Reading your brief' },
-    { ru: 'Проектирую таблицы и связи', en: 'Designing tables & relations' },
-    { ru: 'Настраиваю роли и права доступа', en: 'Setting roles & permissions' },
-    { ru: 'Добавляю автоматизации и отчёты', en: 'Adding automations & reports' },
-    { ru: 'Готово! Аккаунт создан', en: 'Done! Account is ready' }
-  ];
+  componentWillUnmount(){ this.stopVoice(); }
 
   CHIPS = [
     { ru: 'Салон красоты', en: 'Beauty salon', fill: { ru: 'CRM для салона красоты: клиенты, записи в календаре, услуги и цены, напоминания по SMS, зарплата мастеров.', en: 'CRM for a beauty salon: clients, calendar bookings, services & prices, SMS reminders, staff payroll.' } },
@@ -428,30 +422,105 @@ class Component extends DCLogic {
   onType = (e) => this.setState({ text: e.target.value });
   onEmail = (e) => this.setState({ email: e.target.value });
 
-  toggleVoice = () => {
-    if (this.state.listening) { this.setState({ listening: false }); return; }
-    this.setState({ listening: true });
-    const demo = this.CHIPS[0].fill;
-    const t = setTimeout(() => {
-      this.setState(s => ({ listening: false, text: s.text ? s.text : (s.lang === 'ru' ? demo.ru : demo.en) }));
-    }, 2600);
-    this.timers.push(t);
+  // ── Голосовой ввод: Web Speech API ────────────────────────────────────────
+  // Работает в Chrome / Edge / Safari и только на https (или localhost).
+  SR = typeof window !== 'undefined' ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
+  recog = null;
+  voiceBase = '';   // текст, набранный до начала диктовки
+
+  VOICE_ERR = {
+    'not-allowed':   { ru: 'Нет доступа к микрофону — разрешите его в настройках браузера.', en: 'Microphone blocked — allow access in your browser settings.' },
+    'service-not-allowed': { ru: 'Нет доступа к микрофону — разрешите его в настройках браузера.', en: 'Microphone blocked — allow access in your browser settings.' },
+    'audio-capture': { ru: 'Микрофон не найден. Проверьте, что он подключён.', en: 'No microphone found. Check that one is connected.' },
+    'no-speech':     { ru: 'Ничего не услышали. Попробуйте ещё раз.', en: 'Did not catch anything. Try again.' },
+    'network':       { ru: 'Распознавание речи недоступно — нет связи с сервисом.', en: 'Speech recognition is unavailable — no connection to the service.' }
   };
 
-  fill = (c) => () => this.setState({ text: this.state.lang === 'ru' ? c.fill.ru : c.fill.en });
+  stopVoice = () => {
+    if (this.recog) { try { this.recog.stop(); } catch (e) {} this.recog = null; }
+  };
+
+  toggleVoice = () => {
+    if (this.state.listening) { this.stopVoice(); this.setState({ listening: false }); return; }
+
+    if (!this.SR) {
+      this.setHint('Голосовой ввод не поддерживается в этом браузере — наберите текст вручную.',
+                   'Voice input is not supported in this browser — please type instead.');
+      return;
+    }
+    if (typeof window !== 'undefined' && !window.isSecureContext) {
+      this.setHint('Голосовой ввод работает только на защищённом соединении (https).',
+                   'Voice input only works over a secure connection (https).');
+      return;
+    }
+
+    let r;
+    try { r = new this.SR(); } catch (e) {
+      this.setHint('Не удалось включить микрофон.', 'Could not start the microphone.');
+      return;
+    }
+    r.lang = this.state.lang === 'ru' ? 'ru-RU' : 'en-US';
+    r.continuous = true;
+    r.interimResults = true;
+
+    this.voiceBase = this.state.text;
+
+    r.onresult = (e) => {
+      let final = '', interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const chunk = e.results[i][0].transcript;
+        if (e.results[i].isFinal) final += chunk; else interim += chunk;
+      }
+      if (final.trim()) this.voiceBase = this.join(this.voiceBase, final.trim());
+      this.setState({ text: interim.trim() ? this.join(this.voiceBase, interim.trim()) : this.voiceBase });
+    };
+    r.onerror = (e) => {
+      const m = this.VOICE_ERR[e.error];
+      this.recog = null;
+      this.setState({ listening: false });
+      if (m) this.setHint(m.ru, m.en);
+    };
+    r.onend = () => { this.recog = null; this.setState({ listening: false }); };
+
+    try { r.start(); } catch (e) {
+      this.setHint('Не удалось включить микрофон.', 'Could not start the microphone.');
+      return;
+    }
+    this.recog = r;
+    this.setState({ listening: true, hint: '' });
+  };
+
+  join = (a, b) => (a ? a.replace(/\s+$/, '') + ' ' : '') + b;
+  setHint = (ru, en) => this.setState({ hint: JSON.stringify({ ru, en }) });
+
+  fill = (c) => () => this.setState({ text: this.state.lang === 'ru' ? c.fill.ru : c.fill.en, hint: '' });
+
+  emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
   submit = () => {
-    this.setState({ phase: 'building', step: 0, listening: false });
-    for (let i = 1; i <= this.BUILD.length - 1; i++) {
-      const t = setTimeout(() => this.setState({ step: i }), i * 900);
-      this.timers.push(t);
+    const text = this.state.text.trim();
+    const email = this.state.email.trim();
+
+    if (text.length < 15) {
+      this.setHint('Опишите задачу подробнее — хотя бы пара предложений о том, что должна уметь CRM.',
+                   'Describe the task in a bit more detail — a couple of sentences about what the CRM should do.');
+      return;
     }
-    const done = setTimeout(() => this.setState({ phase: 'done' }), this.BUILD.length * 900);
-    this.timers.push(done);
+    if (!this.emailOk(email)) {
+      this.setHint('Укажите email — на него придут логин и пароль от аккаунта.',
+                   'Enter your email — the account login and password will be sent there.');
+      return;
+    }
+
+    this.stopVoice();
+    this.setState({ phase: 'done', listening: false, hint: '', sentEmail: email });
   };
 
-  reset = () => { this.timers.forEach(clearTimeout); this.timers = []; this.setState({ phase: 'input', step: 0, text: '' }); };
-  register = () => { alert(this.state.lang === 'ru' ? 'Спасибо! Мы сохранили ваш аккаунт и отправили доступ на email.' : 'Thanks! We saved your account and emailed the access link.'); };
+  reset = () => {
+    this.stopVoice();
+    this.setState({ phase: 'input', text: '', email: '', listening: false, hint: '', sentEmail: '' });
+  };
+
   toggleMod = (k) => () => this.setState(s => ({ mods: { ...s.mods, [k]: !s.mods[k] } }));
   pickShot = (k) => () => this.setState({ shot: k });
   addModule = () => alert(this.state.lang === 'ru' ? 'Опишите нужный модуль в поле ТЗ — Кэби добавит его в вашу CRM.' : 'Describe the module you need in the brief — Кэби will add it to your CRM.');
@@ -462,6 +531,10 @@ class Component extends DCLogic {
     const idleBtn = 'padding:6px 12px;border:none;cursor:pointer;background:#fff;color:#8a86a3;font-family:inherit;font-weight:800';
     const cc = this.state.text.length;
     const charCount = cc ? cc + (ru ? ' символов' : ' chars') : '';
+    const micBase = 'display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;';
+    const hintBase = 'margin:4px 8px 6px;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;font-weight:700;';
+    let hint = null;
+    try { hint = this.state.hint ? JSON.parse(this.state.hint) : null; } catch (e) { hint = null; }
 
     return {
       lang: this.state.lang,
@@ -469,8 +542,8 @@ class Component extends DCLogic {
       listening: this.state.listening,
       email: this.state.email,
       isInput: this.state.phase === 'input',
-      isBuilding: this.state.phase === 'building',
       isDone: this.state.phase === 'done',
+      sentEmail: this.state.sentEmail,
 
       setRu: () => this.setLang('ru'),
       setEn: () => this.setLang('en'),
@@ -484,20 +557,23 @@ class Component extends DCLogic {
       charCount,
 
       toggleVoice: this.toggleVoice,
-      micStyle: 'display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;' + (this.state.listening ? 'background:oklch(0.72 0.2 52);color:#fff;border:1px solid oklch(0.72 0.2 52)' : 'background:#fff;color:#4a4566;border:1px solid #ddd8ee'),
+      voiceOn: !!this.SR,
+      micStyle: micBase + (this.state.listening ? 'background:oklch(0.72 0.2 52);color:#fff;border:1px solid oklch(0.72 0.2 52)' : 'background:#fff;color:#4a4566;border:1px solid #ddd8ee'),
+      micStyleDark: micBase + (this.state.listening ? 'background:oklch(0.72 0.2 52);color:#fff;border:1px solid oklch(0.72 0.2 52)' : 'background:rgba(255,255,255,0.16);color:#fff;border:1px solid rgba(255,255,255,0.35)'),
       micLabelRu: this.state.listening ? 'Слушаю…' : 'Наговорить',
       micLabelEn: this.state.listening ? 'Listening…' : 'Dictate',
 
+      hasHint: !!hint,
+      hintRu: hint ? hint.ru : '',
+      hintEn: hint ? hint.en : '',
+      hintStyle: hintBase + 'color:oklch(0.55 0.19 30);background:oklch(0.97 0.02 30)',
+      hintStyleDark: hintBase + 'color:#fff;background:rgba(0,0,0,0.18)',
+
       submit: this.submit,
       reset: this.reset,
-      register: this.register,
       regRu: 'Создать аккаунт',
       regEn: 'Create account',
       regNote: ru ? 'Без карты · отписка в 1 клик' : 'No card · 1-click opt-out',
-
-      stepRu: this.BUILD[this.state.step].ru,
-      stepEn: this.BUILD[this.state.step].en,
-      buildLog: this.BUILD.slice(0, this.state.step),
 
       mascotPoints: [
         { icon: '🧩', bg: 'background:oklch(0.95 0.04 278);color:oklch(0.47 0.24 278)', tRu: 'Подбираю модули', tEn: 'I pick the modules', dRu: 'оптимальный набор под вашу задачу', dEn: 'the optimal set for your task' },
@@ -529,15 +605,6 @@ class Component extends DCLogic {
       shotSlug: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).slug,
       shotCapRu: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capRu,
       shotCapEn: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capEn,
-
-      slug: 'salon-crm',
-      tables: [
-        { ru: 'Клиенты', en: 'Clients' },
-        { ru: 'Записи', en: 'Bookings' },
-        { ru: 'Услуги', en: 'Services' },
-        { ru: 'Сотрудники', en: 'Staff' },
-        { ru: 'Оплаты', en: 'Payments' }
-      ].map((t, i) => ({ ...t, style: 'display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;padding:7px 8px;border-radius:7px;' + (i === 0 ? 'background:oklch(0.95 0.04 278);color:oklch(0.44 0.24 278)' : 'color:#585379') })),
 
       chips: this.CHIPS.map(c => ({ ru: c.ru, en: c.en, fill: this.fill(c) })),
 
