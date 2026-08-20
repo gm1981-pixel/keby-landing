@@ -574,10 +574,19 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-08-19.6';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-08-20.1';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
+
+  // Адрес обработчика. Если лендинг уже лежит на самом clientbase.ru
+  // (например, по пути /keby/), запрос становится своим и CORS не нужен
+  // вовсе. С поддомена keby.clientbase.ru идём на основной домен.
+  registerUrl = () => {
+    const h = location.hostname;
+    const own = h === 'clientbase.ru' || h === 'www.clientbase.ru';
+    return (own ? '' : this.KB_ORIGIN) + this.REGISTER_PATH;
+  };
 
   cookie = (name) => {
     const m = document.cookie.match(new RegExp(
@@ -672,7 +681,7 @@ class Component extends DCLogic {
     if (typeof window.gtag === 'function') window.gtag('event', 'cb_freeaccount');
 
     try {
-      const res = await fetch(this.KB_ORIGIN + this.REGISTER_PATH, {
+      const res = await fetch(this.registerUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: this.buildBody(email, brief)
@@ -700,7 +709,7 @@ class Component extends DCLogic {
       const wait = data.type === 'fast' ? 0 : this.SLOW_CREATE_MS;
       this.goTimer = setTimeout(() => this.openAccount(login), wait);
     } catch (err) {
-      console.error('[регистрация] запрос к ' + this.KB_ORIGIN + this.REGISTER_PATH + ' не прошёл:', err);
+      console.error('[регистрация] запрос к ' + this.registerUrl() + ' не прошёл:', err);
       console.error('[регистрация] если здесь TypeError: Failed to fetch — запрос не выпустил браузер (CORS или сеть).');
       this.setState({ sending: false });
       this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
