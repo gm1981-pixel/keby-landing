@@ -23,3 +23,9 @@ if ($exitCode === 0) {
 }
 
 echo implode("\n", $output), "\n";
+
+// Какой коммит сейчас развёрнут. Нужно, чтобы в логе GitHub Actions было
+// видно, что именно приехало на сайт, а не только «успешно». Печатается и
+// при ошибке — тогда видно, на чём сайт остался.
+exec('git -C /var/www/html log -1 --pretty=format:"%h %ci %s" 2>&1', $head, $gitCode);
+echo "\nDeployed commit: ", ($gitCode === 0 ? implode(' ', $head) : 'не определён (' . implode(' ', $head) . ')'), "\n";
