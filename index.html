@@ -574,7 +574,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-08-19.5';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-08-19.6';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -688,13 +688,20 @@ class Component extends DCLogic {
       const login = data && data.data && data.data.command && data.data.command.data
                  && data.data.command.data.command && data.data.command.data.command.parameters
                  && data.data.command.data.command.parameters.login;
-      if (!login) throw new Error('no login');
+      if (!login) {
+        // Ответ разобрался как JSON, но логина в нём нет. Печатаем целиком —
+        // по нему видно, что именно вернул сервер управления
+        console.error('[регистрация] в ответе нет логина. Ответ сервера:', data);
+        console.error('[регистрация] тот же ответ строкой:', raw);
+        throw new Error('no login');
+      }
 
       this.setState({ phase: 'done', sending: false, sentEmail: email, login: login });
       const wait = data.type === 'fast' ? 0 : this.SLOW_CREATE_MS;
       this.goTimer = setTimeout(() => this.openAccount(login), wait);
     } catch (err) {
       console.error('[регистрация] запрос к ' + this.KB_ORIGIN + this.REGISTER_PATH + ' не прошёл:', err);
+      console.error('[регистрация] если здесь TypeError: Failed to fetch — запрос не выпустил браузер (CORS или сеть).');
       this.setState({ sending: false });
       this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
                    'Could not create the account. Please try again or write to info@clientbase.ru.');
