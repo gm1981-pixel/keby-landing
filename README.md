@@ -49,54 +49,60 @@ React и шрифты лежат внутри репозитория. Наруж
 Кнопка не сработает, пока не отмечено согласие с офертой и обработкой
 персональных данных — как на clientbase.ru.
 
-Отправка повторяет `validateAcc()` и `test_acc()` из `main-script.js` сайта КБ:
+Отправка идёт напрямую в обработчик Платформы КБ:
 
-- `POST` на `/client_register_fast.php`, тело form-urlencoded;
+- `POST` на `https://clientbase.ru/client_register_fast.php`, тело
+  form-urlencoded;
 - поля `mconf_id`, `memail`, `referer` / `code` / `friend` из cookie
   `referer_frm`, `partner_id`, `friend_id`, пять `utm_*` из адресной строки
   и `utm_mark_title` из cookie `title_mark`;
-- метка «текущее время + 1 минута» уходит и заголовком `validateAcc`,
-  и одноимённой cookie;
+- если свободного предсозданного аккаунта нет, обработчик отвечает `302` на
+  `client_register.php`, и браузер сам доводит запрос туда со всеми
+  параметрами. Этот путь отвечает `type: "standard"`;
 - логин нового аккаунта берётся из ответа
-  (`data.command.data.command.parameters.login`), после чего вызывается цель
+  (`data.command.data.command.parameters.login`), вызывается цель
   `freeaccount` и происходит переход на `<логин>.clientbase.ru/login.php`.
   При `type: "fast"` сразу, при `"standard"` — через 30 секунд;
-- если обработчик отдал страницу 404 (создание аккаунтов приостановлено) или
-  запрос не прошёл, форма остаётся на месте и показывает ошибку.
+- отказы оба скрипта отдают простым текстом, а не JSON (`die("Error: ...")`
+  и `cb_die(...)`). Всё, что не разобралось как JSON, показывается
+  пользователю понятной фразой: превышен часовой лимит в три регистрации,
+  исчерпан суточный лимит, аккаунт уже существует.
 
 Настройки — в начале класса `Component` в конце `index.html`:
 `KB_ORIGIN`, `REGISTER_PATH`, `MCONF_ID`, `METRIKA_ID`, `GOAL`.
 
-### Что нужно на стороне сервера
+### Почему запрос уходит без cookie и без заголовка validateAcc
 
-Лендинг стоит на `keby.clientbase.ru`, обработчик — на `clientbase.ru`.
-Для браузера это **разные origin**, поэтому запрос считается межсайтовым и
-по умолчанию будет отклонён. Печенька `validateAcc` ставится на общий домен
-`.clientbase.ru`, так что до обработчика она доедет, а вот сам запрос нужно
-разрешить одним из двух способов:
+На сайте КБ форма шлёт заголовок `validateAcc` и ставит одноимённую печеньку.
+Ни `client_register_fast.php`, ни `client_register.php` их не читают — оба
+работают только с `$_REQUEST`. Зато оба отдают `Access-Control-Allow-Origin: *`,
+а звёздочка несовместима с `credentials`, и любой нестандартный заголовок
+потребовал бы предварительного `OPTIONS`, который скрипты не разрешают.
+Поэтому запрос идёт без того и другого — и проходит с `keby.clientbase.ru`
+без единой правки на сервере.
 
-**Проще всего** — проверить, отвечает ли `client_register_fast.php` на самом
-`keby.clientbase.ru`. Откройте https://keby.clientbase.ru/client_register_fast.php
-Если это не 404, очистите `KB_ORIGIN` в `index.html` — запрос станет
-внутренним, и настраивать больше нечего.
+Если когда-нибудь появится проверка `validateAcc` на уровне nginx или WAF,
+понадобится вернуть заголовок и добавить в ответ
+`Access-Control-Allow-Headers: validateAcc`.
 
-**Иначе** — добавить на `clientbase.ru` для этого адреса заголовки:
+### Описание задачи пока не сохраняется
 
+Ни один из двух обработчиков поля под ТЗ не имеет. Оно уходит параметром
+`brief`, доезжает до сервера (видно в `/home/logs/log_client_register.log`)
+и отбрасывается.
+
+Чтобы оно сохранялось, нужно завести в таблице 191 текстовое поле и добавить
+по строке в оба скрипта:
+
+```php
+$upd_arr['fXXXXX'] = form_input($_REQUEST['brief']);  // client_register_fast.php
+$ins_arr['fXXXXX'] = form_input($_REQUEST['brief']);  // client_register.php
 ```
-Access-Control-Allow-Origin: https://keby.clientbase.ru
-Access-Control-Allow-Credentials: true
-Access-Control-Allow-Headers: validateAcc, Content-Type
-Access-Control-Allow-Methods: POST, OPTIONS
-```
 
-и отвечать на предварительный `OPTIONS` кодом 204. Без этого браузер не
-выпустит даже сам запрос — из-за заголовка `validateAcc` он сначала шлёт
-`OPTIONS` и ждёт разрешения.
-
-### Описание задачи
-
-`client_register_fast.php` поля под ТЗ не имеет. Оно уходит параметром
-`brief` и будет молча отброшено, пока обработчик не научится его принимать.
+Как временная мера ТЗ можно слать в уже существующее свободное поле —
+`mpromo` (`f14522`) или `utm_mark_title` (`f16832`), их пишут оба скрипта.
+Но это засорит поля, которые заняты под промокод и рекламную метку, поэтому
+по умолчанию так не делается.
 
 ## Аналитика
 

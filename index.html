@@ -559,19 +559,20 @@ class Component extends DCLogic {
   emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
   // ── Регистрация аккаунта ──────────────────────────────────────────────────
-  // Обработчик Платформы КБ, тот же, что на clientbase.ru (main-script.js).
-  // Лендинг живёт на keby.clientbase.ru — для браузера это отдельный origin,
-  // поэтому запрос идёт на clientbase.ru и требует разрешённого CORS.
-  // Если client_register_fast.php отвечает и на самом keby.clientbase.ru,
-  // очистите KB_ORIGIN — тогда запрос станет свой, и CORS не понадобится.
+  // Обработчик Платформы КБ — client_register_fast.php.
+  // Он сам отдаёт Access-Control-Allow-Origin: *, поэтому межсайтовый запрос
+  // с keby.clientbase.ru проходит без правок на сервере. Два следствия:
+  // звёздочка запрещает credentials, а свой заголовок validateAcc вызвал бы
+  // предварительный OPTIONS, который скрипт не разрешает. Ни то, ни другое
+  // ему и не нужно — cookie и заголовок он не читает, только $_REQUEST.
   KB_ORIGIN = 'https://clientbase.ru';
   REGISTER_PATH = '/client_register_fast.php';
-  // Печенька validateAcc ставится на общий домен, иначе до clientbase.ru
-  // она не доедет. keby.clientbase.ru и clientbase.ru — один сайт, так что
-  // ставить её на родительский домен браузер разрешает.
-  COOKIE_DOMAIN = '.clientbase.ru';
-  MCONF_ID = 0;            // id готовой конфигурации; 0 — пустой аккаунт
-  BUILD = '2026-08-19.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  MCONF_ID = 0;            // id конфигурации; 0 — та, что стоит по умолчанию для clientbase.ru
+  METRIKA_ID = 19963723;
+  GOAL = 'freeaccount';
+  SLOW_CREATE_MS = 30000;  // на случай ответа type: 'standard'
+
+  BUILD = '2026-08-19.4';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -613,6 +614,33 @@ class Component extends DCLogic {
     return p.toString();
   };
 
+  // Отказы оба обработчика отдают простым текстом, а не JSON:
+  // client_register_fast.php — через die("Error: ..."),
+  // client_register.php — ещё и через cb_die(...) без приставки Error.
+  SERVER_ERRORS = [
+    { has: 'Too many registrations',
+      ru: 'Сегодня достигнут предел регистраций. Попробуйте завтра или напишите на info@clientbase.ru.',
+      en: 'The registration limit for today has been reached. Please try tomorrow or write to info@clientbase.ru.' },
+    { has: 'many registrations',
+      ru: 'С этого адреса или устройства за последний час уже создано три аккаунта. Попробуйте позже или напишите на info@clientbase.ru.',
+      en: 'Three accounts have already been created from this address or device in the past hour. Please try later or write to info@clientbase.ru.' },
+    { has: 'already exists',
+      ru: 'Аккаунт с таким адресом уже существует. Войдите в него или напишите на info@clientbase.ru.',
+      en: 'An account with this address already exists. Sign in or write to info@clientbase.ru.' },
+    { has: 'empty e-mail',
+      ru: 'Обработчик не увидел email. Проверьте адрес и попробуйте ещё раз.',
+      en: 'The handler did not receive the email. Check the address and try again.' }
+  ];
+
+  showServerError = (raw) => {
+    console.warn('[регистрация] обработчик отказал:', raw);
+    this.setState({ sending: false });
+    const known = this.SERVER_ERRORS.find(e => raw.indexOf(e.has) !== -1);
+    if (known) { this.setHint(known.ru, known.en); return; }
+    this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
+                 'Could not create the account. Please try again or write to info@clientbase.ru.');
+  };
+
   openAccount = (login) => {
     if (typeof window.ym === 'function') window.ym(this.METRIKA_ID, 'reachGoal', this.GOAL);
     location.href = '//' + login + '.clientbase.ru/login.php?ot_key=anybody';
@@ -639,31 +667,22 @@ class Component extends DCLogic {
     this.stopVoice();
     this.setState({ sending: true, listening: false, hint: '' });
 
-    // Метка времени уходит и заголовком, и печенькой — так её ждёт бэк
-    const stamp = new Date(Date.now() + 60e3).toUTCString();
-    let jar = 'validateAcc=1; path=/; expires=' + stamp;
-    const base = this.COOKIE_DOMAIN.replace(/^\./, '');
-    if (base && (location.hostname === base || location.hostname.endsWith('.' + base))) {
-      jar += '; domain=' + this.COOKIE_DOMAIN;
-      if (location.protocol === 'https:') jar += '; secure';
-    }
-    document.cookie = jar;
-
     if (typeof window.gtag === 'function') window.gtag('event', 'cb_freeaccount');
 
     try {
       const res = await fetch(this.KB_ORIGIN + this.REGISTER_PATH, {
         method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'validateAcc': stamp },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: this.buildBody(email, brief)
       });
 
-      const raw = await res.text();
+      const raw = (await res.text()).trim();
       // Бэк отвечает страницей 404, когда создание аккаунтов приостановлено
       if (!res.ok || raw.indexOf('<title>404 Not Found</title>') !== -1) throw new Error('paused');
 
-      const data = JSON.parse(raw);
+      // Успех — всегда JSON. Всё остальное это текст отказа
+      let data;
+      try { data = JSON.parse(raw); } catch (e) { this.showServerError(raw); return; }
       const login = data && data.data && data.data.command && data.data.command.data
                  && data.data.command.data.command && data.data.command.data.command.parameters
                  && data.data.command.data.command.parameters.login;
