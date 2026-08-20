@@ -320,30 +320,35 @@
 
   <!-- ===== PRICING ===== -->
   <section id="pricing" style="max-width:1200px;margin:0 auto;padding:40px 28px 76px">
-    <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0"><span data-l="ru">Простые тарифы</span><span data-l="en">Simple pricing</span></h2>
-    <p style="font-size:16px;color:#585379;text-align:center;margin:14px auto 0"><span data-l="ru">Начните бесплатно. Платите, когда команда растёт.</span><span data-l="en">Start free. Pay as your team grows.</span></p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:44px;align-items:start">
-      <sc-for list="{{ plans }}" as="p" hint-placeholder-count="3">
+    <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></h2>
+    <p style="font-size:16px;color:#585379;text-align:center;margin:14px auto 0;max-width:56ch"><span data-l="ru">Цена зависит только от числа пользователей. Первые 14 дней бесплатно, карта не нужна.</span><span data-l="en">The price depends only on the number of users. First 14 days free, no card required.</span></p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin-top:44px;align-items:start">
+      <sc-for list="{{ plans }}" as="p" hint-placeholder-count="6">
         <div style="{{ p.card }}">
-          <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
-            <div style="display:inline-block;background:oklch(0.72 0.2 52);color:#fff;font-size:12px;font-weight:900;padding:5px 11px;border-radius:999px;margin-bottom:14px"><span data-l="ru">{{ p.badgeRu }}</span><span data-l="en">{{ p.badgeEn }}</span></div>
-          </sc-if>
-          <h3 style="font-size:22px;font-weight:900;margin:0"><span data-l="ru">{{ p.ru }}</span><span data-l="en">{{ p.en }}</span></h3>
-          <div style="margin:14px 0 4px;font-size:38px;font-weight:900;letter-spacing:-0.03em">{{ p.price }}</div>
-          <div style="font-size:14px;{{ p.perColor }}"><span data-l="ru">{{ p.perRu }}</span><span data-l="en">{{ p.perEn }}</span></div>
-          <div style="height:1px;background:{{ p.rule }};margin:20px 0"></div>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <sc-for list="{{ p.feats }}" as="ft" hint-placeholder-count="4">
-              <div style="display:flex;gap:10px;font-size:14.5px;{{ p.featColor }}">
-                <span style="color:oklch(0.72 0.16 155);font-weight:900">✓</span>
-                <span data-l="ru">{{ ft.ru }}</span><span data-l="en">{{ ft.en }}</span>
-              </div>
-            </sc-for>
+          <div style="height:22px;text-align:center">
+            <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:11.5px;font-weight:900;color:oklch(0.72 0.2 52)"><span data-l="ru">Бесплатно на 14 дней</span><span data-l="en">Free for 14 days</span></span>
+            </sc-if>
           </div>
-          <a href="#cta" style="{{ p.btn }}"><span data-l="ru">{{ p.ctaRu }}</span><span data-l="en">{{ p.ctaEn }}</span></a>
+          <div style="text-align:center;font-size:17px;font-weight:900;letter-spacing:-0.01em"><span data-l="ru">Тариф {{ p.users }}{{ p.star }}</span><span data-l="en">Plan {{ p.users }}{{ p.star }}</span></div>
+          <div style="margin:14px auto 0;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:oklch(0.95 0.04 278);color:oklch(0.47 0.24 278);font-size:19px;font-weight:900;font-family:'JetBrains Mono',monospace">{{ p.users }}</div>
+          <div style="text-align:center;margin:14px 0 0;font-size:22px;font-weight:900;letter-spacing:-0.03em;white-space:nowrap">{{ p.price }}</div>
+          <div style="text-align:center;font-size:13px;color:#8a86a3"><span data-l="ru">(RU сервер)</span><span data-l="en">(RU server)</span></div>
+          <div style="height:1px;background:#ebe8f5;margin:16px 0"></div>
+          <div style="text-align:center;font-size:13.5px;color:#585379"><span data-l="ru">Пользователей</span><span data-l="en">Users</span></div>
+          <div style="text-align:center;font-size:15px;font-weight:800">{{ p.users }}</div>
+          <a href="#cta" style="{{ p.btn }}"><span data-l="ru">Создать</span><span data-l="en">Create</span></a>
+          <div style="text-align:center;font-size:13.5px;color:#585379"><span data-l="ru">Рассылка</span><span data-l="en">Mailing</span></div>
+          <div style="text-align:center;font-size:14px;font-weight:800"><span data-l="ru">{{ p.mailRu }}</span><span data-l="en">{{ p.mailEn }}</span></div>
         </div>
       </sc-for>
     </div>
+
+    <p style="text-align:center;font-size:13.5px;color:#a09bbb;margin:22px 0 0">
+      <span data-l="ru">Полные условия и линейка Professional — на <a href="https://clientbase.ru/buy/account_rental/" target="_blank" rel="noopener">странице тарифов</a>.</span>
+      <span data-l="en">Full terms and the Professional line are on the <a href="https://clientbase.ru/buy/account_rental/" target="_blank" rel="noopener">pricing page</a>.</span>
+    </p>
   </section>
 
   <!-- ===== TESTIMONIALS ===== -->
@@ -472,6 +477,16 @@ class Component extends DCLogic {
 
   componentWillUnmount(){ this.stopVoice(); clearTimeout(this.flashTimer); clearTimeout(this.goTimer); }
 
+  // Линейка Nocode, RU сервер. Цены — как на странице тарифов clientbase.ru
+  PLANS = [
+    { users: 1,  price: '1 590',  mail: 100,  star: true },
+    { users: 3,  price: '2 990',  mail: 300 },
+    { users: 7,  price: '4 590',  mail: 700 },
+    { users: 12, price: '5 990',  mail: '1 000' },
+    { users: 25, price: '8 990',  mail: '2 500' },
+    { users: 50, price: '14 390', mail: '5 000', badge: true }
+  ];
+
   CHIPS = [
     { ru: 'Салон красоты', en: 'Beauty salon', fill: { ru: 'CRM для салона красоты: клиенты, записи в календаре, услуги и цены, напоминания по SMS, зарплата мастеров.', en: 'CRM for a beauty salon: clients, calendar bookings, services & prices, SMS reminders, staff payroll.' } },
     { ru: 'Доставка еды', en: 'Food delivery', fill: { ru: 'CRM для доставки еды: заказы, меню, курьеры, статусы доставки, оплата и аналитика по дням.', en: 'CRM for food delivery: orders, menu, couriers, delivery statuses, payments and daily analytics.' } },
@@ -574,7 +589,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-08-20.1';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-08-20.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -855,26 +870,18 @@ class Component extends DCLogic {
         { icon: '📱', iconBg: 'background:oklch(0.95 0.05 80)', ru: 'Мобильное приложение', en: 'Mobile app', dRu: 'Вся CRM в кармане — на телефоне и планшете, онлайн и офлайн.', dEn: 'Your whole CRM in your pocket — phone and tablet, on/offline.' }
       ],
 
-      plans: [
-        { ru: 'Старт', en: 'Start', price: '0 ₽', perRu: 'первые 14 дней', perEn: 'first 14 days', badge: false,
-          card: 'background:#fff;border:1px solid #ebe8f5;border-radius:22px;padding:28px',
-          rule: '#ebe8f5', perColor: 'color:#8a86a3', featColor: 'color:#2c2842',
-          btn: 'display:block;text-align:center;margin-top:24px;background:#f2f0fb;color:#1b1830;padding:14px;border-radius:12px;font-weight:800',
-          ctaRu: 'Начать бесплатно', ctaEn: 'Start free',
-          feats: [{ ru: '1 CRM из описания', en: '1 CRM from a prompt' }, { ru: 'До 3 пользователей', en: 'Up to 3 users' }, { ru: 'Базовые автоматизации', en: 'Basic automations' }, { ru: 'Поддержка в чате', en: 'Chat support' }] },
-        { ru: 'Бизнес', en: 'Business', price: '1 290 ₽', perRu: 'за пользователя в месяц', perEn: 'per user / month', badge: true, badgeRu: 'Популярный', badgeEn: 'Popular',
-          card: 'background:#1b1830;color:#f6f5fc;border:1px solid #1b1830;border-radius:22px;padding:28px;box-shadow:0 34px 64px -34px rgba(60,40,160,0.5)',
-          rule: '#342d4d', perColor: 'color:#a8a4c4', featColor: 'color:#d8d5e8',
-          btn: 'display:block;text-align:center;margin-top:24px;background:oklch(0.6 0.22 278);color:#fff;padding:14px;border-radius:12px;font-weight:800',
-          ctaRu: 'Выбрать Бизнес', ctaEn: 'Choose Business',
-          feats: [{ ru: 'Безлимит CRM и таблиц', en: 'Unlimited CRMs & tables' }, { ru: 'Все интеграции и API', en: 'All integrations & API' }, { ru: 'Роли и права доступа', en: 'Roles & permissions' }, { ru: 'Приоритетная поддержка', en: 'Priority support' }] },
-        { ru: 'Максимум', en: 'Maximum', price: '3 900 ₽', perRu: 'за пользователя в месяц', perEn: 'per user / month', badge: false,
-          card: 'background:#fff;border:1px solid #ebe8f5;border-radius:22px;padding:28px',
-          rule: '#ebe8f5', perColor: 'color:#8a86a3', featColor: 'color:#2c2842',
-          btn: 'display:block;text-align:center;margin-top:24px;background:#f2f0fb;color:#1b1830;padding:14px;border-radius:12px;font-weight:800',
-          ctaRu: 'Связаться с нами', ctaEn: 'Contact us',
-          feats: [{ ru: 'Всё из Бизнес', en: 'Everything in Business' }, { ru: 'White label и свой домен', en: 'White label & custom domain' }, { ru: 'Доработка на PHP/SQL', en: 'Custom PHP/SQL logic' }, { ru: 'Выделенный менеджер', en: 'Dedicated manager' }] }
-      ],
+      plans: this.PLANS.map(pl => ({
+        users: pl.users,
+        price: pl.price + (ru ? ' ₽/ мес' : ' \u20bd/mo'),
+        star: pl.star ? ' *' : '',
+        badge: !!pl.badge,
+        mailRu: pl.mail + ' писем/день',
+        mailEn: pl.mail + ' emails/day',
+        card: 'background:#fff;border-radius:18px;padding:18px 14px 20px;' +
+              (pl.badge ? 'border:1.5px solid oklch(0.72 0.2 52)' : 'border:1px solid #ebe8f5'),
+        btn: 'display:block;text-align:center;margin:16px 0;padding:11px;border-radius:11px;font-size:14.5px;font-weight:800;' +
+             (pl.badge ? 'background:oklch(0.72 0.2 52);color:#fff' : 'background:oklch(0.47 0.24 278);color:#fff')
+      })),
 
       reviews: [
         { ru: '«Описали процесс салона голосом — через пять минут получили рабочий аккаунт. То, на что раньше уходили недели.»', en: '"We described our salon by voice — got a working account in five minutes. Used to take weeks."', name: 'Марина К.', roleRu: 'Владелица сети салонов', roleEn: 'Salon chain owner' },
