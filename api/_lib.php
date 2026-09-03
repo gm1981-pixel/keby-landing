@@ -3,20 +3,65 @@
 if (!defined('KEBY_API')) { http_response_code(404); exit; }
 
 // ── Конфиг ─────────────────────────────────────────────────────────────────
-// Лежит ВНЕ каталога сайта: репозиторий публичный, и каталог перезаписывается
-// при выкладке. Путь можно переопределить переменной окружения KEBY_SMS_CONFIG.
+// Секреты в репозиторий не кладём (он публичный), а каталог сайта
+// перезаписывается при выкладке. Поэтому настройки берутся снаружи, в таком
+// порядке (каждый следующий слой перекрывает предыдущий):
+//   1. значения по умолчанию ниже;
+//   2. файл /etc/keby/sms.php (путь можно сменить через KEBY_SMS_CONFIG);
+//   3. переменные окружения контейнера — удобнее всего для docker-compose:
+//        KEBY_SMS_SECRET        обязательно, ≥32 символов (openssl rand -hex 32)
+//        KEBY_SMS_PASSWORD      пароль шлюза sms16.ru
+//        KEBY_SMS_LOGIN         логин шлюза (по умолчанию sms_cb)
+//        KEBY_SMS_SENDER        подпись отправителя
+//        KEBY_SMS_STATE_DIR     каталог базы и журнала
+//        KEBY_SMS_DRY_RUN=1     не слать SMS, всем выдавать office_code
+//        KEBY_SMS_OFFICE_IPS    адреса офиса через запятую
+//        KEBY_TRUSTED_PROXIES   адреса nginx через запятую
+// Минимум для работы — KEBY_SMS_SECRET и KEBY_SMS_PASSWORD.
 function cfg(): array {
     static $cfg = null;
     if ($cfg !== null) return $cfg;
+
+    $cfg = [
+        'secret'    => '',
+        'state_dir' => '/var/lib/keby-sms',
+        'sms' => [
+            'login'    => 'sms_cb',
+            'password' => '',
+            'sender'   => 'Clientbase',
+            'text'     => 'Код подтверждения Кэби: {code}',
+            'url'      => 'https://xml.sms16.ru/xml/',
+        ],
+        'trusted_proxies' => ['172.16.0.0/12', '10.0.0.0/8', '192.168.0.0/16', '127.0.0.1'],
+        'office_ips'      => ['94.180.249.46'],
+        'office_code'     => '363636',
+        'dry_run'         => false,
+        'limits'          => [],
+    ];
+
     $path = getenv('KEBY_SMS_CONFIG') ?: '/etc/keby/sms.php';
-    $loaded = is_readable($path) ? include $path : null;
-    $cfg = is_array($loaded) ? $loaded : [];
+    $file = is_readable($path) ? include $path : null;
+    if (is_array($file)) {
+        $sms = ($file['sms'] ?? []) + $cfg['sms'];
+        $cfg = $file + $cfg;
+        $cfg['sms'] = $sms;
+    }
+
+    $list = fn($v) => array_values(array_filter(array_map('trim', explode(',', $v))));
+    $env = fn($name) => (($v = getenv($name)) !== false && $v !== '') ? $v : null;
+    if (($v = $env('KEBY_SMS_SECRET'))      !== null) $cfg['secret'] = $v;
+    if (($v = $env('KEBY_SMS_PASSWORD'))    !== null) $cfg['sms']['password'] = $v;
+    if (($v = $env('KEBY_SMS_LOGIN'))       !== null) $cfg['sms']['login'] = $v;
+    if (($v = $env('KEBY_SMS_SENDER'))      !== null) $cfg['sms']['sender'] = $v;
+    if (($v = $env('KEBY_SMS_STATE_DIR'))   !== null) $cfg['state_dir'] = $v;
+    if (($v = $env('KEBY_SMS_DRY_RUN'))     !== null) $cfg['dry_run'] = in_array(strtolower($v), ['1', 'true', 'yes', 'on'], true);
+    if (($v = $env('KEBY_SMS_OFFICE_IPS'))  !== null) $cfg['office_ips'] = $list($v);
+    if (($v = $env('KEBY_TRUSTED_PROXIES')) !== null) $cfg['trusted_proxies'] = $list($v);
     return $cfg;
 }
 
 function configured(): bool {
-    $c = cfg();
-    return strlen((string)($c['secret'] ?? '')) >= 32 && !empty($c['state_dir']);
+    return strlen((string)(cfg()['secret'] ?? '')) >= 32;
 }
 
 function limits(): array {
@@ -130,14 +175,29 @@ function code_hash(string $phone, string $code): string {
 }
 
 // ── Хранилище ──────────────────────────────────────────────────────────────
+// Каталог для базы и журнала. Если настроенный недоступен на запись (в
+// контейнере не примонтировали том или не выдали права), берём каталог во
+// временной папке: модуль продолжает работать, но лимиты сбросятся при
+// пересоздании контейнера. Факт подмены виден в ответе challenge (state).
+function state_dir(): string {
+    static $dir = null;
+    if ($dir !== null) return $dir;
+    $want = rtrim((string)cfg()['state_dir'], '/');
+    foreach ([$want, rtrim(sys_get_temp_dir(), '/') . '/keby-sms'] as $cand) {
+        if ($cand === '') continue;
+        if ((is_dir($cand) || @mkdir($cand, 0750, true)) && is_writable($cand)) return $dir = $cand;
+    }
+    fail(503, 'storage');
+}
+
+function state_dir_is_fallback(): bool {
+    return state_dir() !== rtrim((string)cfg()['state_dir'], '/');
+}
+
 function db(): PDO {
     static $pdo = null;
     if ($pdo) return $pdo;
-    $dir = rtrim(cfg()['state_dir'], '/');
-    if (!is_dir($dir) && !@mkdir($dir, 0750, true)) {
-        log_line("state_dir недоступен: $dir");
-        fail(503, 'storage');
-    }
+    $dir = state_dir();
     $pdo = new PDO('sqlite:' . $dir . '/sms.sqlite', null, null, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -181,8 +241,7 @@ function retry_after(PDO $db, string $kind, string $key, int $window): int {
 // ── Журнал ─────────────────────────────────────────────────────────────────
 // Append-only файл рядом с базой. Номера в нём замаскированы.
 function log_line(string $msg): void {
-    $dir = cfg()['state_dir'] ?? null;
-    if (!$dir || !is_dir($dir)) return;
-    @file_put_contents(rtrim($dir, '/') . '/sms.log',
+    if (!configured()) return;
+    @file_put_contents(state_dir() . '/sms.log',
         date('Y-m-d H:i:s') . ' ' . $msg . "\n", FILE_APPEND | LOCK_EX);
 }

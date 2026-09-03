@@ -38,6 +38,9 @@ if ($action === 'challenge') {
         'ok'        => true,
         'challenge' => $ts . '.' . sign("challenge|$ip|$ts"),
         'min_age'   => $L['challenge_min_age'],
+        // Диагностика для админа: где лежит база и не пустой ли пароль шлюза
+        'state'     => state_dir_is_fallback() ? 'temp' : 'ok',
+        'gateway'   => !empty($C['sms']['password']) ? 'ok' : 'no_password',
     ]);
 }
 
