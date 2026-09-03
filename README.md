@@ -322,33 +322,88 @@ curl -s https://keby.clientbase.ru/api/sms.php?action=challenge
 она не ставилась сознательно: лимиты и так закрывают расход, а капча портит
 конверсию.
 
-### Проверка phone_token на стороне регистрации
+### Где что лежит
 
-Пока обработчики КБ `phone_token` не читают — они просто получают
-подтверждённый телефон в `mphone`. Чтобы номер без подтверждения не
-принимался вовсе, в `client_register_fast.php` (прокси или манеж) можно
-добавить проверку. Нужен тот же `secret`, что в `/etc/keby/sms.php`:
+Старые `send_code.php` / `check_code.php` жили в корне clientbase.ru, и сайт
+ходил к ним через CORS. Новый обработчик живёт **на самом лендинге**
+(`keby.clientbase.ru/api/sms.php`), в том же контейнере, что и страница.
+Так проще и надёжнее: запрос свой же, CORS не нужен, проверка `Origin`
+работает строго, а выкладывается всё одним `git pull`. На манеж и на
+clientbase.ru для отправки SMS ничего добавлять не нужно.
+
+Что нужно от других серверов — только пробросить и проверить `phone_token`:
+
+```
+лендинг  ── mphone + phone_token ──▶ clientbase.ru/client_register_fast.php (прокси)
+                                        └─▶ manage.clientbase.ru/client_register_fast.php
+                                              проверяет подпись, помечает аккаунт
+```
+
+### Прокси на clientbase.ru
+
+В списке `CURLOPT_POSTFIELDS` добавить две строки — `brief` и `phone_token`
+(прокси пересылает только перечисленное):
 
 ```php
-function keby_phone_verified(string $phone, string $token, string $secret): bool {
-    $p = explode('.', $token);
-    if (count($p) !== 3) return false;
-    [$tPhone, $exp, $sig] = $p;
-    $norm = preg_replace('/\D+/', '', $phone);
+'brief'       => $_POST['brief'],
+'phone_token' => $_POST['phone_token'],
+```
+
+Обратите внимание: `CURLOPT_URL` у прокси сейчас указывает на
+`manage.clientbase.ru/client_register.php`, а не на `client_register_fast.php`.
+Правки, сделанные в `_fast` на манеже (бриф в `f14992`, отметка о телефоне),
+через прокси не сработают, пока адрес не поменять на `client_register_fast.php`
+— тот сам перекинет на `client_register.php`, если предсозданного аккаунта
+нет (`CURLOPT_FOLLOWLOCATION` у прокси включён).
+
+### Манеж: client_register_fast.php
+
+Нужен тот же `secret`, что в `/etc/keby/sms.php` на лендинге. Хранить его
+на манеже тоже вне репозитория и вне каталога сайта, например в
+`/etc/keby/sms_secret` (одна строка, `chmod 640`, владелец www-data).
+
+После `include 'client_common.php';` — функция проверки:
+
+```php
+// Подтверждение телефона по SMS на лендинге Кэби. phone_token = телефон.срок.HMAC,
+// подписан тем же secret, что в /etc/keby/sms.php на лендинге.
+function keby_phone_verified($phone, $token) {
+    $secret = trim(@file_get_contents('/etc/keby/sms_secret'));
+    $p = explode('.', (string)$token);
+    if ($secret === '' || count($p) !== 3) return false;
+    list($tPhone, $exp, $sig) = $p;
+    $norm = preg_replace('/\D+/', '', (string)$phone);
     if (strlen($norm) === 10 && $norm[0] === '9') $norm = '7' . $norm;
     if (strlen($norm) === 11 && $norm[0] === '8') $norm = '7' . substr($norm, 1);
     return $tPhone === $norm && (int)$exp > time()
         && hash_equals(hash_hmac('sha256', "verified|$tPhone|$exp", $secret), $sig);
 }
-if (!keby_phone_verified($_REQUEST['mphone'] ?? '', $_REQUEST['phone_token'] ?? '', $SECRET)) {
-    die('Error: phone not verified');
-}
 ```
 
-Лендинг понимает ответ `Error: phone not verified` и предложит подтвердить
-номер заново. Проверку стоит включать только для запросов с лендинга Кэби
-(например, по `mconf_id`), чтобы не сломать остальные формы, у которых
-подтверждения по SMS нет.
+Рядом со строкой `$full_contacts = ...`:
+
+```php
+$phone_verified = keby_phone_verified($client_phone, $_REQUEST['phone_token'] ?? '');
+```
+
+И в блок `$upd_arr` для таблицы 191 (рядом с `f26172`) — отметку. Если для
+этого заведено отдельное поле «Телефон подтверждён», пишем в него:
+
+```php
+$upd_arr['fNNNNN'] = $phone_verified ? 'Да' : 'Нет';
+```
+
+Существующее `f26172` («Подтверждён») трогать не стоит: оно ставится по
+факту заполненных контактов и используется остальными формами, у которых
+SMS нет — иначе они все разом станут «Нет».
+
+Если нужно не только помечать, но и **не создавать** аккаунт без
+подтверждения, лендинг может дополнительно слать признак источника, а манеж
+для него отказывать: `die('Error: phone not verified')` — лендинг понимает
+этот ответ и предложит подтвердить номер заново. Сейчас это не включено.
+
+Формат телефона: лендинг шлёт `mphone` как `+79XXXXXXXXX`, в токене номер без
+плюса — функция выше приводит оба к одному виду сама.
 
 ### Что стоит сделать вне репозитория
 
