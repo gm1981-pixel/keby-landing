@@ -1,0 +1,72 @@
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#f6f5fc;color:#1b1830;font-family:'Nunito',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:oklch(0.47 0.24 278);text-decoration:none}
+a:hover{color:oklch(0.4 0.24 278)}
+[data-lang="ru"] [data-l="en"]{display:none}
+[data-lang="en"] [data-l="ru"]{display:none}
+::selection{background:oklch(0.88 0.07 278);color:#1b1830}
+@keyframes wv{0%,100%{transform:scaleY(0.35)}50%{transform:scaleY(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(0.94)}100%{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* Поля формы: плейсхолдер должен читаться на обоих фонах */
+input::placeholder,
+textarea::placeholder { color: #a09bbb; opacity: 1 }
+
+#cta input::placeholder,
+#cta textarea::placeholder { color: rgba(255,255,255,0.72); opacity: 1 }
+
+#cta input, #cta textarea { caret-color: #fff }
+
+/* Chrome заливает автозаполненные поля своим фоном — вернуть наши цвета */
+#cta input:-webkit-autofill,
+#cta input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  transition: background-color 0s 600000s;
+}
+input:-webkit-autofill { transition: background-color 0s 600000s }
+
+/* Чекбокс согласия с офертой */
+.agree-box {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: oklch(0.47 0.24 278);
+  cursor: pointer;
+}
+.agree-box--dark { accent-color: #fff }
+.agree-flash {
+  outline: 2px solid #e63756;
+  outline-offset: 2px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #e63756;
+}
+
+/* Ссылки на фиолетовом блоке — белые с подчёркиванием */
+#cta a { color: #fff; text-decoration: underline; text-underline-offset: 2px }
+#cta a:hover { color: #fff; opacity: 0.8 }
+
+/* Пара полей в одну строку: имя и телефон.
+   На узком экране рядом они не помещаются — переносим в столбец. */
+.field-row { display: flex }
+.field-sep { width: 1px; flex: none; align-self: stretch }
+@media (max-width: 560px) {
+  .field-row { flex-direction: column }
+  .field-sep { width: auto; height: 1px }
+}
+
+/* Мобильная раскладка. Первый экран и блок «Ваша CRM» свёрстаны в две
+   колонки жёстко, без этого правила на телефоне форма сжимается до
+   нечитаемой ширины, а маскот наезжает на неё. */
+@media (max-width: 900px) {
+  .split-grid { grid-template-columns: 1fr !important; gap: 28px !important }
+  .hero-card { margin-right: 0 !important }
+  .hero-art { min-height: 0 !important; justify-content: center !important }
+  .hero-art img { width: min(420px, 100%) !important; margin-right: 0 !important }
+  .top-nav { display: none !important }
+}

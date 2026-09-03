@@ -1,0 +1,56 @@
+name: Deploy
+
+# Только пуш в main. Ветки разработки и pull request'ы деплой не трогают.
+# workflow_dispatch оставлен, чтобы можно было развернуть вручную кнопкой,
+# не делая пустой коммит и не имея доступа к офисному IP.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# update_site берёт flock, и второй одновременный запуск завершается
+# ошибкой "Update already running". Очередь вместо гонки.
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Обновить keby.clientbase.ru
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Вызвать deploy endpoint
+        env:
+          DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DEPLOY_URL:-}" ]; then
+            echo "Не задан секрет DEPLOY_URL — деплой невозможен." >&2
+            exit 1
+          fi
+
+          # Basic Auth нужен только с недоверенных адресов. Раннер GitHub
+          # к офисным IP не относится, так что логин с паролём здесь нужны;
+          # но если nginx когда-то начнёт пускать и так, пустые секреты
+          # просто не подставятся.
+          if [ -n "${DEPLOY_USER:-}" ] && [ -n "${DEPLOY_PASSWORD:-}" ]; then
+            set -- --user "$DEPLOY_USER:$DEPLOY_PASSWORD"
+          else
+            echo "DEPLOY_USER или DEPLOY_PASSWORD пусты — иду без Basic Auth."
+            set --
+          fi
+
+          # --fail-with-body: ненулевой код возврата на 4xx/5xx, но тело
+          # ответа всё равно печатается. Без него при ошибке в лог не попало
+          # бы сообщение update_site, ради которого всё и затевалось.
+          # Пароль нигде не печатается: команда не эхоится, set -x выключен.
+          curl --silent --show-error --fail-with-body \
+               --max-time 120 \
+               --write-out '\n--- HTTP %{http_code}, %{time_total} c\n' \
+               "$@" \
+               "$DEPLOY_URL"
