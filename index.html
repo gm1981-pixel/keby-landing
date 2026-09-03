@@ -62,7 +62,7 @@
         <span style="display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:oklch(0.47 0.24 278)"><svg width="20" height="20" sc-camel-view-box="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.39077 3.61426C5.51208 3.57232 5.667 3.57518 5.76772 3.62207C6.10636 3.78003 6.30528 4.45356 6.41616 5.81738C6.45555 6.30179 6.47269 6.66997 6.49819 7.55566C6.52499 8.48654 6.54363 8.83803 6.58022 9.13086C6.65208 9.70574 6.79984 9.91425 7.05678 9.80371C7.20984 9.73767 7.33908 9.57129 7.76577 8.8877C8.56731 7.60354 9.26345 6.70264 10.0871 5.88281C11.2556 6.51518 12.1189 9.45566 11.9806 9.76953C11.275 11.3588 11.1872 11.5836 11.172 11.8359C11.1665 11.9288 11.1697 11.9882 11.1828 12.0127C11.213 12.0691 11.2974 12.0947 11.4474 12.0947C11.6175 12.0947 11.7941 12.0529 12.3253 11.8848C13.0683 11.6497 13.5549 11.52 13.9982 11.4385C14.945 11.2644 15.5325 11.3197 15.8322 11.6113C15.9709 11.7464 16.0228 11.928 15.9904 12.165C15.9439 12.5044 15.7089 12.8922 15.2785 13.335C14.0393 14.6098 12.0078 15.5106 9.60073 15.8545C9.28229 15.9 8.80865 15.951 8.42299 15.9805C8.07388 16.0071 6.93645 16.0062 6.58706 15.9795C5.04318 15.8613 3.83582 15.5234 2.86733 14.9375C1.52537 14.1255 0.650834 12.8873 0.2228 11.1934C-0.113421 9.86272 -0.0675228 9.00071 0.349753 8.80762C0.457294 8.75795 0.631834 8.76263 0.778464 8.81934C1.14166 8.95998 1.60186 9.35486 2.26967 10.0977C2.62312 10.4908 2.80218 10.6619 2.91616 10.7188C3.06116 10.791 3.10508 10.7763 3.15053 10.6377C3.19249 10.5097 3.22219 10.2731 3.24917 9.85352C3.34688 8.33387 3.46336 7.42142 3.67104 6.56445C3.95365 5.39833 4.44884 4.38617 4.98257 3.88379C5.13107 3.74403 5.25947 3.65975 5.39077 3.61426Z" fill="#fff"></path><path d="M12.5001 0C12.5001 1.933 14.0671 3.5 16.0001 3.5C14.0671 3.5 12.5001 5.067 12.5001 7C12.5001 5.067 10.9331 3.5 9.00014 3.5C10.9331 3.5 12.5001 1.933 12.5001 0Z" fill="#fff"></path></svg></span>
         Кэби
       </div>
-      <nav style="display:flex;gap:26px;margin-left:12px;font-size:15px;font-weight:700;color:#4a4566">
+      <nav class="top-nav" style="display:flex;gap:26px;margin-left:12px;font-size:15px;font-weight:700;color:#4a4566">
         <a href="#how" style="color:inherit"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
         <a href="#examples" style="color:inherit"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
         <a href="#interface" style="color:inherit"><span data-l="ru">Интерфейс</span><span data-l="en">Interface</span></a>
@@ -81,7 +81,7 @@
 
   <!-- ===== HERO ===== -->
   <section style="max-width:1200px;margin:0 auto;padding:36px 28px 20px;position:relative;overflow:hidden">
-    <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:22px;align-items:center">
+    <div class="split-grid" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:22px;align-items:center">
       <!-- LEFT: copy + input -->
       <div style="position:relative;z-index:2">
         <div style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #ebe8f5;border-radius:999px;padding:7px 15px;font-size:13px;font-weight:800;color:oklch(0.47 0.24 278);box-shadow:0 1px 2px rgba(0,0,0,0.03)">
@@ -97,7 +97,7 @@
           <span data-l="en">Type or dictate what your business needs — Кэби assembles a configured account in minutes.</span>
         </p>
         <!-- INPUT CARD -->
-        <div style="position:relative;z-index:3;width:100%;margin-top:20px;margin-right:-170px">
+        <div class="hero-card" style="position:relative;z-index:3;width:100%;margin-top:20px;margin-right:-170px">
           <div style="background:#fff;border:1px solid #ebe8f5;border-radius:22px;padding:10px;box-shadow:0 24px 60px -30px rgba(60,40,160,0.35),0 2px 8px rgba(0,0,0,0.03)">
 
             <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
@@ -117,6 +117,18 @@
                 <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #f0eefa;padding:11px 15px 11px">
                   <span style="font-size:15px;flex:none">✉️</span>
                   <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#1b1830;background:transparent">
+                </div>
+
+                <div class="field-row" style="border-top:1px solid #f0eefa">
+                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
+                    <span style="font-size:15px;flex:none">🙂</span>
+                    <input value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#1b1830;background:transparent">
+                  </div>
+                  <div class="field-sep" style="background:#f0eefa"></div>
+                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
+                    <span style="font-size:15px;flex:none">📞</span>
+                    <input value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#1b1830;background:transparent">
+                  </div>
                 </div>
 
                 <label style="display:flex;align-items:flex-start;gap:9px;border-top:1px solid #f0eefa;padding:11px 15px 11px;cursor:pointer">
@@ -183,7 +195,7 @@
       </div>
 
       <!-- RIGHT: mascot -->
-      <div style="position:relative;align-self:stretch;min-height:420px;display:flex;align-items:center;justify-content:flex-end">
+      <div class="hero-art" style="position:relative;align-self:stretch;min-height:420px;display:flex;align-items:center;justify-content:flex-end">
         <img src="assets/img/hero.png" alt="Кэби" style="width:min(720px,150%);display:block;margin-right:-14%;filter:drop-shadow(0 26px 30px rgba(60,40,160,0.22))">
       </div>
     </div>
@@ -193,7 +205,7 @@
 
   <!-- ===== MODULES / MASCOT VALUE ===== -->
   <section style="max-width:1200px;margin:0 auto;padding:40px 28px 20px">
-    <div style="display:grid;grid-template-columns:1fr 0.92fr;gap:44px;align-items:center">
+    <div class="split-grid" style="display:grid;grid-template-columns:1fr 0.92fr;gap:44px;align-items:center">
       <div>
         <div style="display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #ebe8f5;border-radius:16px;padding:11px 16px;box-shadow:0 8px 20px -12px rgba(60,40,160,0.3)">
           <span style="font-size:22px">👋</span>
@@ -389,6 +401,18 @@
               <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
             </div>
 
+            <div class="field-row" style="border-top:1px solid rgba(255,255,255,0.22)">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
+                <span style="font-size:15px;flex:none">🙂</span>
+                <input value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
+              </div>
+              <div class="field-sep" style="background:rgba(255,255,255,0.22)"></div>
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
+                <span style="font-size:15px;flex:none">📞</span>
+                <input value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
+              </div>
+            </div>
+
             <label style="display:flex;align-items:flex-start;gap:9px;border-top:1px solid rgba(255,255,255,0.22);padding:11px 15px;cursor:pointer">
               <input type="checkbox" checked="{{ agree }}" sc-camel-on-change="{{ toggleAgree }}" class="{{ agreeClsDark }}">
               <span style="{{ agreeTextStyleDark }}">
@@ -466,7 +490,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280}}">
 class Component extends DCLogic {
-  state = { lang: 'ru', text: '', email: '', agree: false, flash: false, sending: false, listening: false, phase: 'input', hint: '', sentEmail: '', login: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
+  state = { lang: 'ru', text: '', email: '', name: '', phone: '', agree: false, flash: false, sending: false, listening: false, phase: 'input', hint: '', sentEmail: '', login: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
 
   SHOTS = [
     { key: 'dash', ru: 'Сводный отчёт', en: 'Dashboard', slug: 'dashboard', src: 'assets/ui-dash.png', capRu: 'Ключевые метрики, графики оплат и новые клиенты на одном экране.', capEn: 'Key metrics, payment charts and new clients on one screen.' },
@@ -497,6 +521,8 @@ class Component extends DCLogic {
   setLang = (l) => this.setState({ lang: l });
   onType = (e) => this.setState({ text: e.target.value });
   onEmail = (e) => this.setState({ email: e.target.value });
+  onName = (e) => this.setState({ name: e.target.value });
+  onPhone = (e) => this.setState({ phone: e.target.value });
 
   // ── Голосовой ввод: Web Speech API ────────────────────────────────────────
   // Работает в Chrome / Edge / Safari и только на https (или localhost).
@@ -572,6 +598,10 @@ class Component extends DCLogic {
   fill = (c) => () => this.setState({ text: this.state.lang === 'ru' ? c.fill.ru : c.fill.en, hint: '' });
 
   emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  nameOk = (v) => v.trim().length >= 2;
+  // Номер уходит на сервер как есть: КБ хранит строку и сам её разбирает.
+  // Здесь только проверяем, что цифр набралось на настоящий номер.
+  phoneOk = (v) => { const d = v.replace(/\D+/g, ''); return d.length >= 10 && d.length <= 15; };
 
   // ── Регистрация аккаунта ──────────────────────────────────────────────────
   // Обработчик Платформы КБ — client_register_fast.php.
@@ -589,7 +619,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-08-20.3';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-08-20.5';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -621,12 +651,14 @@ class Component extends DCLogic {
                  'Please accept the offer and the personal data processing consent.');
   };
 
-  buildBody = (email, brief) => {
+  buildBody = (email, brief, name, phone) => {
     const utm = Object.fromEntries(
       (location.search.match(/(?:utm_).+?=[^&]*/g) || []).map(n => n.split('=')));
     const p = new URLSearchParams();
     p.set('mconf_id', String(this.MCONF_ID));
     p.set('memail', email);
+    p.set('mcontact', name);   // ФИО
+    p.set('mphone', phone);    // телефон
     const referer = this.cookie('referer_frm'); if (referer) p.set('referer', referer);
     const code = this.cookie('partner_id');     if (code) p.set('code', code);
     const friend = this.cookie('friend_id');    if (friend) p.set('friend', friend);
@@ -677,6 +709,8 @@ class Component extends DCLogic {
 
     const brief = this.state.text.trim();
     const email = this.state.email.trim();
+    const name = this.state.name.trim();
+    const phone = this.state.phone.trim();
 
     if (brief.length < this.BRIEF_MIN) {
       this.setHint('Опишите задачу подробнее — хотя бы пара предложений о том, что должна уметь CRM.',
@@ -686,6 +720,16 @@ class Component extends DCLogic {
     if (!this.emailOk(email)) {
       this.setHint('Укажите email — на него придут логин и пароль от аккаунта.',
                    'Enter your email — the account login and password will be sent there.');
+      return;
+    }
+    if (!this.nameOk(name)) {
+      this.setHint('Как к вам обращаться? Напишите имя.',
+                   'How should we address you? Please enter your name.');
+      return;
+    }
+    if (!this.phoneOk(phone)) {
+      this.setHint('Укажите телефон — по нему свяжемся, если понадобится уточнить задачу.',
+                   'Enter your phone number — we will call if the task needs clarifying.');
       return;
     }
     if (!this.state.agree) { this.askAgree(); return; }
@@ -699,7 +743,7 @@ class Component extends DCLogic {
       const res = await fetch(this.registerUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: this.buildBody(email, brief)
+        body: this.buildBody(email, brief, name, phone)
       });
 
       const raw = (await res.text()).trim();
@@ -736,7 +780,7 @@ class Component extends DCLogic {
     this.stopVoice();
     clearTimeout(this.flashTimer);
     clearTimeout(this.goTimer);
-    this.setState({ phase: 'input', text: '', email: '', agree: false, flash: false, sending: false,
+    this.setState({ phase: 'input', text: '', email: '', name: '', phone: '', agree: false, flash: false, sending: false,
                     listening: false, hint: '', sentEmail: '', login: '' });
   };
 
@@ -777,6 +821,12 @@ class Component extends DCLogic {
 
       onType: this.onType,
       onEmail: this.onEmail,
+      onName: this.onName,
+      onPhone: this.onPhone,
+      name: this.state.name,
+      phone: this.state.phone,
+      namePh: ru ? 'Ваше имя' : 'Your name',
+      phonePh: ru ? '+7 999 123-45-67' : '+7 999 123-45-67',
       ph: ru ? 'Например: CRM для салона красоты — клиенты, записи, напоминания по SMS, зарплата мастеров…' : 'e.g. CRM for a beauty salon — clients, bookings, SMS reminders, staff payroll…',
       emailPh: ru ? 'you@company.ru' : 'you@company.com',
       charCount,
