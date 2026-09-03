@@ -9,7 +9,7 @@ if (!defined('KEBY_API')) { http_response_code(404); exit; }
 //   1. значения по умолчанию ниже;
 //   2. файл /etc/keby/sms.php (путь можно сменить через KEBY_SMS_CONFIG);
 //   3. переменные окружения контейнера — удобнее всего для docker-compose:
-//        KEBY_SMS_SECRET        обязательно, ≥32 символов (openssl rand -hex 32)
+//        KEBY_SMS_SECRET        обязательно, случайная строка от 16 символов
 //        KEBY_SMS_PASSWORD      пароль шлюза sms16.ru
 //        KEBY_SMS_LOGIN         логин шлюза (по умолчанию sms_cb)
 //        KEBY_SMS_SENDER        подпись отправителя
@@ -61,7 +61,7 @@ function cfg(): array {
 }
 
 function configured(): bool {
-    return strlen((string)(cfg()['secret'] ?? '')) >= 32;
+    return strlen((string)(cfg()['secret'] ?? '')) >= 16;
 }
 
 function limits(): array {

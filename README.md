@@ -240,7 +240,7 @@ POST api/sms.php  action=check phone=… code=… → phone_token
 services:
   keby:                       # имя сервиса — какое у вас
     environment:
-      KEBY_SMS_SECRET: "вывод openssl rand -hex 32"
+      KEBY_SMS_SECRET: "случайная строка от 16 символов"
       KEBY_SMS_PASSWORD: "пароль шлюза sms16.ru"
     volumes:
       - keby-sms:/var/lib/keby-sms    # база лимитов и журнал, чтобы пережить перезапуск
