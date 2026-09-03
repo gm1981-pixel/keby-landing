@@ -786,7 +786,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-03.1';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-03.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -827,6 +827,7 @@ class Component extends DCLogic {
     p.set('mcontact', name);                      // ФИО
     p.set('mphone', '+' + this.normPhone(phone));  // телефон, всегда +79XXXXXXXXX
     p.set('phone_token', this.state.phoneToken);  // подпись о подтверждении по SMS
+    p.set('source', 'keby');                       // признак лендинга: манеж по нему решает, требовать ли SMS
     const referer = this.cookie('referer_frm'); if (referer) p.set('referer', referer);
     const code = this.cookie('partner_id');     if (code) p.set('code', code);
     const friend = this.cookie('friend_id');    if (friend) p.set('friend', friend);
