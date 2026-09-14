@@ -133,21 +133,30 @@ function require_same_origin(): void {
 // обойти лимиты.
 function client_ip(): string {
     $remote = (string)($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-    $trusted = cfg()['trusted_proxies'] ?? [];
-    foreach ($trusted as $cidr) {
-        if (cidr_match($remote, $cidr)) {
-            if (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
-                return $_SERVER['HTTP_X_REAL_IP'];
-            }
-            if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                // Первый адрес в цепочке — клиент; остальные дописаны прокси
-                $first = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
-                if (filter_var($first, FILTER_VALIDATE_IP)) return $first;
-            }
-            break;
+    if (!is_trusted_proxy($remote)) return $remote;
+
+    // Цепочку X-Forwarded-For читаем справа налево: справа дописывают себя
+    // прокси, слева стоит то, что назвал клиент. Пропускаем свои прокси и
+    // берём первый чужой адрес — тогда лишний промежуточный прокси не сбивает
+    // счёт, а подделать чужой адрес заголовком по-прежнему нельзя.
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $chain = array_map('trim', explode(',', (string)$_SERVER['HTTP_X_FORWARDED_FOR']));
+        for ($i = count($chain) - 1; $i >= 0; $i--) {
+            $ip = $chain[$i];
+            if (filter_var($ip, FILTER_VALIDATE_IP) && !is_trusted_proxy($ip)) return $ip;
         }
     }
+    if (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
+        return $_SERVER['HTTP_X_REAL_IP'];
+    }
     return $remote;
+}
+
+function is_trusted_proxy(string $ip): bool {
+    foreach ((array)(cfg()['trusted_proxies'] ?? []) as $cidr) {
+        if (cidr_match($ip, $cidr)) return true;
+    }
+    return false;
 }
 
 function cidr_match(string $ip, string $cidr): bool {

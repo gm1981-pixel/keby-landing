@@ -38,9 +38,14 @@ if ($action === 'challenge') {
         'ok'        => true,
         'challenge' => $ts . '.' . sign("challenge|$ip|$ts"),
         'min_age'   => $L['challenge_min_age'],
-        // Диагностика для админа: где лежит база и не пустой ли пароль шлюза
+        // Диагностика для админа: где лежит база, не пустой ли пароль шлюза,
+        // каким видит адрес посетителя (если это адрес nginx — в его конфиге
+        // нет X-Real-IP, и тогда все посетители считаются одним человеком)
+        // и попадает ли этот адрес в офисные, которым SMS не отправляются.
         'state'     => state_dir_is_fallback() ? 'temp' : 'ok',
         'gateway'   => !empty($C['sms']['password']) ? 'ok' : 'no_password',
+        'ip'        => $ip,
+        'office'    => in_array($ip, $C['office_ips'] ?? [], true) || !empty($C['dry_run']),
     ]);
 }
 
