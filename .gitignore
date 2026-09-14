@@ -1,0 +1,10 @@
+# Заполненный конфиг SMS живёт в /etc/keby/sms.php, но если его случайно
+# положат рядом с примером — в репозиторий он уйти не должен
+api/sms.config.php
+api/sms.php.config
+
+# Состояние SMS-модуля, если state_dir укажут внутрь сайта
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+sms.log
