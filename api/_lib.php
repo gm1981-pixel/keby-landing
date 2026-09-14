@@ -16,6 +16,7 @@ if (!defined('KEBY_API')) { http_response_code(404); exit; }
 //        KEBY_SMS_STATE_DIR     каталог базы и журнала
 //        KEBY_SMS_DRY_RUN=1     не слать SMS, всем выдавать office_code
 //        KEBY_SMS_OFFICE_IPS    адреса офиса через запятую
+//        KEBY_ALLOWED_HOSTS     домены лендинга через запятую (свои Origin)
 //        KEBY_TRUSTED_PROXIES   адреса nginx через запятую
 // Минимум для работы — KEBY_SMS_SECRET и KEBY_SMS_PASSWORD.
 function cfg(): array {
@@ -33,6 +34,7 @@ function cfg(): array {
             'url'      => 'https://xml.sms16.ru/xml/',
         ],
         'trusted_proxies' => ['172.16.0.0/12', '10.0.0.0/8', '192.168.0.0/16', '127.0.0.1'],
+        'allowed_hosts'   => ['keby.clientbase.ru', 'keby.ai', 'www.keby.ai'],
         'office_ips'      => ['94.180.249.46'],
         'office_code'     => '363636',
         'dry_run'         => false,
@@ -56,6 +58,7 @@ function cfg(): array {
     if (($v = $env('KEBY_SMS_STATE_DIR'))   !== null) $cfg['state_dir'] = $v;
     if (($v = $env('KEBY_SMS_DRY_RUN'))     !== null) $cfg['dry_run'] = in_array(strtolower($v), ['1', 'true', 'yes', 'on'], true);
     if (($v = $env('KEBY_SMS_OFFICE_IPS'))  !== null) $cfg['office_ips'] = $list($v);
+    if (($v = $env('KEBY_ALLOWED_HOSTS'))   !== null) $cfg['allowed_hosts'] = $list($v);
     if (($v = $env('KEBY_TRUSTED_PROXIES')) !== null) $cfg['trusted_proxies'] = $list($v);
     return $cfg;
 }
@@ -101,14 +104,24 @@ function require_post(): void {
 
 // Origin или Referer обязаны указывать на нас. От curl это не защитит, но
 // закрывает самый массовый способ — запуск с чужого сайта через <img>/<form>.
+//
+// Лендинг открывается под несколькими именами (keby.clientbase.ru, keby.ai),
+// и nginx может подменять Host при проксировании. Поэтому своими считаем:
+// сам Host, X-Forwarded-Host от доверенного прокси и список из переменной
+// окружения KEBY_ALLOWED_HOSTS (через запятую).
 function require_same_origin(): void {
-    // HTTP_HOST может нести порт, parse_url(PHP_URL_HOST) — никогда.
-    // Сравниваем только имена.
-    $host = strtolower(preg_replace('/:\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? '')));
+    $clean = fn($h) => strtolower(preg_replace('/:\d+$/', '', trim((string)$h)));
+    $own = [$clean($_SERVER['HTTP_HOST'] ?? '')];
+    if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+        foreach (explode(',', $_SERVER['HTTP_X_FORWARDED_HOST']) as $h) $own[] = $clean($h);
+    }
+    foreach ((array)(cfg()['allowed_hosts'] ?? []) as $h) $own[] = $clean($h);
+    $own = array_filter($own);
+
     $src  = $_SERVER['HTTP_ORIGIN'] ?? $_SERVER['HTTP_REFERER'] ?? '';
-    $from = strtolower((string)parse_url($src, PHP_URL_HOST));
-    if ($host === '' || $from === '' || $from !== $host) {
-        log_line("origin отклонён: host=$host from=" . ($from ?: '-'));
+    $from = $clean(parse_url($src, PHP_URL_HOST));
+    if (!$own || $from === '' || !in_array($from, $own, true)) {
+        log_line("origin отклонён: from=" . ($from ?: '-') . ' свои=' . implode(',', $own));
         fail(403, 'origin');
     }
 }
