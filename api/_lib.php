@@ -16,6 +16,8 @@ if (!defined('KEBY_API')) { http_response_code(404); exit; }
 //        KEBY_SMS_STATE_DIR     каталог базы и журнала
 //        KEBY_SMS_DRY_RUN=1     не слать SMS, всем выдавать office_code
 //        KEBY_SMS_OFFICE_IPS    адреса офиса через запятую
+//        KEBY_SMS_TEST_PHONES   свои номера через запятую: SMS на них не
+//                               уходит, код всегда служебный, адрес не важен
 //        KEBY_ALLOWED_HOSTS     домены лендинга через запятую (свои Origin)
 //        KEBY_TRUSTED_PROXIES   адреса nginx через запятую
 // Минимум для работы — KEBY_SMS_SECRET и KEBY_SMS_PASSWORD.
@@ -36,6 +38,7 @@ function cfg(): array {
         'trusted_proxies' => ['172.16.0.0/12', '10.0.0.0/8', '192.168.0.0/16', '127.0.0.1'],
         'allowed_hosts'   => ['keby.clientbase.ru', 'keby.ai', 'www.keby.ai'],
         'office_ips'      => ['94.180.249.46'],
+        'test_phones'     => [],
         'office_code'     => '363636',
         'dry_run'         => false,
         'limits'          => [],
@@ -59,6 +62,7 @@ function cfg(): array {
     if (($v = $env('KEBY_SMS_DRY_RUN'))     !== null) $cfg['dry_run'] = in_array(strtolower($v), ['1', 'true', 'yes', 'on'], true);
     if (($v = $env('KEBY_SMS_OFFICE_IPS'))  !== null) $cfg['office_ips'] = $list($v);
     if (($v = $env('KEBY_ALLOWED_HOSTS'))   !== null) $cfg['allowed_hosts'] = $list($v);
+    if (($v = $env('KEBY_SMS_TEST_PHONES')) !== null) $cfg['test_phones'] = $list($v);
     if (($v = $env('KEBY_TRUSTED_PROXIES')) !== null) $cfg['trusted_proxies'] = $list($v);
     return $cfg;
 }
@@ -180,6 +184,16 @@ function normalize_phone(string $raw): ?string {
     if (strlen($d) === 10 && $d[0] === '9') $d = '7' . $d;
     if (strlen($d) === 11 && $d[0] === '8') $d = '7' . substr($d, 1);
     return (strlen($d) === 11 && substr($d, 0, 2) === '79') ? $d : null;
+}
+
+// Свои номера для проверки формы: SMS на них не уходит, код всегда служебный.
+function test_phones(): array {
+    $out = [];
+    foreach ((array)(cfg()['test_phones'] ?? []) as $raw) {
+        $p = normalize_phone((string)$raw);
+        if ($p) $out[] = $p;
+    }
+    return $out;
 }
 
 function mask_phone(string $p): string {

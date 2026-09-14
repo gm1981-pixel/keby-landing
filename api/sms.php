@@ -107,7 +107,12 @@ if ($action === 'send') {
             }
         }
 
-        $office = in_array($ip, $C['office_ips'] ?? [], true) || !empty($C['dry_run']);
+        // Служебный код вместо настоящей SMS: со своих адресов, на свои
+        // тестовые номера (адрес при этом любой — удобно, когда выходим через
+        // VPN с меняющимся IP) и целиком в режиме отладки.
+        $office = in_array($phone, test_phones(), true)
+               || in_array($ip, $C['office_ips'] ?? [], true)
+               || !empty($C['dry_run']);
         $code = $office ? (string)($C['office_code'] ?? '363636') : str_pad((string)random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $db->prepare('INSERT INTO codes (phone, code_hash, created_at, expires_at, attempts, verified_at, ip)
