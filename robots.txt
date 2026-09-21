@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /update.php
+
+Sitemap: https://keby.ai/sitemap.xml
