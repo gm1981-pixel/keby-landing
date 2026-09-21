@@ -70,20 +70,20 @@
   // ── Баннер ───────────────────────────────────────────────────────────────
   var CSS =
     '#keby-cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;' +
-    'max-width:780px;margin:0 auto;background:#fff;border:1px solid #ebe8f5;' +
-    'border-radius:16px;box-shadow:0 18px 50px -20px rgba(60,40,160,0.45);' +
+    'max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--line);' +
+    'border-radius:14px;box-shadow:0 14px 40px -22px rgba(42,41,51,0.5);' +
     'padding:18px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;' +
-    "font-family:Nunito,system-ui,sans-serif;color:#1b1830}" +
-    '#keby-cookie p{margin:0;flex:1;min-width:240px;font-size:14px;line-height:1.5;color:#585379}' +
-    '#keby-cookie a{color:oklch(0.47 0.24 278);font-weight:700}' +
+    "font-family:Inter,system-ui,sans-serif;color:var(--ink)}" +
+    '#keby-cookie p{margin:0;flex:1;min-width:240px;font-size:14px;line-height:1.5;color:var(--ink-2)}' +
+    '#keby-cookie a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px}' +
     '#keby-cookie .keby-cookie-actions{display:flex;gap:10px;flex-wrap:wrap}' +
     // Обе кнопки одного размера и веса: отказаться должно быть не сложнее,
     // чем согласиться (152-ФЗ ст. 9 ч. 1 — согласие должно быть свободным)
     '#keby-cookie button{font-family:inherit;font-size:15px;font-weight:800;' +
     'padding:11px 22px;min-width:150px;border-radius:11px;cursor:pointer;' +
-    'border:1px solid #ddd8ee;background:#fff;color:#4a4566}' +
-    '#keby-cookie button.keby-cookie-accept{background:oklch(0.47 0.24 278);' +
-    'color:#fff;border-color:oklch(0.47 0.24 278)}' +
+    'border:1px solid var(--line);background:#fff;color:var(--ink-2)}' +
+    '#keby-cookie button.keby-cookie-accept{background:var(--ink);' +
+    'color:#fff;border-color:var(--ink)}' +
     '@media (max-width:520px){#keby-cookie{padding:16px}' +
     '#keby-cookie .keby-cookie-actions{width:100%}' +
     '#keby-cookie button{flex:1}}';
