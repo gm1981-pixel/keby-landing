@@ -17,30 +17,27 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --ink: #2a2933;          /* заголовки, основной текст */
-  --ink-2: #5d5c69;        /* пояснения */
-  --ink-3: #8b8a97;        /* подписи, плейсхолдеры */
-  --line: #ebebef;         /* разделители и границы, всегда 1px */
-  --line-2: #dedde4;       /* граница при наведении */
+  /* Тёмный взят холодный, сине-графитовый: рядом с тёплой лесенкой он
+     работает противовесом, которого не хватало после мятного. */
+  --ink: #26303f;          /* заголовки, основной текст — 13,3:1 */
+  --ink-2: #59637a;        /* пояснения — 6,0:1 */
+  --ink-3: #868fa0;        /* подписи, плейсхолдеры */
+  --line: #e8eaef;         /* разделители и границы, всегда 1px */
+  --line-2: #d8dbe3;       /* граница при наведении */
   --paper: #ffffff;
-  --surface: #f7f7f9;      /* подложка карточек */
+  --surface: #f6f7f9;      /* подложка служебных плашек */
 
-  --accent: #ff9633;       /* яркий оранжевый логотипа: заливки, росчерки */
-  --accent-ink: #b8490a;   /* тот же оранжевый текстом — 5,3:1 на белом */
-  --accent-soft: #fff3e6;
+  /* Тёплая лесенка в три ясно различимые ступени: жёлтый → оранжевый →
+     красно-оранжевый. Раньше оттенков было четыре и все в одном
+     жёлто-коричневом промежутке — рядом они спорили друг с другом. */
+  --sun: #ffc93c;          /* жёлтый: только заливки, писать им нельзя */
+  --sun-soft: #fff8e1;     /* метка секции, панель «как это с Кэби» */
+  --accent: #f5821f;       /* оранжевый: заливки, росчерк под словом */
+  --accent-soft: #fff4e6;  /* квадраты под иконки, тёплые плашки */
+  --accent-ink: #d6421c;   /* красно-оранжевый текстом и стрелками — 4,5:1 */
 
-  /* Кнопка действия. Белый текст на ярком #ff9633 давал 2,2:1 и не читался,
-     поэтому у кнопок свой, более густой оранжевый: белым по нему 4,5:1. */
-  --cta: #cf4a06;
-  --cta-2: #b03e04;        /* наведение — 5,9:1 */
-
-  /* Второй цвет — жёлтый конец градиента в логотипе. Он же отвечает за
-     «живое»: включённые переключатели, галочки, рукописные пометки.
-     Жёлтым нельзя писать по белому (1,7:1), поэтому у текста свой
-     густой золотой --sun-ink. */
-  --sun: #ffbb33;
-  --sun-ink: #9c6c00;      /* золотой текстом — 4,6:1 на белом */
-  --sun-soft: #fff5df;
+  --cta: #d6421c;          /* кнопка: тот же цвет, надпись белая */
+  --cta-2: #b8380f;        /* наведение — 5,8:1 */
 
   --danger: #e05252;
 
@@ -95,10 +92,6 @@ a:hover { color: var(--accent-ink) }
 .tiny { font-size: 13px; color: var(--ink-3) }
 .mono { font-family: 'JetBrains Mono', monospace }
 .accent { color: var(--accent-ink) }
-.sun { color: var(--sun-ink) }
-/* В заголовках оранжевый может быть ярче: крупный текст читается и при
-   меньшем контрасте, а мелкому нужен тёмный --accent-ink */
-h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 
 /* Ключевое слово заголовка с росчерком-подчёркиванием от руки.
    Росчерк — <svg class="swash"> внутри, он тянется по ширине слова. */
@@ -111,13 +104,13 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   stroke-linecap: round; stroke-linejoin: round;
   pointer-events: none;
 }
-.swash--sun { color: var(--sun) }
 
-/* Надстрочная метка секции — таблетка на светлой подложке */
+/* Надстрочная метка секции — одна на все секции. Раньше их было две,
+   тёплая и жёлтая, и страница от этого рябила. */
 .kicker {
   display: inline-flex; align-items: center; gap: 7px;
-  background: var(--accent-soft);
-  color: var(--accent-ink);
+  background: var(--sun-soft);
+  color: var(--ink);
   border-radius: 999px;
   padding: 6px 14px;
   font-size: 12px;
@@ -126,7 +119,6 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   text-transform: uppercase;
   margin-bottom: 16px;
 }
-.kicker--sun { background: var(--sun-soft); color: var(--sun-ink) }
 
 /* ── Рукописные подписи и стрелки ─────────────────────────────────────── */
 .hand {
@@ -134,21 +126,21 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   font-size: 21px;
   font-weight: 600;
   line-height: 1.15;
-  color: var(--sun-ink);
+  color: var(--accent-ink);
 }
-.hand--accent { color: var(--accent-ink) }
-.hand--grey { color: var(--ink-3) }
 /* Подпись со стрелкой: стрелка не мешает чтению с экрана — aria-hidden */
 .hand-row { display: inline-flex; align-items: flex-start; gap: 8px; transform: rotate(-1.6deg) }
 .hand-arrow {
   width: 46px; height: 38px; flex: none;
   fill: none; stroke: currentColor; stroke-width: 2.1;
   stroke-linecap: round; stroke-linejoin: round;
-  color: inherit; opacity: 0.85;
+  /* один цвет с подписью: раньше стрелка наследовала цвет текста страницы
+     и оказывалась чёрной рядом с оранжевой надписью */
+  color: var(--accent-ink);
 }
 .hand-arrow--sm { width: 34px; height: 28px }
 /* Подпись, приклеенная к иллюстрации; на узких экранах прячется */
-.hand-pin { position: absolute; z-index: 4; pointer-events: none; color: var(--sun-ink) }
+.hand-pin { position: absolute; z-index: 4; pointer-events: none; color: var(--accent-ink) }
 @media (max-width: 900px) { .hand-pin { display: none } }
 
 /* ── Каркас ───────────────────────────────────────────────────────────── */
@@ -166,8 +158,8 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 
 /* ── Поверхности ──────────────────────────────────────────────────────── */
 .card {
-  background: var(--surface);
-  border: 1px solid transparent;
+  background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--r-lg);
   padding: 26px;
   /* колонка, чтобы подпись автора и строка «6 таблиц» прижимались к низу
@@ -176,7 +168,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   transition: background 0.16s, border-color 0.16s, transform 0.16s;
 }
 .card .to-bottom { margin-top: auto }
-.card:hover { background: var(--paper); border-color: var(--line); transform: translateY(-2px) }
+.card:hover { border-color: var(--line-2); transform: translateY(-2px) }
 .card-line {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -210,8 +202,6 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 /* Белая надпись на густом оранжевом. Светлый #ff9633 остался для заливок */
 .btn--primary { background: var(--cta); color: #fff }
 .btn--primary:hover { background: var(--cta-2); color: #fff; transform: translateY(-1px) }
-.btn--sun { background: var(--sun-ink); color: #fff }
-.btn--sun:hover { background: #855c00; color: #fff; transform: translateY(-1px) }
 .btn--ink { background: var(--ink); color: #fff }
 .btn--ink:hover { background: #3c3b48; color: #fff; transform: translateY(-1px) }
 .btn--ghost { background: var(--paper); border-color: var(--line); color: var(--ink-2) }
@@ -243,17 +233,16 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 /* ── Иконки ───────────────────────────────────────────────────────────── */
 .ico { width: 22px; height: 22px; flex: none; stroke-width: 1.6; fill: none; stroke: currentColor }
 .ico-sm { width: 18px; height: 18px; flex: none; stroke-width: 1.7; fill: none; stroke: currentColor }
+/* Один вид на все иконки: разноцветные квадраты рябили */
 .ico-box {
   flex: none;
   width: 44px; height: 44px;
   border-radius: 13px;
   display: grid; place-items: center;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  color: var(--ink);
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  color: var(--accent-ink);
 }
-.ico-box--warm { background: var(--accent-soft); border-color: transparent; color: var(--accent-ink) }
-.ico-box--sun { background: var(--sun-soft); border-color: transparent; color: var(--sun-ink) }
 .ico-box--sm { width: 36px; height: 36px; border-radius: 11px }
 
 /* ── Шапка ────────────────────────────────────────────────────────────── */
@@ -266,9 +255,20 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 .top-in { display: flex; align-items: center; gap: 26px; padding-block: 14px }
 .top-nav { display: flex; gap: 24px; font-size: 15px; font-weight: 500; color: var(--ink-2) }
 .top-nav a:hover { color: var(--ink) }
-.lang { display: flex; flex: none; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; font-size: 12.5px; font-weight: 700 }
-.lang button { padding: 6px 12px; border: none; cursor: pointer; background: var(--paper); color: var(--ink-3) }
-.lang button.on { background: var(--ink); color: #fff }
+.lang {
+  display: flex; flex: none; gap: 2px;
+  padding: 3px;
+  background: var(--surface);
+  border-radius: 999px;
+  font-size: 12.5px; font-weight: 700;
+}
+.lang button {
+  padding: 5px 11px; border: none; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--ink-3);
+  transition: background 0.15s, color 0.15s;
+}
+.lang button:hover { color: var(--ink) }
+.lang button.on { background: var(--paper); color: var(--ink); box-shadow: 0 1px 2px rgba(38,48,63,0.12) }
 
 /* ── Крупные цифры ────────────────────────────────────────────────────── */
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
@@ -280,7 +280,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   letter-spacing: -0.04em; line-height: 1;
   color: var(--ink);
 }
-.stat-n em { font-style: normal; font-size: 0.62em; color: var(--accent) }
+.stat-n em { font-style: normal; font-size: 0.62em; color: var(--accent-ink) }
 .stat p { margin-top: 9px; font-size: 14.5px; color: var(--ink-2) }
 
 /* ── Шаги ─────────────────────────────────────────────────────────────── */
@@ -298,7 +298,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   font-family: 'Unbounded', sans-serif;
   font-weight: 700; font-size: 44px; line-height: 1;
   letter-spacing: -0.05em;
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 .step h3 { margin: 16px 0 8px }
 
@@ -329,9 +329,9 @@ input::placeholder, textarea::placeholder { color: var(--ink-3); opacity: 1 }
 .consent a:hover { text-decoration-color: var(--accent) }
 .agree-box { flex: none; width: 17px; height: 17px; margin-top: 1px; accent-color: var(--cta); cursor: pointer }
 .agree-flash { outline: 2px solid var(--danger); outline-offset: 2px; border-radius: 3px }
-.hint { padding: 12px 18px; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.45; color: var(--accent-ink); background: var(--accent-soft) }
+.hint { padding: 12px 18px; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.45; color: var(--ink); background: var(--accent-soft) }
 .code-input { font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.18em }
-.ok-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; font-size: 12.5px; font-weight: 700; color: var(--sun-ink) }
+.ok-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; font-size: 12.5px; font-weight: 700; color: var(--accent-ink) }
 
 input:-webkit-autofill { transition: background-color 0s 600000s }
 
@@ -348,17 +348,38 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 .browser-url { margin-left: 10px; display: flex; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 5px 12px; font-size: 12.5px; color: var(--ink-3); flex: 1; max-width: 340px }
 
 /* ── Тарифы ───────────────────────────────────────────────────────────── */
-.plan { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 22px; display: flex; flex-direction: column; gap: 14px; position: relative; transition: border-color 0.16s, transform 0.16s }
+.plan {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 24px 22px;
+  display: flex; flex-direction: column; gap: 16px;
+  position: relative;
+  transition: border-color 0.16s, transform 0.16s;
+}
 .plan:hover { border-color: var(--line-2); transform: translateY(-2px) }
-.plan--star { border-color: var(--accent); border-width: 1.5px }
-.plan-badge { position: absolute; top: -10px; left: 22px; background: var(--cta); color: #fff; font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px }
-.plan-price { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -0.03em }
-.plan-row { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-2); padding-block: 7px; border-top: 1px solid var(--line) }
+/* Выделенный тариф: тёплая подложка вместо цветной рамки — рамка спорила
+   с линиями соседних карточек */
+.plan--star { background: var(--sun-soft); border-color: transparent }
+.plan--star:hover { border-color: transparent }
+.plan-badge {
+  align-self: flex-start;
+  background: var(--cta); color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+}
+.plan-users { font-size: 13.5px; font-weight: 600; color: var(--ink-2) }
+.plan-price { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.03em; line-height: 1; color: var(--ink) }
+.plan-per { display: block; margin-top: 7px; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500; color: var(--ink-3); letter-spacing: 0 }
+.plan-row { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--ink-2); padding-block: 8px; border-top: 1px solid var(--line) }
+.plan--star .plan-row { border-color: rgba(214,66,28,0.14) }
+.plan-row .ico-sm { color: var(--accent-ink); width: 16px; height: 16px }
 
 /* ── Сравнение «без Кэби / с Кэби» ────────────────────────────────────── */
 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
 .compare-col { border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px }
 .compare-col--good { border-color: transparent; background: var(--sun-soft) }
+.compare-col--bad { background: var(--paper) }
 .compare-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; margin-bottom: 18px }
 .compare-li { display: flex; align-items: flex-start; gap: 11px; padding-block: 11px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.45 }
 .compare-li:first-of-type { border-top: none }
@@ -366,7 +387,7 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 .compare-li .ico-sm { margin-top: 2px }
 .compare-col--bad { color: var(--ink-2) }
 .compare-col--bad .ico-sm { color: var(--ink-3) }
-.compare-col--good .ico-sm { color: var(--sun-ink) }
+.compare-col--good .ico-sm { color: var(--accent-ink) }
 
 /* ── Вопросы и ответы ─────────────────────────────────────────────────── */
 /* На <details>, без скриптов: раскрывается и без JavaScript */
@@ -415,7 +436,6 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
   background: var(--accent-soft); color: var(--accent-ink);
   font-weight: 700; font-size: 14.5px;
 }
-.avatar--sun { background: var(--sun-soft); color: var(--sun-ink) }
 
 /* ── Подвал ───────────────────────────────────────────────────────────── */
 .foot { background: var(--surface); border-radius: var(--r-xl); padding: 48px 32px; margin-bottom: 28px }
