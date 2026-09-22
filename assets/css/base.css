@@ -206,6 +206,10 @@ a:hover { color: var(--accent-ink) }
 .btn--ink:hover { background: #3c3b48; color: #fff; transform: translateY(-1px) }
 .btn--ghost { background: var(--paper); border-color: var(--line); color: var(--ink-2) }
 .btn--ghost:hover { border-color: var(--line-2); color: var(--ink) }
+/* Кнопка выбора: обводка и надпись одного цвета, при наведении заливается.
+   Серая рамка с тёмной надписью была самым тусклым местом в тарифах. */
+.btn--outline { background: var(--paper); border-color: var(--accent-ink); color: var(--accent-ink) }
+.btn--outline:hover { background: var(--cta); border-color: var(--cta); color: #fff; transform: translateY(-1px) }
 .btn--lg { padding: 15px 28px; font-size: 16px; border-radius: 14px }
 .btn--sm { padding: 8px 14px; font-size: 13.5px; border-radius: 10px }
 .btn[disabled] { opacity: 0.4; cursor: not-allowed; transform: none }
