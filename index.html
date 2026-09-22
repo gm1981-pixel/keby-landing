@@ -228,7 +228,7 @@
               <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
                 <div style="padding:26px">
                   <div class="row">
-                    <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                    <span class="ico-box ico-box--sun ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
                     <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
                   </div>
                   <p class="small" style="margin-top:14px">
@@ -261,19 +261,23 @@
           </div>
         </div>
 
+        <!-- Подпись считается в процентах от самой картинки, а не от колонки:
+             иначе она уезжает от Кэби, когда колонка выше картинки -->
         <div class="hero-art" style="position:relative;align-self:stretch;min-height:400px;display:flex;align-items:center;justify-content:flex-end">
-          <div class="hand-pin" style="right:20%;top:4%;text-align:center">
-            <div class="hand hand--mint" style="transform:rotate(-4deg)"><span data-l="ru">это Кэби — он и соберёт</span><span data-l="en">this is Кэби — he builds it</span></div>
-            <svg class="hand-arrow hand--mint" style="margin-left:26px" aria-hidden="true" focusable="false"><use href="#h-arrow-dl"></use></svg>
+          <div style="position:relative;width:min(680px,145%);margin-right:-12%">
+            <img src="assets/img/hero.png" alt="Кэби" style="width:100%;display:block">
+            <div class="hand-pin" style="left:19%;top:5%">
+              <div class="hand" style="transform:rotate(-4deg)"><span data-l="ru">это Кэби — он и соберёт</span><span data-l="en">this is Кэби — he builds it</span></div>
+              <svg class="hand-arrow" style="margin:0 0 0 86px" aria-hidden="true" focusable="false"><use href="#h-arrow-dr"></use></svg>
+            </div>
           </div>
-          <img src="assets/img/hero.png" alt="Кэби" style="width:min(680px,145%);display:block;margin-right:-12%">
         </div>
       </div>
 
       <div class="row" style="justify-content:center;gap:22px;margin-top:26px;flex-wrap:wrap">
-        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">14 дней бесплатно</span><span data-l="en">14 days free</span></span>
-        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">карта не нужна</span><span data-l="en">no card required</span></span>
-        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">серверы в России</span><span data-l="en">servers in Russia</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--sun-ink)"><use href="#i-check"></use></svg><span data-l="ru">14 дней бесплатно</span><span data-l="en">14 days free</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--sun-ink)"><use href="#i-check"></use></svg><span data-l="ru">карта не нужна</span><span data-l="en">no card required</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--sun-ink)"><use href="#i-check"></use></svg><span data-l="ru">серверы в России</span><span data-l="en">servers in Russia</span></span>
       </div>
     </div>
   </section>
@@ -388,7 +392,7 @@
   <section class="sec">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker kicker--mint"><span data-l="ru">Разница</span><span data-l="en">The difference</span></span>
+        <span class="kicker kicker--sun"><span data-l="ru">Разница</span><span data-l="en">The difference</span></span>
         <h2><span data-l="ru">Как это выглядит <span class="accent">обычно</span></span><span data-l="en">How it <span class="accent">usually</span> goes</span></h2>
       </div>
       <div class="compare">
@@ -406,7 +410,7 @@
         </div>
         <div class="compare-col compare-col--good">
           <div class="compare-title">
-            <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-spark"></use></svg></span>
+            <span class="ico-box ico-box--sun ico-box--sm"><svg class="ico-sm"><use href="#i-spark"></use></svg></span>
             <span data-l="ru">Как это с Кэби</span><span data-l="en">The same with Кэби</span>
           </div>
           <sc-for list="{{ compareGood }}" as="cg" hint-placeholder-count="5">
@@ -424,7 +428,7 @@
   <section class="sec" id="examples">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker kicker--mint"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></span>
+        <span class="kicker kicker--sun"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></span>
         <h2><span data-l="ru">Собранные CRM <span class="accent">для разных дел</span></span><span data-l="en">CRMs assembled <span class="accent">for different trades</span></span></h2>
         <p class="lead"><span data-l="ru">Каждая собрана из одного описания. Возьмите как есть или доработайте под себя.</span><span data-l="en">Each built from a single prompt. Take as-is or tailor it.</span></p>
       </div>
@@ -434,7 +438,7 @@
             <span class="ico-box ico-box--warm"><svg class="ico"><use href="{{ e.icon }}"></use></svg></span>
             <h3 style="margin:16px 0 6px"><span data-l="ru">{{ e.ru }}</span><span data-l="en">{{ e.en }}</span></h3>
             <p class="small" style="margin-bottom:14px"><span data-l="ru">{{ e.dRu }}</span><span data-l="en">{{ e.dEn }}</span></p>
-            <span class="mono to-bottom" style="font-size:12.5px;color:var(--mint-ink)">{{ e.tables }}</span>
+            <span class="mono to-bottom" style="font-size:12.5px;color:var(--sun-ink)">{{ e.tables }}</span>
           </div>
         </sc-for>
       </div>
@@ -465,7 +469,7 @@
       <div class="browser">
         <div class="browser-bar">
           <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
-          <span class="browser-url mono"><span style="width:7px;height:7px;border-radius:50%;background:var(--mint);flex:none"></span>{{ shotUrl }}</span>
+          <span class="browser-url mono"><span style="width:7px;height:7px;border-radius:50%;background:var(--sun);flex:none"></span>{{ shotUrl }}</span>
         </div>
         <div style="background:#eef1f4">
           <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}"><img src="assets/img/screen-dashboard.png" alt="Сводный отчёт Кэби" style="width:100%;display:block"></sc-if>
@@ -482,7 +486,7 @@
   <section class="sec" id="features">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker kicker--mint"><span data-l="ru">Возможности</span><span data-l="en">Features</span></span>
+        <span class="kicker kicker--sun"><span data-l="ru">Возможности</span><span data-l="en">Features</span></span>
         <h2><span data-l="ru">Гибкий движок, <span class="accent">а не шаблон</span></span><span data-l="en">A flexible engine, <span class="accent">not a template</span></span></h2>
         <p class="lead"><span data-l="ru">Кэби настраивается без программирования: меняйте таблицы, поля и правила сами.</span><span data-l="en">Кэби is configured without code: change tables, fields and rules yourself.</span></p>
       </div>
@@ -520,7 +524,7 @@
             <div>
               <div class="plan-row"><span data-l="ru">Пользователей</span><span data-l="en">Users</span><b>{{ p.users }}</b></div>
               <div class="plan-row"><span data-l="ru">Рассылка</span><span data-l="en">Messages</span><b><span data-l="ru">{{ p.mailRu }}</span><span data-l="en">{{ p.mailEn }}</span></b></div>
-              <div class="plan-row"><span data-l="ru">Сервер в России</span><span data-l="en">RU server</span><b class="mint"><span data-l="ru">да</span><span data-l="en">yes</span></b></div>
+              <div class="plan-row"><span data-l="ru">Сервер в России</span><span data-l="en">RU server</span><b class="sun"><span data-l="ru">да</span><span data-l="en">yes</span></b></div>
             </div>
             <a href="#cta" class="{{ p.btnCls }}"><span data-l="ru">Создать</span><span data-l="en">Start</span></a>
           </div>
@@ -579,7 +583,7 @@
   <section class="sec">
     <div class="wrap">
       <div class="sec-head">
-        <span class="kicker kicker--mint"><span data-l="ru">Отзывы</span><span data-l="en">Reviews</span></span>
+        <span class="kicker kicker--sun"><span data-l="ru">Отзывы</span><span data-l="en">Reviews</span></span>
         <h2><span data-l="ru">С Кэби <span class="accent">уже работают</span></span><span data-l="en">Already <span class="accent">working with Кэби</span></span></h2>
       </div>
       <div class="grid grid-3">
@@ -612,7 +616,7 @@
           </div>
         </div>
         <div class="trust-i">
-          <span class="ico-box ico-box--mint"><svg class="ico"><use href="#i-server"></use></svg></span>
+          <span class="ico-box ico-box--sun"><svg class="ico"><use href="#i-server"></use></svg></span>
           <div>
             <b><span data-l="ru">Серверы в России</span><span data-l="en">Servers in Russia</span></b>
             <span class="small"><span data-l="ru">Аккаунт и данные остаются на российских серверах — это тариф по умолчанию.</span><span data-l="en">The account and its data stay on Russian servers — that is the default plan.</span></span>
@@ -720,7 +724,7 @@
             <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
               <div style="padding:26px">
                 <div class="row">
-                  <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                  <span class="ico-box ico-box--sun ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
                   <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
                 </div>
                 <p class="small" style="margin-top:14px">
@@ -1072,7 +1076,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.4';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.5';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -1378,16 +1382,16 @@ class Component extends DCLogic {
 
       mascotPoints: [
         { icon: '#i-blocks', iconCls: 'ico-box ico-box--warm', tRu: 'Подбираю модули', tEn: 'I pick the modules', dRu: 'оптимальный набор под вашу задачу', dEn: 'the optimal set for your task' },
-        { icon: '#i-automation', iconCls: 'ico-box ico-box--mint', tRu: 'Настраиваю', tEn: 'I configure', dRu: 'под ваши процессы и роли', dEn: 'for your processes and roles' },
+        { icon: '#i-automation', iconCls: 'ico-box ico-box--sun', tRu: 'Настраиваю', tEn: 'I configure', dRu: 'под ваши процессы и роли', dEn: 'for your processes and roles' },
         { icon: '#i-analytics', iconCls: 'ico-box', tRu: 'Улучшаю', tEn: 'I improve', dRu: 'эффективность вашей команды', dEn: 'your team\'s efficiency' }
       ],
 
       modulesOn: ru ? modsOn + ' из 4' : modsOn + ' of 4',
       modules: [
         { key: 'sales', icon: '#i-sales', iconCls: 'ico-box ico-box--warm ico-box--sm', ru: 'Продажи', en: 'Sales' },
-        { key: 'clients', icon: '#i-clients', iconCls: 'ico-box ico-box--mint ico-box--sm', ru: 'Клиенты', en: 'Clients' },
+        { key: 'clients', icon: '#i-clients', iconCls: 'ico-box ico-box--sun ico-box--sm', ru: 'Клиенты', en: 'Clients' },
         { key: 'analytics', icon: '#i-analytics', iconCls: 'ico-box ico-box--warm ico-box--sm', ru: 'Аналитика', en: 'Analytics' },
-        { key: 'automation', icon: '#i-automation', iconCls: 'ico-box ico-box--mint ico-box--sm', ru: 'Автоматизация', en: 'Automation' }
+        { key: 'automation', icon: '#i-automation', iconCls: 'ico-box ico-box--sun ico-box--sm', ru: 'Автоматизация', en: 'Automation' }
       ].map(m => ({ ...m, toggle: this.toggleMod(m.key), cls: 'switch' + (this.state.mods[m.key] ? ' on' : '') })),
       addModule: this.addModule,
 
@@ -1458,11 +1462,11 @@ class Component extends DCLogic {
 
       features: [
         { icon: '#i-blocks', iconCls: 'ico-box ico-box--warm', ru: 'No-code конструктор', en: 'No-code builder', dRu: 'Меняйте таблицы, поля и формы мышкой — без единой строчки кода.', dEn: 'Change tables, fields and forms with the mouse — no code.' },
-        { icon: '#i-automation', iconCls: 'ico-box ico-box--mint', ru: 'Автоматизации', en: 'Automations', dRu: 'Напоминания, статусы, письма и задачи запускаются сами по правилам.', dEn: 'Reminders, statuses, emails and tasks fire automatically by rules.' },
+        { icon: '#i-automation', iconCls: 'ico-box ico-box--sun', ru: 'Автоматизации', en: 'Automations', dRu: 'Напоминания, статусы, письма и задачи запускаются сами по правилам.', dEn: 'Reminders, statuses, emails and tasks fire automatically by rules.' },
         { icon: '#i-lock', iconCls: 'ico-box ico-box--warm', ru: 'Роли и права', en: 'Roles & access', dRu: 'Тонко настраивайте, кто что видит и может менять в системе.', dEn: 'Fine-tune who sees and edits what across the system.' },
-        { icon: '#i-plug', iconCls: 'ico-box ico-box--mint', ru: 'Интеграции', en: 'Integrations', dRu: 'Telegram, WhatsApp, почта, платежи, 1С и открытый программный интерфейс (API).', dEn: 'Telegram, WhatsApp, email, payments, 1C and an open API.' },
+        { icon: '#i-plug', iconCls: 'ico-box ico-box--sun', ru: 'Интеграции', en: 'Integrations', dRu: 'Telegram, WhatsApp, почта, платежи, 1С и открытый программный интерфейс (API).', dEn: 'Telegram, WhatsApp, email, payments, 1C and an open API.' },
         { icon: '#i-report', iconCls: 'ico-box ico-box--warm', ru: 'Отчёты и дашборды', en: 'Reports & dashboards', dRu: 'Считайте выручку, KPI и воронку в наглядных отчётах.', dEn: 'Track revenue, KPIs and funnels in clear reports.' },
-        { icon: '#i-mobile', iconCls: 'ico-box ico-box--mint', ru: 'Мобильное приложение', en: 'Mobile app', dRu: 'Вся CRM в кармане — на телефоне и планшете, онлайн и офлайн.', dEn: 'Your whole CRM in your pocket — phone and tablet, on/offline.' }
+        { icon: '#i-mobile', iconCls: 'ico-box ico-box--sun', ru: 'Мобильное приложение', en: 'Mobile app', dRu: 'Вся CRM в кармане — на телефоне и планшете, онлайн и офлайн.', dEn: 'Your whole CRM in your pocket — phone and tablet, on/offline.' }
       ],
 
       plans: this.PLANS.map(pl => ({
@@ -1480,7 +1484,7 @@ class Component extends DCLogic {
 
       reviews: [
         { ru: '«Описали процесс салона голосом — через пять минут получили рабочий аккаунт. То, на что раньше уходили недели.»', en: '"We described our salon by voice — got a working account in five minutes. Used to take weeks."', name: 'Марина К.', initials: 'МК', avatarCls: 'avatar', roleRu: 'Владелица сети салонов', roleEn: 'Salon chain owner' },
-        { ru: '«Наконец CRM, которую не стыдно менять самим. Добавили таблицу и автоматизацию без разработчика за вечер.»', en: '"Finally a CRM we can change ourselves. Added a table and an automation in an evening, no developer."', name: 'Игорь П.', initials: 'ИП', avatarCls: 'avatar avatar--mint', roleRu: 'Руководитель отдела продаж', roleEn: 'Head of sales' },
+        { ru: '«Наконец CRM, которую не стыдно менять самим. Добавили таблицу и автоматизацию без разработчика за вечер.»', en: '"Finally a CRM we can change ourselves. Added a table and an automation in an evening, no developer."', name: 'Игорь П.', initials: 'ИП', avatarCls: 'avatar avatar--sun', roleRu: 'Руководитель отдела продаж', roleEn: 'Head of sales' },
         { ru: '«Собрали CRM для доставки прямо из описания. Курьеры, статусы, отчёты — всё уже было настроено.»', en: '"Built our delivery CRM straight from a prompt. Couriers, statuses, reports — all preconfigured."', name: 'Алина Р.', initials: 'АР', avatarCls: 'avatar', roleRu: 'Основатель службы доставки', roleEn: 'Delivery startup founder' }
       ]
     };

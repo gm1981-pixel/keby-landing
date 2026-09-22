@@ -2,10 +2,10 @@
    Оформление лендинга Кэби.
 
    Основа — белый лист. Секции разделены серой линией в один пиксель, а не
-   цветными плашками. Цвет появляется точечно: оранжевый из логотипа на
-   акцентах, мятный — второй цвет, он отвечает за «живое»: включённые
-   переключатели, галочки, цифры. Тёмных блоков нет: с ними страница
-   читалась мрачно.
+   цветными плашками. Палитра взята из логотипа: оранжевый на акцентах и
+   кнопках, жёлтый — второй цвет, он отвечает за «живое»: включённые
+   переключатели, галочки, рукописные пометки. Других цветов на странице
+   нет. Тёмных блоков нет: с ними страница читалась мрачно.
 
    Живость держится на трёх приёмах: рукописные подписи со стрелками
    (шрифт Caveat), подчёркивание-росчерк под ключевым словом заголовка и
@@ -34,11 +34,14 @@
   --cta: #cf4a06;
   --cta-2: #b03e04;        /* наведение — 5,9:1 */
 
-  --mint: #12b08e;         /* второй цвет: включено, готово, выгода */
-  --mint-ink: #097a61;     /* мятный текстом — 5,3:1 на белом */
-  --mint-soft: #eaf7f3;
+  /* Второй цвет — жёлтый конец градиента в логотипе. Он же отвечает за
+     «живое»: включённые переключатели, галочки, рукописные пометки.
+     Жёлтым нельзя писать по белому (1,7:1), поэтому у текста свой
+     густой золотой --sun-ink. */
+  --sun: #ffbb33;
+  --sun-ink: #9c6c00;      /* золотой текстом — 4,6:1 на белом */
+  --sun-soft: #fff5df;
 
-  --sun-soft: #fff8e7;
   --danger: #e05252;
 
   --r-sm: 10px;
@@ -92,7 +95,7 @@ a:hover { color: var(--accent-ink) }
 .tiny { font-size: 13px; color: var(--ink-3) }
 .mono { font-family: 'JetBrains Mono', monospace }
 .accent { color: var(--accent-ink) }
-.mint { color: var(--mint-ink) }
+.sun { color: var(--sun-ink) }
 /* В заголовках оранжевый может быть ярче: крупный текст читается и при
    меньшем контрасте, а мелкому нужен тёмный --accent-ink */
 h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
@@ -108,7 +111,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   stroke-linecap: round; stroke-linejoin: round;
   pointer-events: none;
 }
-.swash--mint { color: var(--mint) }
+.swash--sun { color: var(--sun) }
 
 /* Надстрочная метка секции — таблетка на светлой подложке */
 .kicker {
@@ -123,7 +126,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   text-transform: uppercase;
   margin-bottom: 16px;
 }
-.kicker--mint { background: var(--mint-soft); color: var(--mint-ink) }
+.kicker--sun { background: var(--sun-soft); color: var(--sun-ink) }
 
 /* ── Рукописные подписи и стрелки ─────────────────────────────────────── */
 .hand {
@@ -131,9 +134,9 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   font-size: 21px;
   font-weight: 600;
   line-height: 1.15;
-  color: var(--accent-ink);
+  color: var(--sun-ink);
 }
-.hand--mint { color: var(--mint-ink) }
+.hand--accent { color: var(--accent-ink) }
 .hand--grey { color: var(--ink-3) }
 /* Подпись со стрелкой: стрелка не мешает чтению с экрана — aria-hidden */
 .hand-row { display: inline-flex; align-items: flex-start; gap: 8px; transform: rotate(-1.6deg) }
@@ -145,7 +148,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 }
 .hand-arrow--sm { width: 34px; height: 28px }
 /* Подпись, приклеенная к иллюстрации; на узких экранах прячется */
-.hand-pin { position: absolute; z-index: 4; pointer-events: none }
+.hand-pin { position: absolute; z-index: 4; pointer-events: none; color: var(--sun-ink) }
 @media (max-width: 900px) { .hand-pin { display: none } }
 
 /* ── Каркас ───────────────────────────────────────────────────────────── */
@@ -181,7 +184,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   padding: 26px;
 }
 .tint-warm { background: var(--accent-soft) }
-.tint-mint { background: var(--mint-soft) }
+.tint-sun { background: var(--sun-soft) }
 .block-tint {
   background: var(--accent-soft);
   border-radius: var(--r-xl);
@@ -207,8 +210,8 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
 /* Белая надпись на густом оранжевом. Светлый #ff9633 остался для заливок */
 .btn--primary { background: var(--cta); color: #fff }
 .btn--primary:hover { background: var(--cta-2); color: #fff; transform: translateY(-1px) }
-.btn--mint { background: var(--mint-ink); color: #fff }
-.btn--mint:hover { background: #076e57; color: #fff; transform: translateY(-1px) }
+.btn--sun { background: var(--sun-ink); color: #fff }
+.btn--sun:hover { background: #855c00; color: #fff; transform: translateY(-1px) }
 .btn--ink { background: var(--ink); color: #fff }
 .btn--ink:hover { background: #3c3b48; color: #fff; transform: translateY(-1px) }
 .btn--ghost { background: var(--paper); border-color: var(--line); color: var(--ink-2) }
@@ -250,7 +253,7 @@ h1 .accent, h2 .accent, h3 .accent { color: var(--cta) }
   color: var(--ink);
 }
 .ico-box--warm { background: var(--accent-soft); border-color: transparent; color: var(--accent-ink) }
-.ico-box--mint { background: var(--mint-soft); border-color: transparent; color: var(--mint-ink) }
+.ico-box--sun { background: var(--sun-soft); border-color: transparent; color: var(--sun-ink) }
 .ico-box--sm { width: 36px; height: 36px; border-radius: 11px }
 
 /* ── Шапка ────────────────────────────────────────────────────────────── */
@@ -324,17 +327,17 @@ input::placeholder, textarea::placeholder { color: var(--ink-3); opacity: 1 }
 .consent { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 12.5px; line-height: 1.45; color: var(--ink-2) }
 .consent a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--line) }
 .consent a:hover { text-decoration-color: var(--accent) }
-.agree-box { flex: none; width: 17px; height: 17px; margin-top: 1px; accent-color: var(--mint); cursor: pointer }
+.agree-box { flex: none; width: 17px; height: 17px; margin-top: 1px; accent-color: var(--cta); cursor: pointer }
 .agree-flash { outline: 2px solid var(--danger); outline-offset: 2px; border-radius: 3px }
 .hint { padding: 12px 18px; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.45; color: var(--accent-ink); background: var(--accent-soft) }
 .code-input { font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.18em }
-.ok-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; font-size: 12.5px; font-weight: 700; color: var(--mint-ink) }
+.ok-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; font-size: 12.5px; font-weight: 700; color: var(--sun-ink) }
 
 input:-webkit-autofill { transition: background-color 0s 600000s }
 
 /* ── Переключатель модуля ─────────────────────────────────────────────── */
 .switch { flex: none; width: 42px; height: 24px; border-radius: 999px; border: none; padding: 0; cursor: pointer; background: #dcdce2; transition: background 0.18s; position: relative }
-.switch.on { background: var(--mint) }
+.switch.on { background: var(--sun) }
 .switch i { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform 0.18s; display: block }
 .switch.on i { transform: translateX(18px) }
 
@@ -355,15 +358,15 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 /* ── Сравнение «без Кэби / с Кэби» ────────────────────────────────────── */
 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
 .compare-col { border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px }
-.compare-col--good { border-color: transparent; background: var(--mint-soft) }
+.compare-col--good { border-color: transparent; background: var(--sun-soft) }
 .compare-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; margin-bottom: 18px }
 .compare-li { display: flex; align-items: flex-start; gap: 11px; padding-block: 11px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.45 }
 .compare-li:first-of-type { border-top: none }
-.compare-col--good .compare-li { border-color: rgba(9,122,97,0.14) }
+.compare-col--good .compare-li { border-color: rgba(156,108,0,0.16) }
 .compare-li .ico-sm { margin-top: 2px }
 .compare-col--bad { color: var(--ink-2) }
 .compare-col--bad .ico-sm { color: var(--ink-3) }
-.compare-col--good .ico-sm { color: var(--mint-ink) }
+.compare-col--good .ico-sm { color: var(--sun-ink) }
 
 /* ── Вопросы и ответы ─────────────────────────────────────────────────── */
 /* На <details>, без скриптов: раскрывается и без JavaScript */
@@ -412,7 +415,7 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
   background: var(--accent-soft); color: var(--accent-ink);
   font-weight: 700; font-size: 14.5px;
 }
-.avatar--mint { background: var(--mint-soft); color: var(--mint-ink) }
+.avatar--sun { background: var(--sun-soft); color: var(--sun-ink) }
 
 /* ── Подвал ───────────────────────────────────────────────────────────── */
 .foot { background: var(--surface); border-radius: var(--r-xl); padding: 48px 32px; margin-bottom: 28px }
