@@ -398,7 +398,7 @@
       <div class="compare">
         <div class="compare-col compare-col--bad">
           <div class="compare-title">
-            <span class="ico-box ico-box--sm"><svg class="ico-sm"><use href="#i-x"></use></svg></span>
+            <span class="ico-box ico-box--sm" style="background:var(--surface);color:var(--ink-3)"><svg class="ico-sm"><use href="#i-x"></use></svg></span>
             <span data-l="ru">Внедрение CRM как обычно</span><span data-l="en">A usual CRM rollout</span>
           </div>
           <sc-for list="{{ compareBad }}" as="cb" hint-placeholder-count="5">
@@ -410,7 +410,7 @@
         </div>
         <div class="compare-col compare-col--good">
           <div class="compare-title">
-            <span class="ico-box ico-box--sm"><svg class="ico-sm"><use href="#i-spark"></use></svg></span>
+            <img src="assets/img/mark.svg" alt="" width="40" height="40" style="display:block;flex:none;margin:-4px 0">
             <span data-l="ru">Как это с Кэби</span><span data-l="en">The same with Кэби</span>
           </div>
           <sc-for list="{{ compareGood }}" as="cg" hint-placeholder-count="5">
@@ -1094,7 +1094,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.8';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.9';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты

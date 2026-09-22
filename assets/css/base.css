@@ -260,6 +260,11 @@ a:hover { color: var(--accent-ink) }
   border-bottom: 1px solid var(--line);
 }
 .top-in { display: flex; align-items: center; gap: 26px; padding-block: 14px }
+/* Логотип приподнят на десятую долю своей высоты. Флексбокс равняет коробку
+   картинки, а в ней искорка занимает верх, поэтому надпись «КЭБИ» вставала
+   на три пикселя ниже строки меню. Доля, а не пиксели: на узком экране
+   логотип меньше, и поправка уменьшается вместе с ним. */
+.top-in a img { transform: translateY(-10%) }
 .top-nav { display: flex; gap: 24px; font-size: 15px; font-weight: 500; color: var(--ink-2) }
 .top-nav a:hover { color: var(--ink) }
 .lang {
