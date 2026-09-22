@@ -133,8 +133,18 @@ a:hover { color: var(--accent-ink) }
   line-height: 1.25;
   color: var(--accent-ink);
 }
-/* Подпись со стрелкой: стрелка не мешает чтению с экрана — aria-hidden */
-.hand-row { display: inline-flex; align-items: flex-start; gap: 8px; transform: rotate(-1.6deg) }
+/* Подпись со стрелкой. Правило одно: текст стоит блоком в одну-две
+   короткие строки, стрелка выходит из него и упирается в тот объект, о
+   котором подпись. Поэтому стрелка всегда с той стороны текста, где объект,
+   и приподнята или опущена так, чтобы остриё доставало до него. */
+.hand-row { display: inline-flex; align-items: flex-start; gap: 6px; transform: rotate(-1.2deg) }
+.hand-row .hand { padding-top: 2px }
+/* стрелка тянется вверх, за строку текста, чтобы остриё доставало до
+   объекта над подписью; величина подобрана по месту */
+.hand-arrow--up { margin-top: -26px }
+.hand-arrow--up.hand-arrow--sm { margin-top: -30px }
+.hand-arrow--tall { width: 30px; height: 46px }
+.hand-arrow--up.hand-arrow--tall { margin-top: -40px }
 .hand-arrow {
   width: 52px; height: 42px; flex: none;
   fill: none; stroke: currentColor; stroke-width: 2.1;

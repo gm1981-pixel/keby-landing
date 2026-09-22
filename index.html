@@ -89,6 +89,8 @@
     <symbol id="h-arrow-dr" viewBox="0 0 56 44"><path d="M6 4.5c1.4 8.6 4.4 15.8 9 21.6 4.2 5.3 10 9.2 17.4 11.6"/><path d="M33.8 38.2l-9.2-1.4M33.8 38.2l-3.4-8.8"/></symbol>
     <symbol id="h-arrow-dl" viewBox="0 0 56 44"><path d="M50 4.5c-1.4 8.6-4.4 15.8-9 21.6-4.2 5.3-10 9.2-17.4 11.6"/><path d="M22.2 38.2l9.2-1.4M22.2 38.2l3.4-8.8"/></symbol>
     <symbol id="h-arrow-ur" viewBox="0 0 56 44"><path d="M5 39.5c9.8 1.4 18.8-1.8 26.4-8 6.2-5 10.6-11.6 13-19.6"/><path d="M44.4 11.4l-8.6 2.6M44.4 11.4l-1.6 8.8"/></symbol>
+    <symbol id="h-arrow-ul" viewBox="0 0 56 44"><path d="M51 39.5c-9.8 1.4-18.8-1.8-26.4-8-6.2-5-10.6-11.6-13-19.6"/><path d="M11.6 11.4l8.6 2.6M11.6 11.4l1.6 8.8"/></symbol>
+    <symbol id="h-arrow-u" viewBox="0 0 36 52"><path d="M22 50c-5.4-8.4-7.4-16.8-6-25.2.9-5.2 2.9-9.8 6-13.8"/><path d="M22 11l-6.6 4M22 11l4.6 6.4"/></symbol>
     <symbol id="h-arrow-r" viewBox="0 0 56 40"><path d="M4 28c7.4-7.4 15.2-10 23.6-8 6.4 1.6 12.2 5.2 18.4 3.4 3.4-1 6.2-3.2 8.4-6.4"/><path d="M54.4 17l-8.8.6M54.4 17l-1 8.8"/></symbol>
   </svg>
 
@@ -252,9 +254,9 @@
                     <button class="pill" sc-camel-on-click="{{ c.fill }}"><span data-l="ru">{{ c.ru }}</span><span data-l="en">{{ c.en }}</span></button>
                   </sc-for>
                 </div>
-                <div class="hand-row" style="margin:6px 0 0 10px">
-                  <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
-                  <span class="hand"><span data-l="ru">не знаете, с чего начать — нажмите пример</span><span data-l="en">not sure where to start — tap an example</span></span>
+                <div class="hand-row" style="margin:10px 0 0 108px">
+                  <svg class="hand-arrow hand-arrow--sm hand-arrow--up" aria-hidden="true" focusable="false"><use href="#h-arrow-ul"></use></svg>
+                  <span class="hand"><span data-l="ru">не знаете, с чего начать?<br>нажмите пример</span><span data-l="en">not sure where to start?<br>tap an example</span></span>
                 </div>
               </div>
             </sc-if>
@@ -351,9 +353,13 @@
             <span data-l="ru">Добавить модуль</span><span data-l="en">Add module</span>
           </button>
         </div>
-          <div class="hand-row" style="margin:12px 0 0 14px">
-            <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
-            <span class="hand"><span data-l="ru">попробуйте переключить — состав меняется</span><span data-l="en">try the switches — the setup changes</span></span>
+          <!-- подпись прижата вправо: стрелка должна подниматься прямо к
+               переключателям, а они стоят у правого края карточки -->
+          <div style="display:flex;justify-content:flex-end;margin-top:14px;padding-right:28px">
+            <div class="hand-row">
+              <span class="hand" style="text-align:right"><span data-l="ru">попробуйте переключить —<br>состав меняется</span><span data-l="en">try the switches —<br>the setup changes</span></span>
+              <svg class="hand-arrow hand-arrow--sm hand-arrow--up" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
+            </div>
           </div>
         </div>
       </div>
@@ -380,8 +386,8 @@
       <!-- Повторная кнопка в середине страницы: до нижней формы ещё далеко -->
       <div class="row" style="justify-content:center;margin-top:40px;gap:14px;flex-wrap:wrap">
         <div class="hand-row" style="align-items:center">
-          <span class="hand"><span data-l="ru">всего пара минут — и можно работать</span><span data-l="en">a couple of minutes — and you are working</span></span>
-          <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-r"></use></svg>
+          <span class="hand" style="text-align:right"><span data-l="ru">всего пара минут —<br>и можно работать</span><span data-l="en">a couple of minutes —<br>and you are working</span></span>
+          <svg class="hand-arrow" aria-hidden="true" focusable="false"><use href="#h-arrow-r"></use></svg>
         </div>
         <a href="#cta" class="btn btn--primary btn--lg"><span data-l="ru">Собрать мою CRM</span><span data-l="en">Build my CRM</span></a>
       </div>
@@ -459,10 +465,10 @@
           <button class="{{ sh.cls }}" sc-camel-on-click="{{ sh.pick }}"><span data-l="ru">{{ sh.ru }}</span><span data-l="en">{{ sh.en }}</span></button>
         </sc-for>
       </div>
-      <div class="row" style="justify-content:center;margin:2px 0 18px">
+      <div class="row" style="justify-content:center;margin:4px 0 20px">
         <div class="hand-row">
-          <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
-          <span class="hand"><span data-l="ru">это разные экраны одного аккаунта — переключайте</span><span data-l="en">these are screens of one account — switch between them</span></span>
+          <svg class="hand-arrow hand-arrow--tall hand-arrow--up" aria-hidden="true" focusable="false"><use href="#h-arrow-u"></use></svg>
+          <span class="hand"><span data-l="ru">это разные экраны<br>одного аккаунта</span><span data-l="en">these are screens<br>of one account</span></span>
         </div>
       </div>
 
@@ -540,9 +546,9 @@
         </sc-for>
       </div>
 
-      <div class="hand-row" style="margin:20px 0 0 18px">
-        <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
-        <span class="hand"><span data-l="ru">начните с любого — первые 14 дней бесплатны на всех</span><span data-l="en">start with any — the first 14 days are free on all of them</span></span>
+      <div class="hand-row" style="margin:22px 0 0 26px">
+        <svg class="hand-arrow hand-arrow--tall hand-arrow--up" aria-hidden="true" focusable="false"><use href="#h-arrow-u"></use></svg>
+        <span class="hand"><span data-l="ru">начните с любого:<br>первые 14 дней бесплатны на всех</span><span data-l="en">start with any:<br>the first 14 days are free on all of them</span></span>
       </div>
 
       <!-- Существенные условия: ЗоЗПП ст. 8, 10, 32 -->
@@ -1094,7 +1100,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.10';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.11';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
