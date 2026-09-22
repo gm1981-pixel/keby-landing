@@ -47,215 +47,256 @@
 
 <div data-lang="{{ lang }}" style="max-width:100%;overflow-x:hidden">
 
-  <!-- ===== HEADER ===== -->
-  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);border-bottom:1px solid var(--line)">
-    <div style="max-width:1200px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;gap:28px">
-      <a href="#" aria-label="Кэби" style="display:flex;align-items:center;flex:none">
-        <img src="assets/img/logo.png" alt="Кэби" width="142" height="38" style="display:block;height:30px;width:auto">
+  <!-- ===== ИКОНКИ ===== -->
+  <!-- Один спрайт на всю страницу: контурные иконки, наследуют цвет текста -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 8l7.1 4.7a2 2 0 002.2 0L20 8"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1.2-3.3 3.8-5 7-5s5.8 1.7 7 5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M7.5 3.8h2.2l1.4 3.5-1.8 1.3a11 11 0 004.8 4.8l1.3-1.8 3.5 1.4v2.2c0 1.2-1 2.2-2.2 2.1A15.4 15.4 0 015.4 6c-.1-1.2.9-2.2 2.1-2.2z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12.5a7.5 7.5 0 01-10.9 6.7L4.5 20.5l1.3-4.6A7.5 7.5 0 1120 12.5z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="10" rx="3"/><path d="M5.5 11a6.5 6.5 0 0013 0M12 17.5V21"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5L13 17.5"/></symbol>
+    <symbol id="i-sales" viewBox="0 0 24 24"><path d="M4 13.5l7.1-7.1a2 2 0 011.4-.6H19a1 1 0 011 1v6.5a2 2 0 01-.6 1.4l-7.1 7.1a1.5 1.5 0 01-2.1 0l-6.1-6.1a1.5 1.5 0 010-2.2z"/><circle cx="16" cy="8" r="1.3"/></symbol>
+    <symbol id="i-clients" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c1-2.9 3.1-4.4 5.5-4.4s4.5 1.5 5.5 4.4"/><path d="M16 5.6a3.2 3.2 0 010 6M17.5 14.9c1.6.6 2.7 2 3.3 4.1"/></symbol>
+    <symbol id="i-analytics" viewBox="0 0 24 24"><path d="M4 20V4"/><path d="M4 20h16"/><rect x="7.5" y="12" width="3.2" height="5"/><rect x="13.3" y="8" width="3.2" height="9"/></symbol>
+    <symbol id="i-automation" viewBox="0 0 24 24"><path d="M13.5 3L5.5 13.5h5L10 21l8-10.5h-5L13.5 3z"/></symbol>
+    <symbol id="i-blocks" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 13.5v7M13.5 17h7"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 118 0v2.5"/><circle cx="12" cy="15.5" r="1.2"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5"/><path d="M6.5 8h11v3.5a5.5 5.5 0 01-11 0V8z"/><path d="M12 17v4"/></symbol>
+    <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3.5h8L19 8v12a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 015 20V5a1.5 1.5 0 011-1.5z"/><path d="M13.5 3.5V8H19"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></symbol>
+    <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.8 18.5h2.4"/></symbol>
+    <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M8.3 15.7L18 4M15.7 15.7L6 4"/></symbol>
+    <symbol id="i-tooth" viewBox="0 0 24 24"><path d="M12 4.5c2-1.2 5-1.3 6.2.6 1.3 2 .5 5-.5 8-.6 1.8-.7 4.4-1.9 4.9-1.5.6-1.6-2.6-2.4-4.2-.3-.6-.6-.9-1.4-.9s-1.1.3-1.4.9c-.8 1.6-.9 4.8-2.4 4.2-1.2-.5-1.3-3.1-1.9-4.9-1-3-1.8-6 .5-8 1.2-1.9 3.2-1.8 5.2-.6z"/></symbol>
+    <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3.5 11h17a8.5 8.5 0 01-17 0z"/><path d="M8 7.5c0-1 .8-1.3.8-2.2M12 7c0-1.2 1-1.5 1-2.5M16 7.5c0-1 .8-1.3.8-2.2"/><path d="M2.5 20.5h19"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16.5v2.2M20 16.5v2.2"/><path d="M3 16.5v-3.2l2-4.6A2 2 0 016.8 7.5h10.4a2 2 0 011.8 1.2l2 4.6v3.2z"/><path d="M3 13.3h18"/><circle cx="7.5" cy="16.4" r="1"/><circle cx="16.5" cy="16.4" r="1"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 7.8l8.5-4.3 8.5 4.3v8.4L12 20.5l-8.5-4.3z"/><path d="M3.5 7.8L12 12l8.5-4.2M12 12v8.5"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9.5 6.5c-3 1.3-4.5 3.6-4.5 6.8V18h5.5v-5.5H7.3c0-1.9.8-3.3 2.2-4.2zM20 6.5c-3 1.3-4.5 3.6-4.5 6.8V18H21v-5.5h-3.2c0-1.9.8-3.3 2.2-4.2z"/></symbol>
+  </svg>
+
+  <!-- ===== ШАПКА ===== -->
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="#" aria-label="Кэби" style="flex:none;display:flex">
+        <img src="assets/img/logo.png" alt="Кэби" width="142" height="38" style="display:block;height:28px;width:auto">
       </a>
-      <nav class="top-nav" style="display:flex;gap:26px;margin-left:12px;font-size:15px;font-weight:700;color:var(--ink-2)">
-        <a href="#how" style="color:inherit"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
-        <a href="#examples" style="color:inherit"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
-        <a href="#interface" style="color:inherit"><span data-l="ru">Интерфейс</span><span data-l="en">Interface</span></a>
-        <a href="#features" style="color:inherit"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
-        <a href="#pricing" style="color:inherit"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
+      <nav class="top-nav">
+        <a href="#how"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
+        <a href="#examples"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
+        <a href="#interface"><span data-l="ru">Интерфейс</span><span data-l="en">Interface</span></a>
+        <a href="#features"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
+        <a href="#pricing"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
       </nav>
-      <div style="margin-left:auto;display:flex;align-items:center;gap:14px">
-        <div style="display:flex;flex:none;width:fit-content;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:800">
-          <button sc-camel-on-click="{{ setRu }}" style="{{ ruBtnStyle }}">RU</button>
-          <button sc-camel-on-click="{{ setEn }}" style="{{ enBtnStyle }}">EN</button>
+      <div class="row" style="margin-left:auto;gap:12px">
+        <div class="lang">
+          <button sc-camel-on-click="{{ setRu }}" class="{{ ruBtnCls }}">RU</button>
+          <button sc-camel-on-click="{{ setEn }}" class="{{ enBtnCls }}">EN</button>
         </div>
-        <a href="#cta" style="background:var(--ink);color:#fff;padding:10px 18px;border-radius:11px;font-size:15px;font-weight:800"><span data-l="ru">Создать аккаунт</span><span data-l="en">Sign up</span></a>
+        <a href="#cta" class="btn btn--primary btn--sm"><span data-l="ru">Создать аккаунт</span><span data-l="en">Sign up</span></a>
       </div>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section style="max-width:1200px;margin:0 auto;padding:36px 28px 20px;position:relative;overflow:hidden">
-    <div class="split-grid" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:22px;align-items:center">
-      <!-- LEFT: copy + input -->
-      <div style="position:relative;z-index:2">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:800;color:var(--accent-ink)">
-          <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block"></span>
-          <span data-l="ru">ИИ-конфигуратор CRM · без программистов</span><span data-l="en">AI CRM configurator · no developers</span>
-        </div>
-        <h1 style="font-size:clamp(32px,4vw,50px);line-height:1.04;letter-spacing:-0.035em;font-weight:900;margin:16px 0 0">
-          <span data-l="ru">Опишите CRM — <span style="color:var(--accent-ink)">получите готовую</span> систему</span>
-          <span data-l="en">Describe your CRM — <span style="color:var(--accent-ink)">get a ready</span> system</span>
-        </h1>
-        <p style="font-size:clamp(15px,1.4vw,17.5px);line-height:1.5;color:var(--ink-2);max-width:46ch;margin:14px 0 0;text-wrap:pretty">
-          <span data-l="ru">Напишите или наговорите голосом, что нужно бизнесу — Кэби соберёт настроенный аккаунт CRM — системы управления отношениями с клиентами — за пару минут.</span>
-          <span data-l="en">Type or dictate what your business needs — Кэби assembles a configured account in minutes.</span>
-        </p>
-        <!-- INPUT CARD -->
-        <div class="hero-card" style="position:relative;z-index:3;width:100%;margin-top:20px;margin-right:-170px">
-          <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px">
+  <!-- ===== ПЕРВЫЙ ЭКРАН ===== -->
+  <section class="sec" style="padding-top:56px;padding-bottom:64px">
+    <div class="wrap">
+      <div class="split-grid" style="display:grid;grid-template-columns:1.08fr 0.92fr;gap:28px;align-items:center">
 
-            <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
-              <div>
-                <div style="position:relative">
-                  <textarea value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" maxlength="{{ briefMax }}" rows="4" style="width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:16.5px;line-height:1.5;color:var(--ink);padding:15px 15px 6px;background:transparent"></textarea>
-                  <sc-if value="{{ listening }}" hint-placeholder-val="{{ false }}">
-                    <div style="position:absolute;right:15px;top:15px;display:flex;align-items:flex-end;gap:3px;height:22px">
-                      <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0s"></span>
-                      <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.15s"></span>
-                      <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.3s"></span>
-                      <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.45s"></span>
-                    </div>
-                  </sc-if>
-                </div>
-
-                <div style="display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:11px 15px 11px">
-                  <span style="font-size:15px;flex:none">✉️</span>
-                  <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:var(--ink);background:transparent">
-                </div>
-
-                <div class="field-row" style="border-top:1px solid var(--line)">
-                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
-                    <span style="font-size:15px;flex:none">🙂</span>
-                    <input value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:var(--ink);background:transparent">
-                  </div>
-                  <div class="field-sep" style="background:var(--line)"></div>
-                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
-                    <span style="font-size:15px;flex:none">📞</span>
-                    <input value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:var(--ink);background:transparent">
-                    <sc-if value="{{ smsCanVerify }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ sendCode }}" style="{{ verifyBtn }}"><span data-l="ru">{{ verifyRu }}</span><span data-l="en">{{ verifyEn }}</span></button></sc-if>
-                    <sc-if value="{{ smsVerified }}" hint-placeholder-val="{{ false }}"><span style="{{ okBadge }}">✓ <span data-l="ru">подтверждён</span><span data-l="en">verified</span></span></sc-if>
-                  </div>
-                </div>
-
-                <sc-if value="{{ smsAwaitCode }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:11px 15px;flex-wrap:wrap">
-                    <span style="font-size:15px;flex:none">💬</span>
-                    <input value="{{ smsCode }}" sc-camel-on-input="{{ onSmsCode }}" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="{{ codePh }}" style="flex:1;min-width:120px;border:none;outline:none;font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:0.18em;color:var(--ink);background:transparent">
-                    <button sc-camel-on-click="{{ resendCode }}" style="{{ resendBtn }}"><span data-l="ru">{{ resendRu }}</span><span data-l="en">{{ resendEn }}</span></button>
-                  </div>
-                </sc-if>
-
-                <div style="border-top:1px solid var(--line);padding:10px 15px;display:flex;flex-direction:column;gap:8px">
-                  <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
-                    <input type="checkbox" checked="{{ agreeOffer }}" sc-camel-on-change="{{ toggleOffer }}" class="{{ agreeCls }}">
-                    <span style="{{ agreeTextStyle }}">
-                      <span data-l="ru">Принимаю условия <a href="docs/offer.pdf" target="_blank" rel="noopener">договора-оферты</a></span>
-                      <span data-l="en">I accept the <a href="docs/offer.pdf" target="_blank" rel="noopener">terms of the offer</a></span>
-                    </span>
-                  </label>
-                  <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
-                    <input type="checkbox" checked="{{ agreePdn }}" sc-camel-on-change="{{ togglePdn }}" class="{{ agreeCls }}">
-                    <span style="{{ agreeTextStyle }}">
-                      <span data-l="ru">Даю <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен с <a href="docs/privacy.pdf" target="_blank" rel="noopener">политикой обработки</a></span>
-                      <span data-l="en">I give <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">consent to the processing of personal data</a> and have read the <a href="docs/privacy.pdf" target="_blank" rel="noopener">privacy policy</a></span>
-                    </span>
-                  </label>
-                  <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
-                    <input type="checkbox" checked="{{ agreeAds }}" sc-camel-on-change="{{ toggleAds }}" class="{{ adsCls }}">
-                    <span style="{{ adsTextStyle }}">
-                      <span data-l="ru">Согласен получать рекламные и информационные сообщения по электронной почте, телефону, в SMS-сообщениях и мессенджерах — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">условия</a>. Необязательно</span>
-                      <span data-l="en">I agree to receive marketing messages by email, phone, SMS and messengers — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">terms</a>. Optional</span>
-                    </span>
-                  </label>
-                </div>
-
-                <div style="display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:10px 8px 4px;flex-wrap:wrap">
-                  <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
-                    <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyle }}">
-                      <span style="font-size:16px">🎙</span>
-                      <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
-                    </button>
-                  </sc-if>
-                  <span style="font-size:13px;color:var(--ink-3);font-family:'JetBrains Mono',monospace;{{ countStyle }}">{{ charCount }}</span>
-                  <button sc-camel-on-click="{{ submit }}" disabled="{{ submitOff }}" style="{{ submitBtn }}">
-                    <span data-l="ru">{{ submitRu }}</span><span data-l="en">{{ submitEn }}</span>
-                  </button>
-                </div>
-
-                <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
-                  <div style="{{ hintStyle }}"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
-                </sc-if>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:22px 20px">
-                <div style="display:flex;align-items:center;gap:12px">
-                  <span style="width:34px;height:34px;flex:none;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:18px;font-weight:900">✓</span>
-                  <div style="font-size:19px;font-weight:900"><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></div>
-                </div>
-                <p style="font-size:15px;line-height:1.55;color:var(--ink-2);margin:14px 0 0">
-                  <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Сейчас откроем его, логин и пароль отправили на {{ sentEmail }}.</span>
-                  <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. We are opening it now; the login and password went to {{ sentEmail }}.</span>
-                </p>
-                <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
-                  <button sc-camel-on-click="{{ openAccount }}" style="background:var(--ink);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer">
-                    <span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span>
-                  </button>
-                  <button sc-camel-on-click="{{ reset }}" style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:800;color:var(--ink-2);cursor:pointer">
-                    <span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span>
-                  </button>
-                </div>
-              </div>
-            </sc-if>
-
+        <div style="position:relative;z-index:2">
+          <div class="row" style="display:inline-flex;gap:8px;background:var(--accent-soft);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;color:var(--accent-ink)">
+            <svg class="ico-sm"><use href="#i-spark"></use></svg>
+            <span data-l="ru">ИИ-конфигуратор CRM · без программистов</span><span data-l="en">AI CRM configurator · no developers</span>
           </div>
 
-          <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:14px;padding-left:2px">
-              <span style="font-size:13px;color:var(--ink-3);font-weight:700"><span data-l="ru">Примеры:</span><span data-l="en">Try:</span></span>
-              <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
-                <button sc-camel-on-click="{{ c.fill }}" style="background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--ink-2);cursor:pointer" style-hover="border-color:var(--accent-ink);color:var(--accent-ink)">
-                  <span data-l="ru">{{ c.ru }}</span><span data-l="en">{{ c.en }}</span>
-                </button>
-              </sc-for>
+          <h1 style="margin:18px 0 0">
+            <span data-l="ru">Опишите CRM — <span class="accent">получите готовую</span> систему</span>
+            <span data-l="en">Describe your CRM — <span class="accent">get a ready</span> system</span>
+          </h1>
+
+          <p class="lead" style="max-width:46ch;margin-top:16px">
+            <span data-l="ru">Напишите или наговорите голосом, что нужно бизнесу — Кэби соберёт настроенный аккаунт CRM — системы управления отношениями с клиентами — за пару минут.</span>
+            <span data-l="en">Type or dictate what your business needs — Кэби assembles a configured CRM account in minutes.</span>
+          </p>
+
+          <!-- Форма -->
+          <div class="hero-card" style="position:relative;z-index:3;margin-top:24px;margin-right:-150px">
+            <div class="form-card">
+
+              <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div style="position:relative;padding:16px 18px 6px">
+                    <textarea class="form-field" value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" maxlength="{{ briefMax }}" rows="4" style="width:100%"></textarea>
+                    <sc-if value="{{ listening }}" hint-placeholder-val="{{ false }}">
+                      <div style="position:absolute;right:18px;top:18px;display:flex;align-items:flex-end;gap:3px;height:20px">
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0s"></span>
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.15s"></span>
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.3s"></span>
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.45s"></span>
+                      </div>
+                    </sc-if>
+                  </div>
+
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-mail"></use></svg>
+                    <input class="form-field" value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}">
+                  </div>
+
+                  <div class="form-split">
+                    <div class="form-row">
+                      <svg class="ico"><use href="#i-user"></use></svg>
+                      <input class="form-field" value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}">
+                    </div>
+                    <div class="form-sep"></div>
+                    <div class="form-row">
+                      <svg class="ico"><use href="#i-phone"></use></svg>
+                      <input class="form-field" value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}">
+                      <sc-if value="{{ smsCanVerify }}" hint-placeholder-val="{{ false }}"><button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ sendCode }}"><span data-l="ru">{{ verifyRu }}</span><span data-l="en">{{ verifyEn }}</span></button></sc-if>
+                      <sc-if value="{{ smsVerified }}" hint-placeholder-val="{{ false }}"><span class="ok-badge"><svg class="ico-sm"><use href="#i-check"></use></svg><span data-l="ru">подтверждён</span><span data-l="en">verified</span></span></sc-if>
+                    </div>
+                  </div>
+
+                  <sc-if value="{{ smsAwaitCode }}" hint-placeholder-val="{{ false }}">
+                    <div class="form-row">
+                      <svg class="ico"><use href="#i-chat"></use></svg>
+                      <input class="form-field code-input" value="{{ smsCode }}" sc-camel-on-input="{{ onSmsCode }}" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="{{ codePh }}">
+                      <button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ resendCode }}"><span data-l="ru">{{ resendRu }}</span><span data-l="en">{{ resendEn }}</span></button>
+                    </div>
+                  </sc-if>
+
+                  <div class="{{ consentsCls }}">
+                    <label class="consent">
+                      <input type="checkbox" checked="{{ agreeOffer }}" sc-camel-on-change="{{ toggleOffer }}" class="{{ agreeCls }}">
+                      <span>
+                        <span data-l="ru">Принимаю условия <a href="docs/offer.pdf" target="_blank" rel="noopener">договора-оферты</a></span>
+                        <span data-l="en">I accept the <a href="docs/offer.pdf" target="_blank" rel="noopener">terms of the offer</a></span>
+                      </span>
+                    </label>
+                    <label class="consent">
+                      <input type="checkbox" checked="{{ agreePdn }}" sc-camel-on-change="{{ togglePdn }}" class="{{ agreeCls }}">
+                      <span>
+                        <span data-l="ru">Даю <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен с <a href="docs/privacy.pdf" target="_blank" rel="noopener">политикой обработки</a></span>
+                        <span data-l="en">I give <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">consent to the processing of personal data</a> and have read the <a href="docs/privacy.pdf" target="_blank" rel="noopener">privacy policy</a></span>
+                      </span>
+                    </label>
+                    <label class="consent">
+                      <input type="checkbox" checked="{{ agreeAds }}" sc-camel-on-change="{{ toggleAds }}" class="agree-box">
+                      <span>
+                        <span data-l="ru">Согласен получать рекламные и информационные сообщения по электронной почте, телефону, в SMS-сообщениях и мессенджерах — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">условия</a>. Необязательно</span>
+                        <span data-l="en">I agree to receive marketing messages by email, phone, SMS and messengers — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">terms</a>. Optional</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div class="form-foot">
+                    <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
+                      <button class="{{ micCls }}" sc-camel-on-click="{{ toggleVoice }}" title="voice">
+                        <svg class="ico-sm"><use href="#i-mic"></use></svg>
+                        <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
+                      </button>
+                    </sc-if>
+                    <span class="mono tiny {{ countCls }}">{{ charCount }}</span>
+                    <button class="btn btn--primary" sc-camel-on-click="{{ submit }}" disabled="{{ submitOff }}" style="margin-left:auto">
+                      <span data-l="ru">{{ submitRu }}</span><span data-l="en">{{ submitEn }}</span>
+                      <svg class="ico-sm"><use href="#i-arrow"></use></svg>
+                    </button>
+                  </div>
+
+                  <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                    <div class="hint"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:26px">
+                  <div class="row">
+                    <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                    <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
+                  </div>
+                  <p class="small" style="margin-top:14px">
+                    <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Сейчас откроем его, логин и пароль отправили на {{ sentEmail }}.</span>
+                    <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. We are opening it now; the login and password went to {{ sentEmail }}.</span>
+                  </p>
+                  <div class="row" style="margin-top:18px;flex-wrap:wrap">
+                    <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
+                    <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span></button>
+                  </div>
+                </div>
+              </sc-if>
+
             </div>
-          </sc-if>
+
+            <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+              <div class="row" style="flex-wrap:wrap;gap:8px;margin-top:14px">
+                <span class="tiny" style="font-weight:600"><span data-l="ru">Примеры:</span><span data-l="en">Try:</span></span>
+                <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+                  <button class="pill" sc-camel-on-click="{{ c.fill }}"><span data-l="ru">{{ c.ru }}</span><span data-l="en">{{ c.en }}</span></button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div class="hero-art" style="position:relative;align-self:stretch;min-height:400px;display:flex;align-items:center;justify-content:flex-end">
+          <img src="assets/img/hero.png" alt="Кэби" style="width:min(680px,145%);display:block;margin-right:-12%">
         </div>
       </div>
 
-      <!-- RIGHT: mascot -->
-      <div class="hero-art" style="position:relative;align-self:stretch;min-height:420px;display:flex;align-items:center;justify-content:flex-end">
-        <img src="assets/img/hero.png" alt="Кэби" style="width:min(720px,150%);display:block;margin-right:-14%;filter:drop-shadow(0 26px 30px rgba(60,40,160,0.22))">
+      <div class="row" style="justify-content:center;gap:22px;margin-top:26px;flex-wrap:wrap">
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">14 дней бесплатно</span><span data-l="en">14 days free</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">карта не нужна</span><span data-l="en">no card required</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">серверы в России</span><span data-l="en">servers in Russia</span></span>
       </div>
     </div>
-
-    <div style="margin-top:22px;text-align:center;font-size:13.5px;color:var(--ink-3);font-weight:700"><span data-l="ru">14 дней бесплатно · карта не нужна</span><span data-l="en">14-day free trial · no card required</span></div>
   </section>
 
-  <!-- ===== MODULES / MASCOT VALUE ===== -->
-  <section style="max-width:1200px;margin:0 auto;padding:40px 28px 20px">
-    <div class="split-grid" style="display:grid;grid-template-columns:1fr 0.92fr;gap:44px;align-items:center">
-      <div>
-        <div style="display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 16px">
-          <span style="font-size:22px">👋</span>
-          <span style="font-size:15px;font-weight:800;line-height:1.35"><span data-l="ru">Привет! Я <span style="color:var(--accent-ink)">Кэби</span>. Помогаю подобрать и настроить CRM под ваш бизнес</span><span data-l="en">Hi! I'm <span style="color:var(--accent-ink)">Кэби</span>. I help pick and configure a CRM for your business</span></span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:14px;margin-top:26px">
-          <sc-for list="{{ mascotPoints }}" as="m" hint-placeholder-count="3">
-            <div style="display:flex;gap:14px;align-items:flex-start">
-              <span style="flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:21px;{{ m.bg }}">{{ m.icon }}</span>
-              <div style="padding-top:2px">
-                <div style="font-size:17px;font-weight:900"><span data-l="ru">{{ m.tRu }}</span><span data-l="en">{{ m.tEn }}</span></div>
-                <div style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">{{ m.dRu }}</span><span data-l="en">{{ m.dEn }}</span></div>
-              </div>
-            </div>
-          </sc-for>
-        </div>
-      </div>
+  <!-- ===== ЧТО ДЕЛАЕТ КЭБИ + КОНСТРУКТОР МОДУЛЕЙ ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="split-grid" style="display:grid;grid-template-columns:1fr 0.9fr;gap:48px;align-items:center">
+        <div>
+          <span class="kicker"><span data-l="ru">Знакомство</span><span data-l="en">Meet Кэби</span></span>
+          <h2>
+            <span data-l="ru">Подбираю модули <span class="accent">под вашу задачу</span></span>
+            <span data-l="en">I pick the modules <span class="accent">for your job</span></span>
+          </h2>
+          <p class="lead" style="margin-top:14px;max-width:44ch">
+            <span data-l="ru">Расскажите, чем занимается бизнес. Остальное — моя работа: собрать состав системы, настроить и не мешать вам работать.</span>
+            <span data-l="en">Tell me what your business does. The rest is my job: assemble the system, configure it and stay out of your way.</span>
+          </p>
 
-      <!-- module toggle card -->
-      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:none">
-        <div style="display:flex;align-items:center;gap:8px;font-size:16px;font-weight:900;padding:4px 6px 14px">
-          <span style="color:var(--accent-ink)">+</span><span data-l="ru">Ваша CRM</span><span data-l="en">Your CRM</span>
+          <div class="stack" style="gap:18px;margin-top:30px">
+            <sc-for list="{{ mascotPoints }}" as="m" hint-placeholder-count="3">
+              <div class="row" style="align-items:flex-start;gap:14px">
+                <span class="{{ m.iconCls }}"><svg class="ico"><use href="{{ m.icon }}"></use></svg></span>
+                <div>
+                  <div style="font-weight:600;font-size:16px"><span data-l="ru">{{ m.tRu }}</span><span data-l="en">{{ m.tEn }}</span></div>
+                  <div class="small"><span data-l="ru">{{ m.dRu }}</span><span data-l="en">{{ m.dEn }}</span></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px">
+
+        <!-- Карточка сборки -->
+        <div class="card-line" style="padding:8px">
+          <div class="row" style="padding:14px 16px 13px;border-bottom:1px solid var(--line)">
+            <svg class="ico-sm" style="color:var(--accent)"><use href="#i-spark"></use></svg>
+            <span style="font-weight:600"><span data-l="ru">Ваша CRM</span><span data-l="en">Your CRM</span></span>
+            <span class="tiny mono" style="margin-left:auto">{{ modulesOn }}</span>
+          </div>
           <sc-for list="{{ modules }}" as="md" hint-placeholder-count="4">
-            <div style="display:flex;align-items:center;gap:12px;background:#faf9ff;border:1px solid var(--line);border-radius:14px;padding:13px 15px">
-              <span style="flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;{{ md.bg }}">{{ md.icon }}</span>
-              <span style="font-size:15.5px;font-weight:800;flex:1"><span data-l="ru">{{ md.ru }}</span><span data-l="en">{{ md.en }}</span></span>
-              <button sc-camel-on-click="{{ md.toggle }}" title="toggle" style="{{ md.track }}"><span style="{{ md.knob }}"></span></button>
+            <div class="row" style="padding:13px 16px;border-bottom:1px solid var(--line)">
+              <span class="{{ md.iconCls }}"><svg class="ico-sm"><use href="{{ md.icon }}"></use></svg></span>
+              <span style="flex:1;font-size:15px;font-weight:500"><span data-l="ru">{{ md.ru }}</span><span data-l="en">{{ md.en }}</span></span>
+              <button class="{{ md.cls }}" sc-camel-on-click="{{ md.toggle }}" title="toggle"><i></i></button>
             </div>
           </sc-for>
-          <button sc-camel-on-click="{{ addModule }}" style="display:flex;align-items:center;gap:10px;background:transparent;border:1.5px dashed var(--line);border-radius:14px;padding:13px 15px;font-family:inherit;font-size:15px;font-weight:800;color:var(--ink-3);cursor:pointer">
-            <span style="flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px;background:#f2f0fb;color:var(--ink-3)">+</span>
+          <button class="btn-link row" sc-camel-on-click="{{ addModule }}" style="width:100%;padding:14px 16px;color:var(--ink-3);font-size:15px">
+            <span class="ico-box ico-box--sm" style="border-style:dashed"><svg class="ico-sm"><use href="#i-plus"></use></svg></span>
             <span data-l="ru">Добавить модуль</span><span data-l="en">Add module</span>
           </button>
         </div>
@@ -263,36 +304,92 @@
     </div>
   </section>
 
-  <!-- ===== HOW IT WORKS ===== -->
-  <section id="how" style="max-width:1200px;margin:0 auto;padding:70px 28px">
-    <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0"><span data-l="ru">Три шага до готовой системы</span><span data-l="en">Three steps to a working system</span></h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:44px">
-      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
-        <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px">
-          <div style="width:46px;height:46px;border-radius:13px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-size:19px;font-weight:900;font-family:'JetBrains Mono',monospace">{{ s.n }}</div>
-          <h3 style="font-size:20px;font-weight:900;letter-spacing:-0.01em;margin:18px 0 8px"><span data-l="ru">{{ s.tRu }}</span><span data-l="en">{{ s.tEn }}</span></h3>
-          <p style="font-size:15.5px;line-height:1.5;color:var(--ink-2);margin:0"><span data-l="ru">{{ s.dRu }}</span><span data-l="en">{{ s.dEn }}</span></p>
-        </div>
-      </sc-for>
+  <!-- ===== КАК ЭТО РАБОТАЕТ ===== -->
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></span>
+        <h2><span data-l="ru">Три шага до готовой системы</span><span data-l="en">Three steps to a working system</span></h2>
+      </div>
+      <div class="grid grid-3">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <div class="card">
+            <span class="mono" style="font-size:13px;font-weight:700;color:var(--accent-ink)">{{ s.n }}</span>
+            <h3 style="margin:14px 0 8px"><span data-l="ru">{{ s.tRu }}</span><span data-l="en">{{ s.tEn }}</span></h3>
+            <p class="small"><span data-l="ru">{{ s.dRu }}</span><span data-l="en">{{ s.dEn }}</span></p>
+          </div>
+        </sc-for>
+      </div>
     </div>
   </section>
 
-  <!-- ===== EXAMPLES ===== -->
-  <section id="examples" style="background:var(--ink);color:var(--bg)">
-    <div style="max-width:1200px;margin:0 auto;padding:76px 28px">
-      <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;margin:0"><span data-l="ru">Примеры готовых CRM</span><span data-l="en">Ready-made CRM examples</span></h2>
-      <p style="font-size:16px;color:#a8a4c4;margin:12px 0 0;max-width:52ch"><span data-l="ru">Каждая собрана из одного описания. Возьмите как есть или доработайте под себя.</span><span data-l="en">Each built from a single prompt. Take as-is or tailor it.</span></p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:40px">
+  <!-- ===== ПРИМЕРЫ ===== -->
+  <section class="sec" id="examples">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></span>
+        <h2><span data-l="ru">Собранные CRM <span class="accent">для разных дел</span></span><span data-l="en">CRMs assembled <span class="accent">for different trades</span></span></h2>
+        <p class="lead"><span data-l="ru">Каждая собрана из одного описания. Возьмите как есть или доработайте под себя.</span><span data-l="en">Each built from a single prompt. Take as-is or tailor it.</span></p>
+      </div>
+      <div class="grid grid-3">
         <sc-for list="{{ examples }}" as="e" hint-placeholder-count="6">
-          <div style="background:#262138;border:1px solid #342d4d;border-radius:14px;overflow:hidden">
-            <div style="height:130px;background:repeating-linear-gradient(135deg,#33323d 0 14px,#2a2933 14px 28px);display:grid;place-items:center;position:relative">
-              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6f6a8c">screenshot</span>
-              <span style="position:absolute;top:12px;left:12px;font-size:26px">{{ e.icon }}</span>
-            </div>
-            <div style="padding:18px">
-              <h3 style="font-size:18px;font-weight:900;margin:0 0 6px"><span data-l="ru">{{ e.ru }}</span><span data-l="en">{{ e.en }}</span></h3>
-              <p style="font-size:14px;line-height:1.45;color:#a8a4c4;margin:0 0 12px"><span data-l="ru">{{ e.dRu }}</span><span data-l="en">{{ e.dEn }}</span></p>
-              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:oklch(0.75 0.18 55)">{{ e.tables }}</span>
+          <div class="card">
+            <span class="ico-box ico-box--warm"><svg class="ico"><use href="{{ e.icon }}"></use></svg></span>
+            <h3 style="margin:16px 0 6px"><span data-l="ru">{{ e.ru }}</span><span data-l="en">{{ e.en }}</span></h3>
+            <p class="small" style="margin-bottom:14px"><span data-l="ru">{{ e.dRu }}</span><span data-l="en">{{ e.dEn }}</span></p>
+            <span class="mono" style="font-size:12.5px;color:var(--mint-ink)">{{ e.tables }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ИНТЕРФЕЙС ===== -->
+  <section class="sec" id="interface">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Интерфейс</span><span data-l="en">Interface</span></span>
+        <h2><span data-l="ru">Настоящий аккаунт, <span class="accent">не макет</span></span><span data-l="en">A real account, <span class="accent">not a mockup</span></span></h2>
+        <p class="lead"><span data-l="ru">Так выглядит ваш аккаунт сразу после сборки — отчёты, счета и заявки уже настроены.</span><span data-l="en">This is your account right after assembly — reports, invoices and leads already set up.</span></p>
+      </div>
+
+      <div class="row" style="justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:22px">
+        <sc-for list="{{ shots }}" as="sh" hint-placeholder-count="4">
+          <button class="{{ sh.cls }}" sc-camel-on-click="{{ sh.pick }}"><span data-l="ru">{{ sh.ru }}</span><span data-l="en">{{ sh.en }}</span></button>
+        </sc-for>
+      </div>
+
+      <div class="browser">
+        <div class="browser-bar">
+          <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          <span class="browser-url mono"><span style="width:7px;height:7px;border-radius:50%;background:var(--mint);flex:none"></span>{{ shotUrl }}</span>
+        </div>
+        <div style="background:#eef1f4">
+          <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}"><img src="assets/img/screen-dashboard.png" alt="Сводный отчёт Кэби" style="width:100%;display:block"></sc-if>
+          <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-invoices.png" alt="Счета Кэби" style="width:100%;display:block"></sc-if>
+          <sc-if value="{{ isLeads }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-leads.png" alt="Заявки Кэби" style="width:100%;display:block"></sc-if>
+          <sc-if value="{{ isInvoice }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-invoice.png" alt="Счёт Кэби" style="width:100%;display:block"></sc-if>
+        </div>
+      </div>
+      <p class="tiny" style="text-align:center;margin-top:14px"><span data-l="ru">{{ shotCapRu }}</span><span data-l="en">{{ shotCapEn }}</span></p>
+    </div>
+  </section>
+
+  <!-- ===== ВОЗМОЖНОСТИ ===== -->
+  <section class="sec" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Возможности</span><span data-l="en">Features</span></span>
+        <h2><span data-l="ru">Гибкий движок, <span class="accent">а не шаблон</span></span><span data-l="en">A flexible engine, <span class="accent">not a template</span></span></h2>
+        <p class="lead"><span data-l="ru">Кэби настраивается без программирования: меняйте таблицы, поля и правила сами.</span><span data-l="en">Кэби is configured without code: change tables, fields and rules yourself.</span></p>
+      </div>
+      <div class="grid grid-2">
+        <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+          <div class="row" style="align-items:flex-start;gap:16px;padding:22px;border-top:1px solid var(--line)">
+            <span class="{{ f.iconCls }}"><svg class="ico"><use href="{{ f.icon }}"></use></svg></span>
+            <div>
+              <h3 style="margin-bottom:6px"><span data-l="ru">{{ f.ru }}</span><span data-l="en">{{ f.en }}</span></h3>
+              <p class="small"><span data-l="ru">{{ f.dRu }}</span><span data-l="en">{{ f.dEn }}</span></p>
             </div>
           </div>
         </sc-for>
@@ -300,290 +397,227 @@
     </div>
   </section>
 
-  <!-- ===== INTERFACE SHOWCASE ===== -->
-  <section id="interface" style="max-width:1200px;margin:0 auto;padding:76px 28px 40px">
-    <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0"><span data-l="ru">Настоящий интерфейс Кэби</span><span data-l="en">The real Кэби interface</span></h2>
-    <p style="font-size:16px;color:var(--ink-2);text-align:center;margin:14px auto 0;max-width:52ch"><span data-l="ru">Не макет. Так выглядит ваш аккаунт сразу после сборки — отчёты, счета и заявки уже настроены.</span><span data-l="en">Not a mockup. This is your account right after assembly — reports, invoices and leads already set up.</span></p>
-
-    <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:30px">
-      <sc-for list="{{ shots }}" as="sh" hint-placeholder-count="4">
-        <button sc-camel-on-click="{{ sh.pick }}" style="{{ sh.tabStyle }}"><span data-l="ru">{{ sh.ru }}</span><span data-l="en">{{ sh.en }}</span></button>
-      </sc-for>
-    </div>
-
-    <div style="margin-top:24px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:none">
-      <div style="display:flex;align-items:center;gap:7px;padding:12px 16px;background:#f2f0fb;border-bottom:1px solid #e7e3f4">
-        <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57"></span>
-        <span style="width:11px;height:11px;border-radius:50%;background:#febc2e"></span>
-        <span style="width:11px;height:11px;border-radius:50%;background:#28c840"></span>
-        <span style="margin-left:12px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-3);flex:1;max-width:360px">
-          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span>crm.keby.ai/{{ shotSlug }}
-        </span>
+  <!-- ===== ТАРИФЫ ===== -->
+  <section class="sec" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></span>
+        <h2><span data-l="ru">Платите только <span class="accent">за пользователей</span></span><span data-l="en">Pay only <span class="accent">for users</span></span></h2>
+        <p class="lead"><span data-l="ru">Первые 14 дней бесплатно, карта не нужна. Все возможности доступны на любом тарифе.</span><span data-l="en">First 14 days free, no card needed. Every plan includes all features.</span></p>
       </div>
-      <div style="background:#eef1f4;position:relative">
-        <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}"><img src="assets/img/screen-dashboard.png" alt="Сводный отчёт Кэби" style="width:100%;display:block"></sc-if>
-        <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-invoices.png" alt="Счета Кэби" style="width:100%;display:block"></sc-if>
-        <sc-if value="{{ isLeads }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-leads.png" alt="Заявки Кэби" style="width:100%;display:block"></sc-if>
-        <sc-if value="{{ isInvoice }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-invoice.png" alt="Счёт Кэби" style="width:100%;display:block"></sc-if>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:13.5px;color:var(--ink-3);font-weight:700;margin:16px 0 0"><span data-l="ru">{{ shotCapRu }}</span><span data-l="en">{{ shotCapEn }}</span></p>
-  </section>
 
-  <!-- ===== FEATURES ===== -->
-  <section id="features" style="max-width:1200px;margin:0 auto;padding:76px 28px">
-    <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0"><span data-l="ru">Возможности платформы</span><span data-l="en">Platform features</span></h2>
-    <p style="font-size:16px;color:var(--ink-2);text-align:center;margin:14px auto 0;max-width:52ch"><span data-l="ru">Кэби — не шаблон, а гибкий no-code движок (настраивается без программирования). Меняйте что угодно без программистов.</span><span data-l="en">Кэби is a flexible no-code engine, not a template. Change anything without developers.</span></p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:44px">
-      <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
-        <div style="display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px">
-          <span style="flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;{{ f.iconBg }}">{{ f.icon }}</span>
-          <div>
-            <h3 style="font-size:17px;font-weight:900;margin:2px 0 6px"><span data-l="ru">{{ f.ru }}</span><span data-l="en">{{ f.en }}</span></h3>
-            <p style="font-size:14.5px;line-height:1.45;color:var(--ink-2);margin:0"><span data-l="ru">{{ f.dRu }}</span><span data-l="en">{{ f.dEn }}</span></p>
+      <div class="grid grid-3">
+        <sc-for list="{{ plans }}" as="p" hint-placeholder-count="6">
+          <div class="{{ p.cardCls }}">
+            <span class="{{ p.badgeCls }}">{{ p.badge }}</span>
+            <div>
+              <div class="tiny mono" style="font-weight:600"><span data-l="ru">{{ p.titleRu }}</span><span data-l="en">{{ p.titleEn }}</span></div>
+              <div class="plan-price" style="margin-top:6px">{{ p.price }}</div>
+            </div>
+            <div>
+              <div class="plan-row"><span data-l="ru">Пользователей</span><span data-l="en">Users</span><b>{{ p.users }}</b></div>
+              <div class="plan-row"><span data-l="ru">Рассылка</span><span data-l="en">Messages</span><b><span data-l="ru">{{ p.mailRu }}</span><span data-l="en">{{ p.mailEn }}</span></b></div>
+              <div class="plan-row"><span data-l="ru">Сервер в России</span><span data-l="en">RU server</span><b class="mint"><span data-l="ru">да</span><span data-l="en">yes</span></b></div>
+            </div>
+            <a href="#cta" class="{{ p.btnCls }}"><span data-l="ru">Создать</span><span data-l="en">Start</span></a>
           </div>
-        </div>
-      </sc-for>
-    </div>
-  </section>
-
-  <!-- ===== PRICING ===== -->
-  <section id="pricing" style="max-width:1200px;margin:0 auto;padding:40px 28px 76px">
-    <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></h2>
-    <p style="font-size:16px;color:var(--ink-2);text-align:center;margin:14px auto 0;max-width:56ch"><span data-l="ru">Цена зависит только от числа пользователей. Первые 14 дней бесплатно, карта не нужна.</span><span data-l="en">The price depends only on the number of users. First 14 days free, no card required.</span></p>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin-top:44px;align-items:start">
-      <sc-for list="{{ plans }}" as="p" hint-placeholder-count="6">
-        <div style="{{ p.card }}">
-          <div style="height:22px;text-align:center">
-            <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
-              <span style="font-size:11.5px;font-weight:900;color:var(--accent)"><span data-l="ru">Бесплатно на 14 дней</span><span data-l="en">Free for 14 days</span></span>
-            </sc-if>
-          </div>
-          <div style="text-align:center;font-size:17px;font-weight:900;letter-spacing:-0.01em"><span data-l="ru">Тариф {{ p.users }}{{ p.star }}</span><span data-l="en">Plan {{ p.users }}{{ p.star }}</span></div>
-          <div style="margin:14px auto 0;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);font-size:19px;font-weight:900;font-family:'JetBrains Mono',monospace">{{ p.users }}</div>
-          <div style="text-align:center;margin:14px 0 0;font-size:22px;font-weight:900;letter-spacing:-0.03em;white-space:nowrap">{{ p.price }}</div>
-          <div style="text-align:center;font-size:13px;color:var(--ink-3)"><span data-l="ru">(RU сервер)</span><span data-l="en">(RU server)</span></div>
-          <div style="height:1px;background:var(--line);margin:16px 0"></div>
-          <div style="text-align:center;font-size:13.5px;color:var(--ink-2)"><span data-l="ru">Пользователей</span><span data-l="en">Users</span></div>
-          <div style="text-align:center;font-size:15px;font-weight:800">{{ p.users }}</div>
-          <a href="#cta" style="{{ p.btn }}"><span data-l="ru">Создать</span><span data-l="en">Create</span></a>
-          <div style="text-align:center;font-size:13.5px;color:var(--ink-2)"><span data-l="ru">Рассылка</span><span data-l="en">Mailing</span></div>
-          <div style="text-align:center;font-size:14px;font-weight:800"><span data-l="ru">{{ p.mailRu }}</span><span data-l="en">{{ p.mailEn }}</span></div>
-        </div>
-      </sc-for>
-    </div>
-
-    <p style="text-align:center;font-size:13.5px;color:var(--ink-3);margin:22px 0 0">
-      <span data-l="ru">Полные условия и линейка Professional — на <a href="https://clientbase.ru/buy/account_rental/" target="_blank" rel="noopener">странице тарифов</a>.</span>
-      <span data-l="en">Full terms and the Professional line are on the <a href="https://clientbase.ru/buy/account_rental/" target="_blank" rel="noopener">pricing page</a>.</span>
-    </p>
-
-    <!-- Существенные условия для потребителя: ЗоЗПП ст. 8, 10, 32 -->
-    <div style="max-width:820px;margin:26px auto 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;font-size:13.5px;line-height:1.6;color:var(--ink-2)">
-      <div style="font-weight:900;color:var(--ink);margin-bottom:10px"><span data-l="ru">Условия оказания услуги</span><span data-l="en">Service terms</span></div>
-      <div data-l="ru">
-        <b>Исполнитель:</b> ООО «Клиентская база», ОГРН 1111690013600, ИНН 1657102956,
-        420044, Республика Татарстан, г. Казань, пр-кт Ямашева, д. 36, офис 325.<br>
-        <b>Что входит:</b> доступ к аккаунту CRM на выбранном тарифе — указанное число пользователей,
-        объём рассылки, обновления и техническая поддержка. Состав тарифов — в таблице выше.<br>
-        <b>Цены:</b> в рублях за календарный месяц, указаны с учётом всех налогов.<br>
-        <b>Срок:</b> аккаунт создаётся сразу после регистрации; первые 14 дней бесплатно, оплата не требуется.
-        Далее услуга оказывается непрерывно в течение оплаченного периода.<br>
-        <b>Оплата и возврат:</b> оплата вперёд за выбранный период. Отказаться можно в любой момент;
-        возвращается стоимость неиспользованного остатка периода за вычетом фактически понесённых расходов
-        (ст. 32 Закона «О защите прав потребителей»).<br>
-        <b>Претензии:</b> на info@clientbase.ru или по адресу исполнителя. Срок рассмотрения — 10 дней
-        с даты получения.<br>
-        Полные условия — в <a href="docs/offer.pdf" target="_blank" rel="noopener">договоре-оферте</a>.
+        </sc-for>
       </div>
-      <div data-l="en">
-        <b>Provider:</b> Klientskaya Baza LLC, OGRN 1111690013600, INN 1657102956,
-        36 Yamasheva Ave., office 325, Kazan, 420044, Russia.<br>
-        <b>Included:</b> access to a CRM account on the chosen plan — the stated number of users,
-        message quota, updates and support.<br>
-        <b>Prices:</b> in roubles per calendar month, all taxes included.<br>
-        <b>Term:</b> the account is created right after sign-up; the first 14 days are free.<br>
-        <b>Payment and refunds:</b> paid in advance. You may cancel at any time; the unused part of the
-        period is refunded less costs actually incurred.<br>
-        <b>Claims:</b> info@clientbase.ru or the provider's address; reviewed within 10 days.<br>
-        Full terms are in the <a href="docs/offer.pdf" target="_blank" rel="noopener">offer agreement</a>.
+
+      <!-- Существенные условия: ЗоЗПП ст. 8, 10, 32 -->
+      <div class="card" style="margin-top:28px">
+        <h3 style="margin-bottom:12px"><span data-l="ru">Условия оказания услуги</span><span data-l="en">Service terms</span></h3>
+        <div class="small" data-l="ru">
+          <b>Исполнитель:</b> ООО «Клиентская база», ОГРН 1111690013600, ИНН 1657102956, 420044, Республика Татарстан, г. Казань, пр-кт Ямашева, д. 36, офис 325.<br>
+          <b>Что входит:</b> доступ к аккаунту CRM на выбранном тарифе — указанное число пользователей, объём рассылки, обновления и техническая поддержка.<br>
+          <b>Цены:</b> в рублях за календарный месяц, указаны с учётом всех налогов.<br>
+          <b>Срок:</b> аккаунт создаётся сразу после регистрации; первые 14 дней бесплатно. Далее услуга оказывается непрерывно в течение оплаченного периода.<br>
+          <b>Оплата и возврат:</b> оплата вперёд за выбранный период. Отказаться можно в любой момент; возвращается стоимость неиспользованного остатка периода за вычетом фактически понесённых расходов (ст. 32 Закона «О защите прав потребителей»).<br>
+          <b>Претензии:</b> на info@clientbase.ru или по адресу исполнителя. Срок рассмотрения — 10 дней с даты получения.<br>
+          Полные условия — в <a href="docs/offer.pdf" target="_blank" rel="noopener" class="inline-link">договоре-оферте</a>.
+        </div>
+        <div class="small" data-l="en">
+          <b>Provider:</b> Klientskaya Baza LLC, OGRN 1111690013600, INN 1657102956, 36 Yamasheva Ave., office 325, Kazan, 420044, Russia.<br>
+          <b>Included:</b> access to a CRM account on the chosen plan — the stated number of users, message quota, updates and support.<br>
+          <b>Prices:</b> in roubles per calendar month, all taxes included.<br>
+          <b>Term:</b> the account is created right after sign-up; the first 14 days are free.<br>
+          <b>Payment and refunds:</b> paid in advance. You may cancel at any time; the unused part of the period is refunded less costs actually incurred.<br>
+          <b>Claims:</b> info@clientbase.ru or the provider's address; reviewed within 10 days.<br>
+          Full terms are in the <a href="docs/offer.pdf" target="_blank" rel="noopener" class="inline-link">offer agreement</a>.
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALS ===== -->
-  <section style="background:var(--bg)">
-    <div style="max-width:1200px;margin:0 auto;padding:76px 28px">
-      <h2 style="font-size:clamp(28px,4vw,40px);letter-spacing:-0.03em;font-weight:900;text-align:center;margin:0 0 44px"><span data-l="ru">С Кэби уже работают</span><span data-l="en">Teams already on Кэби</span></h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+  <!-- ===== ОТЗЫВЫ ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Отзывы</span><span data-l="en">Reviews</span></span>
+        <h2><span data-l="ru">С Кэби <span class="accent">уже работают</span></span><span data-l="en">Already <span class="accent">working with Кэби</span></span></h2>
+      </div>
+      <div class="grid grid-3">
         <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
-          <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column">
-            <p style="font-size:16px;line-height:1.55;color:#2c2842;margin:0 0 20px;flex:1;text-wrap:pretty"><span data-l="ru">{{ r.ru }}</span><span data-l="en">{{ r.en }}</span></p>
-            <div style="display:flex;align-items:center;gap:12px">
-              <span style="width:42px;height:42px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--line) 0 8px,var(--bg) 8px 16px);flex:none"></span>
-              <div>
-                <div style="font-weight:900;font-size:15px">{{ r.name }}</div>
-                <div style="font-size:13px;color:var(--ink-3)"><span data-l="ru">{{ r.roleRu }}</span><span data-l="en">{{ r.roleEn }}</span></div>
-              </div>
-            </div>
+          <div class="card">
+            <svg class="ico" style="color:var(--accent);opacity:0.6"><use href="#i-quote"></use></svg>
+            <p style="font-size:15.5px;line-height:1.55;margin:14px 0 18px"><span data-l="ru">{{ r.ru }}</span><span data-l="en">{{ r.en }}</span></p>
+            <div style="font-weight:600;font-size:14.5px">{{ r.name }}</div>
+            <div class="tiny"><span data-l="ru">{{ r.roleRu }}</span><span data-l="en">{{ r.roleEn }}</span></div>
           </div>
         </sc-for>
       </div>
     </div>
   </section>
 
-  <!-- ===== FINAL CTA ===== -->
-  <section id="cta" style="max-width:1200px;margin:0 auto;padding:84px 28px">
-    <div style="background:var(--ink);border-radius:14px;padding:clamp(36px,6vw,72px);text-align:center;position:relative;overflow:hidden">
-      <div style="position:absolute;inset:0;background:none"></div>
-      <div style="position:relative">
-        <h2 style="font-size:clamp(30px,5vw,52px);letter-spacing:-0.035em;font-weight:900;color:#fff;margin:0;line-height:1.05"><span data-l="ru">Опишите — и заберите свою CRM</span><span data-l="en">Describe it — claim your CRM</span></h2>
-        <p style="font-size:17px;color:rgba(255,255,255,0.82);margin:18px auto 0;max-width:48ch"><span data-l="ru">Опишите задачу и оставьте адрес электронной почты — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
+  <!-- ===== ФИНАЛЬНЫЙ ЭКРАН ===== -->
+  <section class="sec" id="cta">
+    <div class="wrap">
+      <div class="block-tint">
+        <div class="sec-head" style="margin-bottom:28px">
+          <h2><span data-l="ru">Опишите — и заберите <span class="accent">свою CRM</span></span><span data-l="en">Describe it — and take <span class="accent">your CRM</span></span></h2>
+          <p class="lead"><span data-l="ru">Опишите задачу и оставьте адрес электронной почты — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
+        </div>
 
-        <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
-          <div style="max-width:560px;margin:30px auto 0;text-align:left;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:14px;padding:6px">
-            <textarea value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" maxlength="{{ briefMax }}" rows="3" style="width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:15.5px;line-height:1.5;color:#fff;padding:14px 15px 8px;background:transparent"></textarea>
+        <div style="max-width:560px;margin:0 auto">
+          <div class="form-card">
+            <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="padding:16px 18px 6px">
+                  <textarea class="form-field" value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" maxlength="{{ briefMax }}" rows="3" style="width:100%"></textarea>
+                </div>
 
-            <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,0.22);padding:11px 15px">
-              <span style="font-size:15px;flex:none">✉️</span>
-              <input value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
-            </div>
+                <div class="form-row">
+                  <svg class="ico"><use href="#i-mail"></use></svg>
+                  <input class="form-field" value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}">
+                </div>
 
-            <div class="field-row" style="border-top:1px solid rgba(255,255,255,0.22)">
-              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
-                <span style="font-size:15px;flex:none">🙂</span>
-                <input value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
-              </div>
-              <div class="field-sep" style="background:rgba(255,255,255,0.22)"></div>
-              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 15px">
-                <span style="font-size:15px;flex:none">📞</span>
-                <input value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}" style="flex:1;min-width:0;border:none;outline:none;font-family:inherit;font-size:15.5px;color:#fff;background:transparent">
-                <sc-if value="{{ smsCanVerify }}" hint-placeholder-val="{{ false }}"><button sc-camel-on-click="{{ sendCode }}" style="{{ verifyBtnDark }}"><span data-l="ru">{{ verifyRu }}</span><span data-l="en">{{ verifyEn }}</span></button></sc-if>
-                <sc-if value="{{ smsVerified }}" hint-placeholder-val="{{ false }}"><span style="{{ okBadgeDark }}">✓ <span data-l="ru">подтверждён</span><span data-l="en">verified</span></span></sc-if>
-              </div>
-            </div>
+                <div class="form-split">
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-user"></use></svg>
+                    <input class="form-field" value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}">
+                  </div>
+                  <div class="form-sep"></div>
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-phone"></use></svg>
+                    <input class="form-field" value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}">
+                    <sc-if value="{{ smsCanVerify }}" hint-placeholder-val="{{ false }}"><button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ sendCode }}"><span data-l="ru">{{ verifyRu }}</span><span data-l="en">{{ verifyEn }}</span></button></sc-if>
+                    <sc-if value="{{ smsVerified }}" hint-placeholder-val="{{ false }}"><span class="ok-badge"><svg class="ico-sm"><use href="#i-check"></use></svg><span data-l="ru">подтверждён</span><span data-l="en">verified</span></span></sc-if>
+                  </div>
+                </div>
 
-            <sc-if value="{{ smsAwaitCode }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,0.22);padding:11px 15px;flex-wrap:wrap">
-                <span style="font-size:15px;flex:none">💬</span>
-                <input value="{{ smsCode }}" sc-camel-on-input="{{ onSmsCode }}" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="{{ codePh }}" style="flex:1;min-width:120px;border:none;outline:none;font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:0.18em;color:#fff;background:transparent">
-                <button sc-camel-on-click="{{ resendCode }}" style="{{ resendBtnDark }}"><span data-l="ru">{{ resendRu }}</span><span data-l="en">{{ resendEn }}</span></button>
+                <sc-if value="{{ smsAwaitCode }}" hint-placeholder-val="{{ false }}">
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-chat"></use></svg>
+                    <input class="form-field code-input" value="{{ smsCode }}" sc-camel-on-input="{{ onSmsCode }}" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="{{ codePh }}">
+                    <button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ resendCode }}"><span data-l="ru">{{ resendRu }}</span><span data-l="en">{{ resendEn }}</span></button>
+                  </div>
+                </sc-if>
+
+                <div class="{{ consentsCls }}">
+                  <label class="consent">
+                    <input type="checkbox" checked="{{ agreeOffer }}" sc-camel-on-change="{{ toggleOffer }}" class="{{ agreeCls }}">
+                    <span>
+                      <span data-l="ru">Принимаю условия <a href="docs/offer.pdf" target="_blank" rel="noopener">договора-оферты</a></span>
+                      <span data-l="en">I accept the <a href="docs/offer.pdf" target="_blank" rel="noopener">terms of the offer</a></span>
+                    </span>
+                  </label>
+                  <label class="consent">
+                    <input type="checkbox" checked="{{ agreePdn }}" sc-camel-on-change="{{ togglePdn }}" class="{{ agreeCls }}">
+                    <span>
+                      <span data-l="ru">Даю <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен с <a href="docs/privacy.pdf" target="_blank" rel="noopener">политикой обработки</a></span>
+                      <span data-l="en">I give <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">consent to the processing of personal data</a> and have read the <a href="docs/privacy.pdf" target="_blank" rel="noopener">privacy policy</a></span>
+                    </span>
+                  </label>
+                  <label class="consent">
+                    <input type="checkbox" checked="{{ agreeAds }}" sc-camel-on-change="{{ toggleAds }}" class="agree-box">
+                    <span>
+                      <span data-l="ru">Согласен получать рекламные и информационные сообщения по электронной почте, телефону, в SMS-сообщениях и мессенджерах — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">условия</a>. Необязательно</span>
+                      <span data-l="en">I agree to receive marketing messages by email, phone, SMS and messengers — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">terms</a>. Optional</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="form-foot">
+                  <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
+                    <button class="{{ micCls }}" sc-camel-on-click="{{ toggleVoice }}" title="voice">
+                      <svg class="ico-sm"><use href="#i-mic"></use></svg>
+                      <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
+                    </button>
+                  </sc-if>
+                  <span class="mono tiny {{ countCls }}">{{ charCount }}</span>
+                  <button class="btn btn--primary" sc-camel-on-click="{{ submit }}" disabled="{{ submitOff }}" style="margin-left:auto">
+                    <span data-l="ru">{{ regRu }}</span><span data-l="en">{{ regEn }}</span>
+                    <svg class="ico-sm"><use href="#i-arrow"></use></svg>
+                  </button>
+                </div>
+
+                <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                  <div class="hint"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+                </sc-if>
               </div>
             </sc-if>
 
-            <div style="border-top:1px solid rgba(255,255,255,0.22);padding:10px 15px;display:flex;flex-direction:column;gap:8px">
-              <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
-                <input type="checkbox" checked="{{ agreeOffer }}" sc-camel-on-change="{{ toggleOffer }}" class="{{ agreeClsDark }}">
-                <span style="{{ agreeTextStyleDark }}">
-                  <span data-l="ru">Принимаю условия <a href="docs/offer.pdf" target="_blank" rel="noopener">договора-оферты</a></span>
-                  <span data-l="en">I accept the <a href="docs/offer.pdf" target="_blank" rel="noopener">terms of the offer</a></span>
-                </span>
-              </label>
-              <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
-                <input type="checkbox" checked="{{ agreePdn }}" sc-camel-on-change="{{ togglePdn }}" class="{{ agreeClsDark }}">
-                <span style="{{ agreeTextStyleDark }}">
-                  <span data-l="ru">Даю <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен с <a href="docs/privacy.pdf" target="_blank" rel="noopener">политикой обработки</a></span>
-                  <span data-l="en">I give <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">consent to the processing of personal data</a> and have read the <a href="docs/privacy.pdf" target="_blank" rel="noopener">privacy policy</a></span>
-                </span>
-              </label>
-              <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer">
-                <input type="checkbox" checked="{{ agreeAds }}" sc-camel-on-change="{{ toggleAds }}" class="{{ adsClsDark }}">
-                <span style="{{ adsTextStyleDark }}">
-                  <span data-l="ru">Согласен получать рекламные и информационные сообщения по электронной почте, телефону, в SMS-сообщениях и мессенджерах — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">условия</a>. Необязательно</span>
-                  <span data-l="en">I agree to receive marketing messages by email, phone, SMS and messengers — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">terms</a>. Optional</span>
-                </span>
-              </label>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,0.22);padding:10px 8px 4px;flex-wrap:wrap">
-              <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
-                <button sc-camel-on-click="{{ toggleVoice }}" title="voice" style="{{ micStyleDark }}">
-                  <span style="font-size:16px">🎙</span>
-                  <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
-                </button>
-              </sc-if>
-              <span style="font-size:13px;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;{{ countStyle }}">{{ charCount }}</span>
-              <button sc-camel-on-click="{{ submit }}" disabled="{{ submitOff }}" style="{{ submitBtnDark }}">
-                <span data-l="ru">{{ regRu }}</span><span data-l="en">{{ regEn }}</span>
-              </button>
-            </div>
-
-            <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
-              <div style="{{ hintStyleDark }}"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+            <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:26px">
+                <div class="row">
+                  <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                  <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
+                </div>
+                <p class="small" style="margin-top:14px">
+                  <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Логин и пароль отправили на {{ sentEmail }}.</span>
+                  <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. The login and password went to {{ sentEmail }}.</span>
+                </p>
+                <div class="row" style="margin-top:18px;flex-wrap:wrap">
+                  <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
+                  <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span></button>
+                </div>
+              </div>
             </sc-if>
           </div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:16px;font-family:'JetBrains Mono',monospace">{{ regNote }}</div>
-        </sc-if>
-
-        <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
-          <div style="max-width:560px;margin:30px auto 0;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.28);border-radius:14px;padding:26px 24px">
-            <div style="display:flex;align-items:center;justify-content:center;gap:12px">
-              <span style="width:34px;height:34px;flex:none;border-radius:10px;background:#fff;color:var(--ink);display:grid;place-items:center;font-size:18px;font-weight:900">✓</span>
-              <div style="font-size:19px;font-weight:900;color:#fff"><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></div>
-            </div>
-            <p style="font-size:15px;line-height:1.55;color:rgba(255,255,255,0.85);margin:14px 0 0">
-              <span data-l="ru">Ваш аккаунт: <b style="color:#fff">{{ accountHost }}</b>. Сейчас откроем его, логин и пароль отправили на {{ sentEmail }}.</span>
-              <span data-l="en">Your account: <b style="color:#fff">{{ accountHost }}</b>. We are opening it now; the login and password went to {{ sentEmail }}.</span>
-            </p>
-            <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:center">
-              <button sc-camel-on-click="{{ openAccount }}" style="background:#fff;color:var(--ink);border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer">
-                <span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span>
-              </button>
-              <button sc-camel-on-click="{{ reset }}" style="background:transparent;border:1px solid rgba(255,255,255,0.45);border-radius:12px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:800;color:#fff;cursor:pointer">
-                <span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span>
-              </button>
-            </div>
-          </div>
-        </sc-if>
+          <p class="tiny mono" style="text-align:center;margin-top:14px">{{ regNote }}</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer style="border-top:1px solid var(--line)">
-    <div style="max-width:1200px;margin:0 auto;padding:48px 28px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px">
-      <div>
-        <img src="assets/img/logo.png" alt="Кэби" width="142" height="38" style="display:block;height:28px;width:auto">
-        <p style="font-size:14px;color:var(--ink-3);margin:14px 0 0;max-width:30ch"><span data-l="ru">ИИ-конфигуратор CRM/ERP. Опишите — и работайте.</span><span data-l="en">AI CRM/ERP configurator. Describe it — and go.</span></p>
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-3);margin-bottom:14px"><span data-l="ru">Продукт</span><span data-l="en">Product</span></div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="#how" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
-          <a href="#examples" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
-          <a href="#features" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
-          <a href="#pricing" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
+  <!-- ===== ПОДВАЛ ===== -->
+  <footer class="wrap" style="padding-top:8px">
+    <div class="foot">
+      <div class="foot-cols">
+        <div>
+          <img src="assets/img/logo.png" alt="Кэби" width="142" height="38" style="display:block;height:26px;width:auto">
+          <p class="small" style="margin-top:14px;max-width:30ch"><span data-l="ru">ИИ-конфигуратор CRM. Опишите — и работайте.</span><span data-l="en">AI CRM configurator. Describe it — and go.</span></p>
+        </div>
+        <div>
+          <div class="foot-title"><span data-l="ru">Продукт</span><span data-l="en">Product</span></div>
+          <a class="foot-link" href="#how"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
+          <a class="foot-link" href="#examples"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
+          <a class="foot-link" href="#features"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
+          <a class="foot-link" href="#pricing"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
+        </div>
+        <div>
+          <div class="foot-title"><span data-l="ru">Документы</span><span data-l="en">Documents</span></div>
+          <a class="foot-link" href="docs/privacy.pdf" target="_blank" rel="noopener"><span data-l="ru">Политика обработки персональных данных</span><span data-l="en">Privacy policy</span></a>
+          <a class="foot-link" href="docs/consent-pdn.pdf" target="_blank" rel="noopener"><span data-l="ru">Согласие на обработку данных</span><span data-l="en">Data processing consent</span></a>
+          <a class="foot-link" href="docs/consent-ads.pdf" target="_blank" rel="noopener"><span data-l="ru">Согласие на рекламу</span><span data-l="en">Marketing consent</span></a>
+          <a class="foot-link" href="docs/offer.pdf" target="_blank" rel="noopener"><span data-l="ru">Договор-оферта</span><span data-l="en">Offer agreement</span></a>
+        </div>
+        <div>
+          <div class="foot-title"><span data-l="ru">Контакты</span><span data-l="en">Contacts</span></div>
+          <a class="foot-link" href="mailto:info@clientbase.ru">info@clientbase.ru</a>
+          <a class="foot-link" href="tel:+78001000936">8 800 100-09-36</a>
+          <button class="btn-link foot-link" sc-camel-on-click="{{ resetCookies }}"><span data-l="ru">Настройки cookie</span><span data-l="en">Cookie settings</span></button>
         </div>
       </div>
-      <div>
-        <div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-3);margin-bottom:14px"><span data-l="ru">Документы</span><span data-l="en">Documents</span></div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="docs/privacy.pdf" target="_blank" rel="noopener" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Политика обработки персональных данных</span><span data-l="en">Privacy policy</span></a>
-          <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Согласие на обработку данных</span><span data-l="en">Data processing consent</span></a>
-          <a href="docs/consent-ads.pdf" target="_blank" rel="noopener" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Согласие на рекламу</span><span data-l="en">Marketing consent</span></a>
-          <a href="docs/offer.pdf" target="_blank" rel="noopener" style="font-size:14.5px;color:var(--ink-2)"><span data-l="ru">Договор-оферта</span><span data-l="en">Offer agreement</span></a>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-3);margin-bottom:14px"><span data-l="ru">Контакты</span><span data-l="en">Contacts</span></div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="mailto:info@clientbase.ru" style="font-size:14.5px;color:var(--ink-2)">info@clientbase.ru</a>
-          <a href="tel:+78001000936" style="font-size:14.5px;color:var(--ink-2)">8 800 100-09-36</a>
-          <button type="button" sc-camel-on-click="{{ resetCookies }}" style="font-size:14.5px;color:var(--ink-2);background:none;border:none;padding:0;font-family:inherit;text-align:left;cursor:pointer"><span data-l="ru">Настройки cookie</span><span data-l="en">Cookie settings</span></button>
-        </div>
-      </div>
-    </div>
-    <!-- Сведения о владельце сайта: 149-ФЗ ст. 10 ч. 2, ЗоЗПП ст. 9 -->
-    <div style="border-top:1px solid var(--line)">
-      <div style="max-width:1200px;margin:0 auto;padding:20px 28px;font-size:13px;line-height:1.6;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <div style="max-width:70ch">
+
+      <!-- Сведения о владельце сайта: 149-ФЗ ст. 10 ч. 2, ЗоЗПП ст. 9 -->
+      <div class="foot-legal">
+        <div>
           <span data-l="ru">Общество с ограниченной ответственностью «Клиентская база» (ООО «КБ»)</span><span data-l="en">Klientskaya Baza LLC</span><br>
-          <span>ОГРН 1111690013600 · ИНН 1657102956 · КПП 165701001</span><br>
-          <span data-l="ru">420044, Республика Татарстан, г. Казань, пр-кт Ямашева, д. 36, офис 325</span><span data-l="en">36 Yamasheva Ave., office 325, Kazan, 420044, Russia</span><br>
-          <span>info@clientbase.ru · 8 800 100-09-36</span>
+          ОГРН 1111690013600 · ИНН 1657102956 · КПП 165701001<br>
+          <span data-l="ru">420044, Республика Татарстан, г. Казань, пр-кт Ямашева, д. 36, офис 325</span><span data-l="en">36 Yamasheva Ave., office 325, Kazan, 420044, Russia</span>
         </div>
-        <div style="text-align:right">© 2026 · <span style="font-family:'JetBrains Mono',monospace" title="номер сборки сайта">сборка {{ build }}</span></div>
+        <div class="mono">© 2026 · <span title="номер сборки сайта">сборка {{ build }}</span></div>
       </div>
     </div>
   </footer>
@@ -868,7 +902,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-21.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.1';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -1087,21 +1121,14 @@ class Component extends DCLogic {
 
   renderVals() {
     const ru = this.state.lang === 'ru';
-    const activeBtn = 'padding:6px 12px;border:none;cursor:pointer;background:var(--ink);color:#fff;font-family:inherit;font-weight:800';
-    const idleBtn = 'padding:6px 12px;border:none;cursor:pointer;background:#fff;color:var(--ink-3);font-family:inherit;font-weight:800';
     const cc = this.state.text.length;
-    const charCount = cc ? cc + ' / ' + this.BRIEF_MAX : '';
-    const countColor = cc >= this.BRIEF_MAX ? 'color:#e63756;font-weight:800' : '';
-    const micBase = 'display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;';
-    const hintBase = 'margin:4px 8px 6px;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;font-weight:700;';
     let hint = null;
     try { hint = this.state.hint ? JSON.parse(this.state.hint) : null; } catch (e) { hint = null; }
     const flash = this.state.flash;
-    const smallBtn = 'flex:none;border:none;border-radius:9px;padding:7px 12px;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;';
     const resendLeft = Math.max(0, Math.ceil((this.state.smsResendAt - Date.now()) / 1000));
-    const agreeText = 'font-size:12.5px;line-height:1.45;font-weight:600;transition:color 0.2s;color:';
     // Кнопка заперта, пока не отмечены оба обязательных согласия (152-ФЗ ст. 9 ч. 1)
     const submitLocked = !(this.state.agreeOffer && this.state.agreePdn);
+    const modsOn = Object.values(this.state.mods).filter(Boolean).length;
 
     return {
       lang: this.state.lang,
@@ -1117,8 +1144,8 @@ class Component extends DCLogic {
 
       setRu: () => this.setLang('ru'),
       setEn: () => this.setLang('en'),
-      ruBtnStyle: ru ? activeBtn : idleBtn,
-      enBtnStyle: ru ? idleBtn : activeBtn,
+      ruBtnCls: ru ? 'on' : '',
+      enBtnCls: ru ? '' : 'on',
 
       onType: this.onType,
       onEmail: this.onEmail,
@@ -1140,38 +1167,34 @@ class Component extends DCLogic {
       codePh: ru ? 'код из SMS' : 'SMS code',
       verifyRu: this.state.smsBusy ? 'Отправляем…' : 'Подтвердить',
       verifyEn: this.state.smsBusy ? 'Sending…' : 'Verify',
-      verifyBtn: smallBtn + (this.state.smsBusy ? 'opacity:0.6;' : '') + 'background:var(--ink);color:#fff',
-      verifyBtnDark: smallBtn + (this.state.smsBusy ? 'opacity:0.6;' : '') + 'background:#fff;color:var(--ink)',
-      okBadge: 'flex:none;font-size:12.5px;font-weight:800;color:oklch(0.5 0.16 155)',
-      okBadgeDark: 'flex:none;font-size:12.5px;font-weight:800;color:#b7f3d0',
       resendRu: resendLeft > 0 ? 'Ещё раз через ' + resendLeft + ' с' : 'Отправить ещё раз',
       resendEn: resendLeft > 0 ? 'Resend in ' + resendLeft + ' s' : 'Resend',
-      resendBtn: smallBtn + (resendLeft > 0 ? 'background:transparent;color:var(--ink-3);border:1px solid var(--line);cursor:default' : 'background:#fff;color:var(--ink-2);border:1px solid var(--line)'),
-      resendBtnDark: smallBtn + (resendLeft > 0 ? 'background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.25);cursor:default' : 'background:rgba(255,255,255,0.16);color:#fff;border:1px solid rgba(255,255,255,0.35)'),
+
       ph: ru ? 'Например: CRM для салона красоты — клиенты, записи, напоминания по SMS, зарплата мастеров…' : 'e.g. CRM for a beauty salon — clients, bookings, SMS reminders, staff payroll…',
       emailPh: ru ? 'you@company.ru' : 'you@company.com',
-      charCount,
-      countStyle: countColor,
+      charCount: cc ? cc + ' / ' + this.BRIEF_MAX : '',
+      countCls: cc >= this.BRIEF_MAX ? 'over' : '',
       briefMax: this.BRIEF_MAX,
 
       toggleVoice: this.toggleVoice,
       voiceOn: !!this.SR,
-      micStyle: micBase + (this.state.listening ? 'background:var(--accent);color:#fff;border:1px solid var(--accent)' : 'background:#fff;color:var(--ink-2);border:1px solid var(--line)'),
-      micStyleDark: micBase + (this.state.listening ? 'background:var(--accent);color:#fff;border:1px solid var(--accent)' : 'background:rgba(255,255,255,0.16);color:#fff;border:1px solid rgba(255,255,255,0.35)'),
+      micCls: 'btn btn--sm ' + (this.state.listening ? 'btn--primary' : 'btn--ghost'),
       micLabelRu: this.state.listening ? 'Слушаю…' : 'Наговорить',
       micLabelEn: this.state.listening ? 'Listening…' : 'Dictate',
 
       hasHint: !!hint,
       hintRu: hint ? hint.ru : '',
       hintEn: hint ? hint.en : '',
-      hintStyle: hintBase + 'color:oklch(0.55 0.19 30);background:var(--bg)',
-      hintStyleDark: hintBase + 'color:#fff;background:rgba(0,0,0,0.18)',
 
       submit: this.submit,
       reset: this.reset,
       sending: this.state.sending,
-      submitRu: this.state.sending ? 'Отправляем…' : 'Собрать мою CRM →',
-      submitEn: this.state.sending ? 'Sending…' : 'Build my CRM →',
+      submitRu: this.state.sending ? 'Отправляем…' : 'Собрать мою CRM',
+      submitEn: this.state.sending ? 'Sending…' : 'Build my CRM',
+      regRu: this.state.sending ? 'Отправляем…' : 'Создать аккаунт',
+      regEn: this.state.sending ? 'Sending…' : 'Create account',
+      regNote: ru ? 'Без карты · отписка в 1 клик' : 'No card · 1-click opt-out',
+      submitOff: submitLocked,
 
       agreeOffer: this.state.agreeOffer,
       agreePdn: this.state.agreePdn,
@@ -1179,53 +1202,33 @@ class Component extends DCLogic {
       toggleOffer: this.toggleOffer,
       togglePdn: this.togglePdn,
       toggleAds: this.toggleAds,
-      resetCookies: this.resetCookies,
-      adsCls: 'agree-box',
-      adsClsDark: 'agree-box agree-box--dark',
-      adsTextStyle: agreeText + 'var(--ink-3)',
-      adsTextStyleDark: agreeText + 'rgba(255,255,255,0.72)',
-      submitOff: submitLocked,
-      submitBtn: 'margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-family:inherit;font-size:16px;font-weight:800;box-shadow:0 10px 22px -10px var(--ink);'
-        + (submitLocked ? 'opacity:0.45;cursor:not-allowed' : 'cursor:pointer'),
-      submitBtnDark: 'margin-left:auto;background:#fff;color:var(--ink);border:none;border-radius:12px;padding:13px 24px;font-family:inherit;font-size:16px;font-weight:900;'
-        + (submitLocked ? 'opacity:0.5;cursor:not-allowed' : 'cursor:pointer'),
       agreeCls: 'agree-box' + (flash ? ' agree-flash' : ''),
-      agreeClsDark: 'agree-box agree-box--dark' + (flash ? ' agree-flash' : ''),
-      agreeTextStyle: agreeText + (flash ? '#e63756' : 'var(--ink-3)'),
-      agreeTextStyleDark: agreeText + (flash ? '#ffd7de' : 'rgba(255,255,255,0.72)'),
-      regRu: this.state.sending ? 'Отправляем…' : 'Создать аккаунт',
-      regEn: this.state.sending ? 'Sending…' : 'Create account',
-      regNote: ru ? 'Без карты · отписка в 1 клик' : 'No card · 1-click opt-out',
+      consentsCls: 'consents' + (flash ? ' consents--flash' : ''),
+      resetCookies: this.resetCookies,
       build: this.BUILD,
 
       mascotPoints: [
-        { icon: '🧩', bg: 'background:var(--accent-soft);color:var(--accent-ink)', tRu: 'Подбираю модули', tEn: 'I pick the modules', dRu: 'оптимальный набор под вашу задачу', dEn: 'the optimal set for your task' },
-        { icon: '🎚', bg: 'background:var(--accent-soft);color:oklch(0.6 0.2 40)', tRu: 'Настраиваю', tEn: 'I configure', dRu: 'под ваши процессы и роли', dEn: 'for your processes and roles' },
-        { icon: '📈', bg: 'background:#fff;border:1px solid var(--line);color:oklch(0.5 0.16 155)', tRu: 'Улучшаю', tEn: 'I improve', dRu: 'эффективность вашей команды', dEn: 'your team\'s efficiency' }
+        { icon: '#i-blocks', iconCls: 'ico-box ico-box--warm', tRu: 'Подбираю модули', tEn: 'I pick the modules', dRu: 'оптимальный набор под вашу задачу', dEn: 'the optimal set for your task' },
+        { icon: '#i-automation', iconCls: 'ico-box ico-box--mint', tRu: 'Настраиваю', tEn: 'I configure', dRu: 'под ваши процессы и роли', dEn: 'for your processes and roles' },
+        { icon: '#i-analytics', iconCls: 'ico-box', tRu: 'Улучшаю', tEn: 'I improve', dRu: 'эффективность вашей команды', dEn: 'your team\'s efficiency' }
       ],
+
+      modulesOn: ru ? modsOn + ' из 4' : modsOn + ' of 4',
       modules: [
-        { key: 'sales', icon: '💼', bg: 'background:var(--accent-soft);color:var(--accent-ink)', ru: 'Продажи', en: 'Sales' },
-        { key: 'clients', icon: '👥', bg: 'background:#fff;border:1px solid var(--line);color:oklch(0.5 0.16 155)', ru: 'Клиенты', en: 'Clients' },
-        { key: 'analytics', icon: '📊', bg: 'background:var(--accent-soft);color:oklch(0.6 0.2 40)', ru: 'Аналитика', en: 'Analytics' },
-        { key: 'automation', icon: '⚡', bg: 'background:#fff;border:1px solid var(--line);color:oklch(0.55 0.16 80)', ru: 'Автоматизация', en: 'Automation' }
-      ].map(m => {
-        const on = this.state.mods[m.key];
-        return { ...m, toggle: this.toggleMod(m.key),
-          track: 'flex:none;width:44px;height:26px;border-radius:999px;border:none;cursor:pointer;padding:3px;display:flex;transition:background 0.2s;' + (on ? 'background:var(--ink);justify-content:flex-end' : 'background:var(--line);justify-content:flex-start'),
-          knob: 'width:20px;height:20px;border-radius:50%;background:#fff;display:block;box-shadow:0 1px 3px rgba(0,0,0,0.2)' };
-      }),
+        { key: 'sales', icon: '#i-sales', iconCls: 'ico-box ico-box--warm ico-box--sm', ru: 'Продажи', en: 'Sales' },
+        { key: 'clients', icon: '#i-clients', iconCls: 'ico-box ico-box--mint ico-box--sm', ru: 'Клиенты', en: 'Clients' },
+        { key: 'analytics', icon: '#i-analytics', iconCls: 'ico-box ico-box--warm ico-box--sm', ru: 'Аналитика', en: 'Analytics' },
+        { key: 'automation', icon: '#i-automation', iconCls: 'ico-box ico-box--mint ico-box--sm', ru: 'Автоматизация', en: 'Automation' }
+      ].map(m => ({ ...m, toggle: this.toggleMod(m.key), cls: 'switch' + (this.state.mods[m.key] ? ' on' : '') })),
       addModule: this.addModule,
 
-      shots: this.SHOTS.map(s => {
-        const on = this.state.shot === s.key;
-        return { ...s, pick: this.pickShot(s.key),
-          tabStyle: 'border-radius:999px;padding:10px 18px;font-family:inherit;font-size:14.5px;font-weight:800;cursor:pointer;transition:all 0.15s;' + (on ? 'background:var(--ink);color:#fff;border:1px solid var(--ink)' : 'background:#fff;color:var(--ink-2);border:1px solid var(--line)') };
-      }),
+      shots: this.SHOTS.map(s => ({ ...s, pick: this.pickShot(s.key),
+        cls: 'pill' + (this.state.shot === s.key ? ' pill--on' : '') })),
       isDash: this.state.shot === 'dash',
       isInvoices: this.state.shot === 'invoices',
       isLeads: this.state.shot === 'leads',
       isInvoice: this.state.shot === 'invoice',
-      shotSlug: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).slug,
+      shotUrl: 'crm.keby.ai/' + (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).slug,
       shotCapRu: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capRu,
       shotCapEn: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capEn,
 
@@ -1238,34 +1241,34 @@ class Component extends DCLogic {
       ],
 
       examples: [
-        { icon: '💇', ru: 'Салон красоты', en: 'Beauty salon', dRu: 'Записи, услуги, напоминания, зарплата мастеров.', dEn: 'Bookings, services, reminders, staff payroll.', tables: '6 таблиц · 4 отчёта' },
-        { icon: '🦷', ru: 'Стоматология', en: 'Dental clinic', dRu: 'Пациенты, карты, приёмы, страховки.', dEn: 'Patients, charts, visits, insurance.', tables: '8 таблиц · 5 отчётов' },
-        { icon: '🍜', ru: 'Доставка еды', en: 'Food delivery', dRu: 'Заказы, меню, курьеры, статусы.', dEn: 'Orders, menu, couriers, statuses.', tables: '7 таблиц · 3 отчёта' },
-        { icon: '🚗', ru: 'Автошкола', en: 'Driving school', dRu: 'Ученики, группы, расписание, оплата.', dEn: 'Students, groups, schedule, payments.', tables: '6 таблиц · 4 отчёта' },
-        { icon: '🏠', ru: 'Недвижимость', en: 'Real estate', dRu: 'Объекты, клиенты, показы, сделки.', dEn: 'Listings, clients, viewings, deals.', tables: '9 таблиц · 6 отчётов' },
-        { icon: '📦', ru: 'Оптовые продажи', en: 'Wholesale', dRu: 'Склад, счета, воронка, менеджеры.', dEn: 'Stock, invoices, funnel, managers.', tables: '10 таблиц · 7 отчётов' }
+        { icon: '#i-scissors', ru: 'Салон красоты', en: 'Beauty salon', dRu: 'Записи, услуги, напоминания, зарплата мастеров.', dEn: 'Bookings, services, reminders, staff payroll.', tables: '6 таблиц · 4 отчёта' },
+        { icon: '#i-tooth', ru: 'Стоматология', en: 'Dental clinic', dRu: 'Пациенты, карты, приёмы, страховки.', dEn: 'Patients, charts, visits, insurance.', tables: '8 таблиц · 5 отчётов' },
+        { icon: '#i-bowl', ru: 'Доставка еды', en: 'Food delivery', dRu: 'Заказы, меню, курьеры, статусы.', dEn: 'Orders, menu, couriers, statuses.', tables: '7 таблиц · 3 отчёта' },
+        { icon: '#i-car', ru: 'Автошкола', en: 'Driving school', dRu: 'Ученики, группы, расписание, оплата.', dEn: 'Students, groups, schedule, payments.', tables: '6 таблиц · 4 отчёта' },
+        { icon: '#i-home', ru: 'Недвижимость', en: 'Real estate', dRu: 'Объекты, клиенты, показы, сделки.', dEn: 'Listings, clients, viewings, deals.', tables: '9 таблиц · 6 отчётов' },
+        { icon: '#i-box', ru: 'Оптовые продажи', en: 'Wholesale', dRu: 'Склад, счета, воронка, менеджеры.', dEn: 'Stock, invoices, funnel, managers.', tables: '10 таблиц · 7 отчётов' }
       ],
 
       features: [
-        { icon: '🧩', iconBg: 'background:#fff;border:1px solid var(--line)', ru: 'No-code конструктор', en: 'No-code builder', dRu: 'Меняйте таблицы, поля и формы мышкой — без единой строчки кода.', dEn: 'Change tables, fields and forms with the mouse — no code.' },
-        { icon: '⚡', iconBg: 'background:#fff;border:1px solid var(--line)', ru: 'Автоматизации', en: 'Automations', dRu: 'Напоминания, статусы, письма и задачи запускаются сами по правилам.', dEn: 'Reminders, statuses, emails and tasks fire automatically by rules.' },
-        { icon: '🔐', iconBg: 'background:#fff;border:1px solid var(--line)', ru: 'Роли и права', en: 'Roles & access', dRu: 'Тонко настраивайте, кто что видит и может менять в системе.', dEn: 'Fine-tune who sees and edits what across the system.' },
-        { icon: '🔌', iconBg: 'background:#fff;border:1px solid var(--line)', ru: 'Интеграции', en: 'Integrations', dRu: 'Telegram, WhatsApp, почта, платежи, 1С и открытый программный интерфейс (API).', dEn: 'Telegram, WhatsApp, email, payments, 1C and an open API.' },
-        { icon: '📊', iconBg: 'background:#fff;border:1px solid var(--line)', ru: 'Отчёты и дашборды', en: 'Reports & dashboards', dRu: 'Считайте выручку, KPI и воронку в наглядных отчётах.', dEn: 'Track revenue, KPIs and funnels in clear reports.' },
-        { icon: '📱', iconBg: 'background:#fff;border:1px solid var(--line)', ru: 'Мобильное приложение', en: 'Mobile app', dRu: 'Вся CRM в кармане — на телефоне и планшете, онлайн и офлайн.', dEn: 'Your whole CRM in your pocket — phone and tablet, on/offline.' }
+        { icon: '#i-blocks', iconCls: 'ico-box ico-box--warm', ru: 'No-code конструктор', en: 'No-code builder', dRu: 'Меняйте таблицы, поля и формы мышкой — без единой строчки кода.', dEn: 'Change tables, fields and forms with the mouse — no code.' },
+        { icon: '#i-automation', iconCls: 'ico-box ico-box--mint', ru: 'Автоматизации', en: 'Automations', dRu: 'Напоминания, статусы, письма и задачи запускаются сами по правилам.', dEn: 'Reminders, statuses, emails and tasks fire automatically by rules.' },
+        { icon: '#i-lock', iconCls: 'ico-box ico-box--warm', ru: 'Роли и права', en: 'Roles & access', dRu: 'Тонко настраивайте, кто что видит и может менять в системе.', dEn: 'Fine-tune who sees and edits what across the system.' },
+        { icon: '#i-plug', iconCls: 'ico-box ico-box--mint', ru: 'Интеграции', en: 'Integrations', dRu: 'Telegram, WhatsApp, почта, платежи, 1С и открытый программный интерфейс (API).', dEn: 'Telegram, WhatsApp, email, payments, 1C and an open API.' },
+        { icon: '#i-report', iconCls: 'ico-box ico-box--warm', ru: 'Отчёты и дашборды', en: 'Reports & dashboards', dRu: 'Считайте выручку, KPI и воронку в наглядных отчётах.', dEn: 'Track revenue, KPIs and funnels in clear reports.' },
+        { icon: '#i-mobile', iconCls: 'ico-box ico-box--mint', ru: 'Мобильное приложение', en: 'Mobile app', dRu: 'Вся CRM в кармане — на телефоне и планшете, онлайн и офлайн.', dEn: 'Your whole CRM in your pocket — phone and tablet, on/offline.' }
       ],
 
       plans: this.PLANS.map(pl => ({
         users: pl.users,
-        price: pl.price + (ru ? ' ₽/ мес' : ' \u20bd/mo'),
-        star: pl.star ? ' *' : '',
-        badge: !!pl.badge,
+        titleRu: 'Тариф ' + pl.users,
+        titleEn: 'Plan ' + pl.users,
+        price: pl.price + (ru ? ' ₽/мес' : ' \u20bd/mo'),
+        badge: ru ? 'Максимум' : 'Max',
+        badgeCls: pl.badge ? 'plan-badge' : 'plan-badge is-hidden',
         mailRu: pl.mail + ' писем/день',
         mailEn: pl.mail + ' emails/day',
-        card: 'background:#fff;border-radius:14px;padding:18px 14px 20px;' +
-              (pl.badge ? 'border:1.5px solid var(--accent)' : 'border:1px solid var(--line)'),
-        btn: 'display:block;text-align:center;margin:16px 0;padding:11px;border-radius:11px;font-size:14.5px;font-weight:800;' +
-             (pl.badge ? 'background:var(--accent);color:#fff' : 'background:var(--ink);color:#fff')
+        cardCls: 'plan' + (pl.badge ? ' plan--star' : ''),
+        btnCls: 'btn btn--wide ' + (pl.badge ? 'btn--primary' : 'btn--ghost')
       })),
 
       reviews: [
