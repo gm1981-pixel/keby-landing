@@ -8,7 +8,7 @@
    нет. Тёмных блоков нет: с ними страница читалась мрачно.
 
    Живость держится на трёх приёмах: рукописные подписи со стрелками
-   (шрифт Caveat), подчёркивание-росчерк под ключевым словом заголовка и
+   (шрифт Shantell Sans), подчёркивание-росчерк под ключевым словом заголовка и
    крупные цифры. Иконки контурные, 1,6 пикселя, наследуют цвет текста.
    Эмодзи не используем: они ломают тон профессионального продукта.
 
@@ -125,23 +125,25 @@ a:hover { color: var(--accent-ink) }
 
 /* ── Рукописные подписи и стрелки ─────────────────────────────────────── */
 .hand {
-  font-family: 'Caveat', 'Inter', cursive;
-  font-size: 21px;
+  /* Shantell Sans — тот же шрифт, что на референсе. У него крупнее очко,
+     чем у прежнего Caveat, поэтому кегль меньше, а читается так же. */
+  font-family: 'Shantell Sans', 'Inter', cursive;
+  font-size: 17px;
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.25;
   color: var(--accent-ink);
 }
 /* Подпись со стрелкой: стрелка не мешает чтению с экрана — aria-hidden */
 .hand-row { display: inline-flex; align-items: flex-start; gap: 8px; transform: rotate(-1.6deg) }
 .hand-arrow {
-  width: 46px; height: 38px; flex: none;
+  width: 52px; height: 42px; flex: none;
   fill: none; stroke: currentColor; stroke-width: 2.1;
   stroke-linecap: round; stroke-linejoin: round;
   /* один цвет с подписью: раньше стрелка наследовала цвет текста страницы
      и оказывалась чёрной рядом с оранжевой надписью */
   color: var(--accent-ink);
 }
-.hand-arrow--sm { width: 34px; height: 28px }
+.hand-arrow--sm { width: 40px; height: 32px }
 /* Подпись, приклеенная к иллюстрации; на узких экранах прячется */
 .hand-pin { position: absolute; z-index: 4; pointer-events: none; color: var(--accent-ink) }
 @media (max-width: 900px) { .hand-pin { display: none } }
@@ -488,7 +490,7 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
   .form-sep { display: none }
   .foot-cols { grid-template-columns: 1fr }
   .block-tint { padding: 48px 18px; border-radius: var(--r-lg) }
-  .hand { font-size: 19px }
+  .hand { font-size: 16px }
 }
 
 /* ── Мелочи ───────────────────────────────────────────────────────────── */
