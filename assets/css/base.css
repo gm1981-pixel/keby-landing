@@ -106,13 +106,16 @@ a:hover { color: var(--accent-ink) }
 }
 
 /* Надстрочная метка секции — одна на все секции. Раньше их было две,
-   тёплая и жёлтая, и страница от этого рябила. */
+   тёплая и жёлтая, и страница от этого рябила.
+   Обводка и надпись одного цвета, без заливки: тот же приём, что у кнопки
+   выбора тарифа, так метки и кнопки читаются как одна система. */
 .kicker {
   display: inline-flex; align-items: center; gap: 7px;
-  background: var(--sun-soft);
-  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--accent-ink);
+  color: var(--accent-ink);
   border-radius: 999px;
-  padding: 6px 14px;
+  padding: 5px 13px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
