@@ -193,10 +193,21 @@ a:hover { color: var(--accent-ink) }
 .tint-warm { background: var(--accent-soft) }
 .tint-sun { background: var(--sun-soft) }
 .block-tint {
+  position: relative;
   background: var(--accent-soft);
   border-radius: var(--r-xl);
   padding: 72px 24px;
+  overflow: hidden;          /* знак в углу не должен вылезать за скругление */
 }
+/* Знак в углу плашки — украшение поверх фона, из потока выведен, поэтому
+   ничего не двигает. На узком экране убираем: там места нет. */
+.block-mark {
+  position: absolute; right: 30px; bottom: 26px;
+  width: 92px; height: 92px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+@media (max-width: 1100px) { .block-mark { display: none } }
 
 /* ── Кнопки ───────────────────────────────────────────────────────────── */
 .btn {

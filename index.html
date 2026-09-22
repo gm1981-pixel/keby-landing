@@ -652,6 +652,7 @@
   <section class="sec" id="cta">
     <div class="wrap">
       <div class="block-tint">
+        <img class="block-mark" src="assets/img/mark.svg" alt="" width="92" height="92">
         <div class="sec-head" style="margin-bottom:28px">
           <h2><span data-l="ru">Опишите — и заберите <span class="mark">свою CRM<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span></span><span data-l="en">Describe it — and take <span class="mark">your CRM<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span></span></h2>
           <p class="lead"><span data-l="ru">Опишите задачу и оставьте адрес электронной почты — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
@@ -739,7 +740,7 @@
             <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
               <div style="padding:26px">
                 <div class="row">
-                  <span class="ico-box ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                  <img src="assets/img/mark.svg" alt="" width="40" height="40" style="display:block;flex:none">
                   <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
                 </div>
                 <p class="small" style="margin-top:14px">
@@ -1100,7 +1101,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.11';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.12';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
