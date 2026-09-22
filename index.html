@@ -77,6 +77,17 @@
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></symbol>
     <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 7.8l8.5-4.3 8.5 4.3v8.4L12 20.5l-8.5-4.3z"/><path d="M3.5 7.8L12 12l8.5-4.2M12 12v8.5"/></symbol>
     <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9.5 6.5c-3 1.3-4.5 3.6-4.5 6.8V18h5.5v-5.5H7.3c0-1.9.8-3.3 2.2-4.2zM20 6.5c-3 1.3-4.5 3.6-4.5 6.8V18H21v-5.5h-3.2c0-1.9.8-3.3 2.2-4.2z"/></symbol>
+
+    <!-- Рукописные стрелки и росчерк под словом. Линии намеренно неровные:
+         ровная дуга читается как значок интерфейса, а не как пометка от руки -->
+    <!-- Росчерк тянется по ширине слова (preserveAspectRatio="none"), поэтому
+         толщина линии задана в экранных пикселях: иначе её растянуло бы вместе
+         с фигурой и на длинном слове получилась бы клякса -->
+    <symbol id="h-swash" viewBox="0 0 200 12"><path vector-effect="non-scaling-stroke" d="M4 8.6c26-4.4 54-6.2 82-5.4 21 .6 42 2.6 63 3.1 17 .4 34-.2 47-1.9"/></symbol>
+    <symbol id="h-arrow-dr" viewBox="0 0 48 40"><path d="M6 5c1.4 11.8 7 20.8 18 26"/><path d="M24 31l-8.6-1.4M24 31l-3.1-8.4"/></symbol>
+    <symbol id="h-arrow-dl" viewBox="0 0 48 40"><path d="M42 5c-1.4 11.8-7 20.8-18 26"/><path d="M24 31l8.6-1.4M24 31l3.1-8.4"/></symbol>
+    <symbol id="h-arrow-ur" viewBox="0 0 48 40"><path d="M5 34c12 .8 23.6-6.4 33-22.4"/><path d="M38 11.6l-9.2 2M38 11.6l-1.4 9.2"/></symbol>
+    <symbol id="h-arrow-r" viewBox="0 0 50 36"><path d="M4 22c12.4-6.2 26.6 3.4 40.4-3.2"/><path d="M44.4 18.8l-8.4-3.6M44.4 18.8l-6.6 6.4"/></symbol>
   </svg>
 
   <!-- ===== ШАПКА ===== -->
@@ -114,8 +125,8 @@
           </div>
 
           <h1 style="margin:18px 0 0">
-            <span data-l="ru">Опишите CRM — <span class="accent">получите готовую</span> систему</span>
-            <span data-l="en">Describe your CRM — <span class="accent">get a ready</span> system</span>
+            <span data-l="ru">Опишите CRM — <span class="mark">получите готовую<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span> систему</span>
+            <span data-l="en">Describe your CRM — <span class="mark">get a ready<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span> system</span>
           </h1>
 
           <p class="lead" style="max-width:46ch;margin-top:16px">
@@ -232,17 +243,27 @@
             </div>
 
             <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
-              <div class="row" style="flex-wrap:wrap;gap:8px;margin-top:14px">
-                <span class="tiny" style="font-weight:600"><span data-l="ru">Примеры:</span><span data-l="en">Try:</span></span>
-                <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
-                  <button class="pill" sc-camel-on-click="{{ c.fill }}"><span data-l="ru">{{ c.ru }}</span><span data-l="en">{{ c.en }}</span></button>
-                </sc-for>
+              <div>
+                <div class="row" style="flex-wrap:wrap;gap:8px;margin-top:14px">
+                  <span class="tiny" style="font-weight:600"><span data-l="ru">Примеры:</span><span data-l="en">Try:</span></span>
+                  <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+                    <button class="pill" sc-camel-on-click="{{ c.fill }}"><span data-l="ru">{{ c.ru }}</span><span data-l="en">{{ c.en }}</span></button>
+                  </sc-for>
+                </div>
+                <div class="hand-row" style="margin:6px 0 0 10px">
+                  <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
+                  <span class="hand"><span data-l="ru">не знаете, с чего начать — нажмите пример</span><span data-l="en">not sure where to start — tap an example</span></span>
+                </div>
               </div>
             </sc-if>
           </div>
         </div>
 
         <div class="hero-art" style="position:relative;align-self:stretch;min-height:400px;display:flex;align-items:center;justify-content:flex-end">
+          <div class="hand-pin" style="right:20%;top:4%;text-align:center">
+            <div class="hand hand--mint" style="transform:rotate(-4deg)"><span data-l="ru">это Кэби — он и соберёт</span><span data-l="en">this is Кэби — he builds it</span></div>
+            <svg class="hand-arrow hand--mint" style="margin-left:26px" aria-hidden="true" focusable="false"><use href="#h-arrow-dl"></use></svg>
+          </div>
           <img src="assets/img/hero.png" alt="Кэби" style="width:min(680px,145%);display:block;margin-right:-12%">
         </div>
       </div>
@@ -251,6 +272,27 @@
         <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">14 дней бесплатно</span><span data-l="en">14 days free</span></span>
         <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">карта не нужна</span><span data-l="en">no card required</span></span>
         <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">серверы в России</span><span data-l="en">servers in Russia</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЦИФРЫ ===== -->
+  <!-- Обещания страницы одной строкой: то же, что сказано в тексте, но цифрами -->
+  <section class="sec" style="padding-block:44px">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-n">2 <em><span data-l="ru">минуты</span><span data-l="en">minutes</span></em></div>
+          <p><span data-l="ru">от описания задачи до аккаунта, в котором уже можно работать</span><span data-l="en">from your description to an account you can work in</span></p>
+        </div>
+        <div class="stat">
+          <div class="stat-n">0 <em><span data-l="ru">строк кода</span><span data-l="en">lines of code</span></em></div>
+          <p><span data-l="ru">чтобы поменять таблицы, поля и правила — всё мышкой</span><span data-l="en">to change tables, fields and rules — all with the mouse</span></p>
+        </div>
+        <div class="stat">
+          <div class="stat-n">14 <em><span data-l="ru">дней</span><span data-l="en">days</span></em></div>
+          <p><span data-l="ru">бесплатно и без карты: платить или нет — решаете потом</span><span data-l="en">free, no card: decide about paying later</span></p>
+        </div>
       </div>
     </div>
   </section>
@@ -284,6 +326,7 @@
         </div>
 
         <!-- Карточка сборки -->
+        <div>
         <div class="card-line" style="padding:8px">
           <div class="row" style="padding:14px 16px 13px;border-bottom:1px solid var(--line)">
             <svg class="ico-sm" style="color:var(--accent)"><use href="#i-spark"></use></svg>
@@ -302,6 +345,11 @@
             <span data-l="ru">Добавить модуль</span><span data-l="en">Add module</span>
           </button>
         </div>
+          <div class="hand-row" style="margin:12px 0 0 14px">
+            <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
+            <span class="hand"><span data-l="ru">попробуйте переключить — состав меняется</span><span data-l="en">try the switches — the setup changes</span></span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -313,14 +361,23 @@
         <span class="kicker"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></span>
         <h2><span data-l="ru">Три шага до готовой системы</span><span data-l="en">Three steps to a working system</span></h2>
       </div>
-      <div class="grid grid-3">
+      <div class="steps">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
-          <div class="card">
-            <span class="mono" style="font-size:13px;font-weight:700;color:var(--accent-ink)">{{ s.n }}</span>
-            <h3 style="margin:14px 0 8px"><span data-l="ru">{{ s.tRu }}</span><span data-l="en">{{ s.tEn }}</span></h3>
+          <div class="step">
+            <div class="step-n">{{ s.n }}</div>
+            <h3><span data-l="ru">{{ s.tRu }}</span><span data-l="en">{{ s.tEn }}</span></h3>
             <p class="small"><span data-l="ru">{{ s.dRu }}</span><span data-l="en">{{ s.dEn }}</span></p>
           </div>
         </sc-for>
+      </div>
+
+      <!-- Повторная кнопка в середине страницы: до нижней формы ещё далеко -->
+      <div class="row" style="justify-content:center;margin-top:40px;gap:14px;flex-wrap:wrap">
+        <div class="hand-row" style="align-items:center">
+          <span class="hand hand--grey"><span data-l="ru">всего пара минут — и можно работать</span><span data-l="en">a couple of minutes — and you are working</span></span>
+          <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-r"></use></svg>
+        </div>
+        <a href="#cta" class="btn btn--primary btn--lg"><span data-l="ru">Собрать мою CRM</span><span data-l="en">Build my CRM</span></a>
       </div>
     </div>
   </section>
@@ -339,7 +396,7 @@
             <span class="ico-box ico-box--warm"><svg class="ico"><use href="{{ e.icon }}"></use></svg></span>
             <h3 style="margin:16px 0 6px"><span data-l="ru">{{ e.ru }}</span><span data-l="en">{{ e.en }}</span></h3>
             <p class="small" style="margin-bottom:14px"><span data-l="ru">{{ e.dRu }}</span><span data-l="en">{{ e.dEn }}</span></p>
-            <span class="mono" style="font-size:12.5px;color:var(--mint-ink)">{{ e.tables }}</span>
+            <span class="mono to-bottom" style="font-size:12.5px;color:var(--mint-ink)">{{ e.tables }}</span>
           </div>
         </sc-for>
       </div>
@@ -426,6 +483,11 @@
         </sc-for>
       </div>
 
+      <div class="hand-row" style="margin:20px 0 0 18px">
+        <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
+        <span class="hand"><span data-l="ru">начните с любого — первые 14 дней бесплатны на всех</span><span data-l="en">start with any — the first 14 days are free on all of them</span></span>
+      </div>
+
       <!-- Существенные условия: ЗоЗПП ст. 8, 10, 32 -->
       <div class="card" style="margin-top:28px">
         <h3 style="margin-bottom:12px"><span data-l="ru">Условия оказания услуги</span><span data-l="en">Service terms</span></h3>
@@ -461,10 +523,15 @@
       <div class="grid grid-3">
         <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
           <div class="card">
-            <svg class="ico" style="color:var(--accent);opacity:0.6"><use href="#i-quote"></use></svg>
+            <svg class="ico" style="color:var(--accent)"><use href="#i-quote"></use></svg>
             <p style="font-size:15.5px;line-height:1.55;margin:14px 0 18px"><span data-l="ru">{{ r.ru }}</span><span data-l="en">{{ r.en }}</span></p>
-            <div style="font-weight:600;font-size:14.5px">{{ r.name }}</div>
-            <div class="tiny"><span data-l="ru">{{ r.roleRu }}</span><span data-l="en">{{ r.roleEn }}</span></div>
+            <div class="row to-bottom">
+              <span class="{{ r.avatarCls }}">{{ r.initials }}</span>
+              <div>
+                <div style="font-weight:600;font-size:14.5px">{{ r.name }}</div>
+                <div class="tiny"><span data-l="ru">{{ r.roleRu }}</span><span data-l="en">{{ r.roleEn }}</span></div>
+              </div>
+            </div>
           </div>
         </sc-for>
       </div>
@@ -476,7 +543,7 @@
     <div class="wrap">
       <div class="block-tint">
         <div class="sec-head" style="margin-bottom:28px">
-          <h2><span data-l="ru">Опишите — и заберите <span class="accent">свою CRM</span></span><span data-l="en">Describe it — and take <span class="accent">your CRM</span></span></h2>
+          <h2><span data-l="ru">Опишите — и заберите <span class="mark">свою CRM<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span></span><span data-l="en">Describe it — and take <span class="mark">your CRM<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span></span></h2>
           <p class="lead"><span data-l="ru">Опишите задачу и оставьте адрес электронной почты — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
         </div>
 
@@ -576,7 +643,9 @@
               </div>
             </sc-if>
           </div>
-          <p class="tiny mono" style="text-align:center;margin-top:14px">{{ regNote }}</p>
+          <div class="row" style="justify-content:center;margin-top:16px">
+            <span class="hand"><span data-l="ru">без карты, отписаться можно в один клик</span><span data-l="en">no card, one-click opt-out</span></span>
+          </div>
         </div>
       </div>
     </div>
@@ -904,7 +973,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.3';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -1195,7 +1264,6 @@ class Component extends DCLogic {
       submitEn: this.state.sending ? 'Sending…' : 'Build my CRM',
       regRu: this.state.sending ? 'Отправляем…' : 'Создать аккаунт',
       regEn: this.state.sending ? 'Sending…' : 'Create account',
-      regNote: ru ? 'Без карты · отписка в 1 клик' : 'No card · 1-click opt-out',
       submitOff: submitLocked,
 
       agreeOffer: this.state.agreeOffer,
@@ -1274,9 +1342,9 @@ class Component extends DCLogic {
       })),
 
       reviews: [
-        { ru: '«Описали процесс салона голосом — через пять минут получили рабочий аккаунт. То, на что раньше уходили недели.»', en: '"We described our salon by voice — got a working account in five minutes. Used to take weeks."', name: 'Марина К.', roleRu: 'Владелица сети салонов', roleEn: 'Salon chain owner' },
-        { ru: '«Наконец CRM, которую не стыдно менять самим. Добавили таблицу и автоматизацию без разработчика за вечер.»', en: '"Finally a CRM we can change ourselves. Added a table and an automation in an evening, no developer."', name: 'Игорь П.', roleRu: 'Руководитель отдела продаж', roleEn: 'Head of sales' },
-        { ru: '«Собрали CRM для доставки прямо из описания. Курьеры, статусы, отчёты — всё уже было настроено.»', en: '"Built our delivery CRM straight from a prompt. Couriers, statuses, reports — all preconfigured."', name: 'Алина Р.', roleRu: 'Основатель службы доставки', roleEn: 'Delivery startup founder' }
+        { ru: '«Описали процесс салона голосом — через пять минут получили рабочий аккаунт. То, на что раньше уходили недели.»', en: '"We described our salon by voice — got a working account in five minutes. Used to take weeks."', name: 'Марина К.', initials: 'МК', avatarCls: 'avatar', roleRu: 'Владелица сети салонов', roleEn: 'Salon chain owner' },
+        { ru: '«Наконец CRM, которую не стыдно менять самим. Добавили таблицу и автоматизацию без разработчика за вечер.»', en: '"Finally a CRM we can change ourselves. Added a table and an automation in an evening, no developer."', name: 'Игорь П.', initials: 'ИП', avatarCls: 'avatar avatar--mint', roleRu: 'Руководитель отдела продаж', roleEn: 'Head of sales' },
+        { ru: '«Собрали CRM для доставки прямо из описания. Курьеры, статусы, отчёты — всё уже было настроено.»', en: '"Built our delivery CRM straight from a prompt. Couriers, statuses, reports — all preconfigured."', name: 'Алина Р.', initials: 'АР', avatarCls: 'avatar', roleRu: 'Основатель службы доставки', roleEn: 'Delivery startup founder' }
       ]
     };
   }
