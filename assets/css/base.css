@@ -164,6 +164,11 @@ a:hover { color: var(--accent-ink) }
 .sec + .sec { border-top: 1px solid var(--line) }
 .sec-head { max-width: 40rem; margin: 0 auto 48px; text-align: center }
 .sec-head .lead { margin-top: 14px }
+/* Кэби над шапкой секции. Размеры проставлены и в атрибутах картинки, и
+   здесь: место под неё резервируется до загрузки, поэтому при появлении
+   ничего не дёргается. */
+.sec-mascot { display: block; width: 104px; height: 104px; margin: 0 auto 6px }
+@media (max-width: 560px) { .sec-mascot { width: 88px; height: 88px } }
 
 .grid { display: grid; gap: 18px }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) }
@@ -202,8 +207,8 @@ a:hover { color: var(--accent-ink) }
 /* Знак в углу плашки — украшение поверх фона, из потока выведен, поэтому
    ничего не двигает. На узком экране убираем: там места нет. */
 .block-mark {
-  position: absolute; right: 30px; bottom: 26px;
-  width: 92px; height: 92px;
+  position: absolute; right: 22px; bottom: 14px;
+  width: 124px; height: 124px;
   opacity: 0.9;
   pointer-events: none;
 }

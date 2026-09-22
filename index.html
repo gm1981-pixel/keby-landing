@@ -370,6 +370,7 @@
   <section class="sec" id="how">
     <div class="wrap">
       <div class="sec-head">
+        <img class="sec-mascot" src="assets/img/mascot/03-idea.svg" alt="" width="104" height="104">
         <span class="kicker"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></span>
         <h2><span data-l="ru">Три шага до готовой системы</span><span data-l="en">Three steps to a working system</span></h2>
       </div>
@@ -416,7 +417,7 @@
         </div>
         <div class="compare-col compare-col--good">
           <div class="compare-title">
-            <img src="assets/img/mark.svg" alt="" width="40" height="40" style="display:block;flex:none;margin:-4px 0">
+            <img src="assets/img/mascot/02-thumbs-up.svg" alt="" width="44" height="44" style="display:block;flex:none;margin:-6px 0">
             <span data-l="ru">Как это с Кэби</span><span data-l="en">The same with Кэби</span>
           </div>
           <sc-for list="{{ compareGood }}" as="cg" hint-placeholder-count="5">
@@ -492,6 +493,7 @@
   <section class="sec" id="features">
     <div class="wrap">
       <div class="sec-head">
+        <img class="sec-mascot" src="assets/img/mascot/04-cool.svg" alt="" width="104" height="104">
         <span class="kicker"><span data-l="ru">Возможности</span><span data-l="en">Features</span></span>
         <h2><span data-l="ru">Гибкий движок, <span class="accent">а не шаблон</span></span><span data-l="en">A flexible engine, <span class="accent">not a template</span></span></h2>
         <p class="lead"><span data-l="ru">Кэби настраивается без программирования: меняйте таблицы, поля и правила сами.</span><span data-l="en">Кэби is configured without code: change tables, fields and rules yourself.</span></p>
@@ -598,6 +600,7 @@
   <section class="sec">
     <div class="wrap">
       <div class="sec-head">
+        <img class="sec-mascot" src="assets/img/mascot/01-heart.svg" alt="" width="104" height="104">
         <span class="kicker"><span data-l="ru">Отзывы</span><span data-l="en">Reviews</span></span>
         <h2><span data-l="ru">С Кэби <span class="accent">уже работают</span></span><span data-l="en">Already <span class="accent">working with Кэби</span></span></h2>
       </div>
@@ -652,7 +655,7 @@
   <section class="sec" id="cta">
     <div class="wrap">
       <div class="block-tint">
-        <img class="block-mark" src="assets/img/mark.svg" alt="" width="92" height="92">
+        <img class="block-mark" src="assets/img/mascot/05-wave.svg" alt="" width="124" height="124">
         <div class="sec-head" style="margin-bottom:28px">
           <h2><span data-l="ru">Опишите — и заберите <span class="mark">свою CRM<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span></span><span data-l="en">Describe it — and take <span class="mark">your CRM<svg class="swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><use href="#h-swash"></use></svg></span></span></h2>
           <p class="lead"><span data-l="ru">Опишите задачу и оставьте адрес электронной почты — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
@@ -1101,7 +1104,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.12';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.13';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
