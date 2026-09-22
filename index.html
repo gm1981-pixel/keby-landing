@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Кэби — соберём CRM по вашему описанию</title>
+<meta name="description" content="Опишите словами или голосом, что нужно бизнесу, — Кэби соберёт настроенный аккаунт CRM: таблицы, роли, отчёты и автоматизации. 14 дней бесплатно.">
+<meta name="theme-color" content="#2a2933">
+
+<link rel="canonical" href="https://keby.clientbase.ru/">
+
+<link rel="icon" href="assets/img/mark.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Кэби">
+<meta property="og:title" content="Кэби — соберём CRM по вашему описанию">
+<meta property="og:description" content="Опишите словами или голосом, что нужно бизнесу, — Кэби соберёт настроенный аккаунт CRM: таблицы, роли, отчёты и автоматизации. 14 дней бесплатно.">
+<meta property="og:image" content="https://keby.clientbase.ru/assets/img/hero.png">
+<meta property="og:url" content="https://keby.clientbase.ru/">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Яндекс.Метрика. Счётчик НЕ запускается сам: пока посетитель не нажал
+     «Принять» в баннере внизу страницы, ни один запрос к mc.yandex.ru не
+     уходит и ни один файл cookie не пишется (152-ФЗ ст. 6, ст. 9).
+     Запуск — в assets/js/consent.js, по сохранённому выбору или по кнопке. -->
+<script>window.KEBY_METRIKA_ID = 19963723;</script>
+<script src="assets/js/consent.js"></script>
+
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<script>window.__resources = {
+  "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js",
+  "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js",
+  // Babel рантайму нужен только для JSX, которого здесь нет. Пустая строка не
+  // подходит — карта проверяет непустое значение, поэтому ведём на свой домен:
+  // если однажды JSX появится, запрос упрётся в 404 у нас, а не уйдёт на unpkg.
+  "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js": "assets/js/babel-not-bundled.js"
+};</script>
+<script src="assets/js/dc-runtime.js"></script>
+</head>
+<body>
+<!-- noscript-пикселя Метрики здесь нет намеренно: без JavaScript негде спросить
+     согласие, а значит нет основания запускать счётчик. -->
+
+<x-dc>
+
+<div data-lang="{{ lang }}" style="max-width:100%;overflow-x:hidden">
+
+  <!-- ===== ИКОНКИ ===== -->
+  <!-- Один спрайт на всю страницу: контурные иконки, наследуют цвет текста -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 8l7.1 4.7a2 2 0 002.2 0L20 8"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1.2-3.3 3.8-5 7-5s5.8 1.7 7 5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M7.5 3.8h2.2l1.4 3.5-1.8 1.3a11 11 0 004.8 4.8l1.3-1.8 3.5 1.4v2.2c0 1.2-1 2.2-2.2 2.1A15.4 15.4 0 015.4 6c-.1-1.2.9-2.2 2.1-2.2z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12.5a7.5 7.5 0 01-10.9 6.7L4.5 20.5l1.3-4.6A7.5 7.5 0 1120 12.5z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="10" rx="3"/><path d="M5.5 11a6.5 6.5 0 0013 0M12 17.5V21"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5L13 17.5"/></symbol>
+    <symbol id="i-sales" viewBox="0 0 24 24"><path d="M4 13.5l7.1-7.1a2 2 0 011.4-.6H19a1 1 0 011 1v6.5a2 2 0 01-.6 1.4l-7.1 7.1a1.5 1.5 0 01-2.1 0l-6.1-6.1a1.5 1.5 0 010-2.2z"/><circle cx="16" cy="8" r="1.3"/></symbol>
+    <symbol id="i-clients" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c1-2.9 3.1-4.4 5.5-4.4s4.5 1.5 5.5 4.4"/><path d="M16 5.6a3.2 3.2 0 010 6M17.5 14.9c1.6.6 2.7 2 3.3 4.1"/></symbol>
+    <symbol id="i-analytics" viewBox="0 0 24 24"><path d="M4 20V4"/><path d="M4 20h16"/><rect x="7.5" y="12" width="3.2" height="5"/><rect x="13.3" y="8" width="3.2" height="9"/></symbol>
+    <symbol id="i-automation" viewBox="0 0 24 24"><path d="M13.5 3L5.5 13.5h5L10 21l8-10.5h-5L13.5 3z"/></symbol>
+    <symbol id="i-blocks" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><path d="M17 13.5v7M13.5 17h7"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 118 0v2.5"/><circle cx="12" cy="15.5" r="1.2"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5"/><path d="M6.5 8h11v3.5a5.5 5.5 0 01-11 0V8z"/><path d="M12 17v4"/></symbol>
+    <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3.5h8L19 8v12a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 015 20V5a1.5 1.5 0 011-1.5z"/><path d="M13.5 3.5V8H19"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></symbol>
+    <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.8 18.5h2.4"/></symbol>
+    <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M8.3 15.7L18 4M15.7 15.7L6 4"/></symbol>
+    <symbol id="i-tooth" viewBox="0 0 24 24"><path d="M12 4.5c2-1.2 5-1.3 6.2.6 1.3 2 .5 5-.5 8-.6 1.8-.7 4.4-1.9 4.9-1.5.6-1.6-2.6-2.4-4.2-.3-.6-.6-.9-1.4-.9s-1.1.3-1.4.9c-.8 1.6-.9 4.8-2.4 4.2-1.2-.5-1.3-3.1-1.9-4.9-1-3-1.8-6 .5-8 1.2-1.9 3.2-1.8 5.2-.6z"/></symbol>
+    <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3.5 11h17a8.5 8.5 0 01-17 0z"/><path d="M8 7.5c0-1 .8-1.3.8-2.2M12 7c0-1.2 1-1.5 1-2.5M16 7.5c0-1 .8-1.3.8-2.2"/><path d="M2.5 20.5h19"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16.5v2.2M20 16.5v2.2"/><path d="M3 16.5v-3.2l2-4.6A2 2 0 016.8 7.5h10.4a2 2 0 011.8 1.2l2 4.6v3.2z"/><path d="M3 13.3h18"/><circle cx="7.5" cy="16.4" r="1"/><circle cx="16.5" cy="16.4" r="1"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 7.8l8.5-4.3 8.5 4.3v8.4L12 20.5l-8.5-4.3z"/><path d="M3.5 7.8L12 12l8.5-4.2M12 12v8.5"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9.5 6.5c-3 1.3-4.5 3.6-4.5 6.8V18h5.5v-5.5H7.3c0-1.9.8-3.3 2.2-4.2zM20 6.5c-3 1.3-4.5 3.6-4.5 6.8V18H21v-5.5h-3.2c0-1.9.8-3.3 2.2-4.2z"/></symbol>
+  </svg>
+
+  <!-- ===== ШАПКА ===== -->
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="#" aria-label="Кэби" style="flex:none;display:flex">
+        <img src="assets/img/logo.svg" alt="Кэби" width="142" height="38" style="display:block;height:28px;width:auto">
+      </a>
+      <nav class="top-nav">
+        <a href="#how"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
+        <a href="#examples"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
+        <a href="#interface"><span data-l="ru">Интерфейс</span><span data-l="en">Interface</span></a>
+        <a href="#features"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
+        <a href="#pricing"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
+      </nav>
+      <div class="row" style="margin-left:auto;gap:12px">
+        <div class="lang">
+          <button sc-camel-on-click="{{ setRu }}" class="{{ ruBtnCls }}">RU</button>
+          <button sc-camel-on-click="{{ setEn }}" class="{{ enBtnCls }}">EN</button>
+        </div>
+        <a href="#cta" class="btn btn--primary btn--sm"><span data-l="ru">Создать аккаунт</span><span data-l="en">Sign up</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== ПЕРВЫЙ ЭКРАН ===== -->
+  <section class="sec" style="padding-top:56px;padding-bottom:64px">
+    <div class="wrap">
+      <div class="split-grid" style="display:grid;grid-template-columns:1.08fr 0.92fr;gap:28px;align-items:center">
+
+        <div style="position:relative;z-index:2">
+          <div class="row" style="display:inline-flex;gap:8px;background:var(--accent-soft);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;color:var(--accent-ink)">
+            <svg class="ico-sm"><use href="#i-spark"></use></svg>
+            <span data-l="ru">ИИ-конфигуратор CRM · без программистов</span><span data-l="en">AI CRM configurator · no developers</span>
+          </div>
+
+          <h1 style="margin:18px 0 0">
+            <span data-l="ru">Опишите CRM — <span class="accent">получите готовую</span> систему</span>
+            <span data-l="en">Describe your CRM — <span class="accent">get a ready</span> system</span>
+          </h1>
+
+          <p class="lead" style="max-width:46ch;margin-top:16px">
+            <span data-l="ru">Напишите или наговорите голосом, что нужно бизнесу — Кэби соберёт настроенный аккаунт CRM — системы управления отношениями с клиентами — за пару минут.</span>
+            <span data-l="en">Type or dictate what your business needs — Кэби assembles a configured CRM account in minutes.</span>
+          </p>
+
+          <!-- Форма -->
+          <div class="hero-card" style="position:relative;z-index:3;margin-top:24px;margin-right:-150px">
+            <div class="form-card">
+
+              <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <div style="position:relative;padding:16px 18px 6px">
+                    <textarea class="form-field" value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" maxlength="{{ briefMax }}" rows="4" style="width:100%"></textarea>
+                    <sc-if value="{{ listening }}" hint-placeholder-val="{{ false }}">
+                      <div style="position:absolute;right:18px;top:18px;display:flex;align-items:flex-end;gap:3px;height:20px">
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0s"></span>
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.15s"></span>
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.3s"></span>
+                        <span style="width:3px;height:100%;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:wv 0.7s ease-in-out infinite 0.45s"></span>
+                      </div>
+                    </sc-if>
+                  </div>
+
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-mail"></use></svg>
+                    <input class="form-field" value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}">
+                  </div>
+
+                  <div class="form-split">
+                    <div class="form-row">
+                      <svg class="ico"><use href="#i-user"></use></svg>
+                      <input class="form-field" value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}">
+                    </div>
+                    <div class="form-sep"></div>
+                    <div class="form-row">
+                      <svg class="ico"><use href="#i-phone"></use></svg>
+                      <input class="form-field" value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}">
+                      <sc-if value="{{ smsCanVerify }}" hint-placeholder-val="{{ false }}"><button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ sendCode }}"><span data-l="ru">{{ verifyRu }}</span><span data-l="en">{{ verifyEn }}</span></button></sc-if>
+                      <sc-if value="{{ smsVerified }}" hint-placeholder-val="{{ false }}"><span class="ok-badge"><svg class="ico-sm"><use href="#i-check"></use></svg><span data-l="ru">подтверждён</span><span data-l="en">verified</span></span></sc-if>
+                    </div>
+                  </div>
+
+                  <sc-if value="{{ smsAwaitCode }}" hint-placeholder-val="{{ false }}">
+                    <div class="form-row">
+                      <svg class="ico"><use href="#i-chat"></use></svg>
+                      <input class="form-field code-input" value="{{ smsCode }}" sc-camel-on-input="{{ onSmsCode }}" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="{{ codePh }}">
+                      <button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ resendCode }}"><span data-l="ru">{{ resendRu }}</span><span data-l="en">{{ resendEn }}</span></button>
+                    </div>
+                  </sc-if>
+
+                  <div class="{{ consentsCls }}">
+                    <label class="consent">
+                      <input type="checkbox" checked="{{ agreeOffer }}" sc-camel-on-change="{{ toggleOffer }}" class="{{ agreeCls }}">
+                      <span>
+                        <span data-l="ru">Принимаю условия <a href="docs/offer.pdf" target="_blank" rel="noopener">договора-оферты</a></span>
+                        <span data-l="en">I accept the <a href="docs/offer.pdf" target="_blank" rel="noopener">terms of the offer</a></span>
+                      </span>
+                    </label>
+                    <label class="consent">
+                      <input type="checkbox" checked="{{ agreePdn }}" sc-camel-on-change="{{ togglePdn }}" class="{{ agreeCls }}">
+                      <span>
+                        <span data-l="ru">Даю <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен с <a href="docs/privacy.pdf" target="_blank" rel="noopener">политикой обработки</a></span>
+                        <span data-l="en">I give <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">consent to the processing of personal data</a> and have read the <a href="docs/privacy.pdf" target="_blank" rel="noopener">privacy policy</a></span>
+                      </span>
+                    </label>
+                    <label class="consent">
+                      <input type="checkbox" checked="{{ agreeAds }}" sc-camel-on-change="{{ toggleAds }}" class="agree-box">
+                      <span>
+                        <span data-l="ru">Согласен получать рекламные и информационные сообщения по электронной почте, телефону, в SMS-сообщениях и мессенджерах — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">условия</a>. Необязательно</span>
+                        <span data-l="en">I agree to receive marketing messages by email, phone, SMS and messengers — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">terms</a>. Optional</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div class="form-foot">
+                    <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
+                      <button class="{{ micCls }}" sc-camel-on-click="{{ toggleVoice }}" title="voice">
+                        <svg class="ico-sm"><use href="#i-mic"></use></svg>
+                        <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
+                      </button>
+                    </sc-if>
+                    <span class="mono tiny {{ countCls }}">{{ charCount }}</span>
+                    <button class="btn btn--primary" sc-camel-on-click="{{ submit }}" disabled="{{ submitOff }}" style="margin-left:auto">
+                      <span data-l="ru">{{ submitRu }}</span><span data-l="en">{{ submitEn }}</span>
+                      <svg class="ico-sm"><use href="#i-arrow"></use></svg>
+                    </button>
+                  </div>
+
+                  <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                    <div class="hint"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:26px">
+                  <div class="row">
+                    <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                    <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
+                  </div>
+                  <p class="small" style="margin-top:14px">
+                    <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Сейчас откроем его, логин и пароль отправили на {{ sentEmail }}.</span>
+                    <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. We are opening it now; the login and password went to {{ sentEmail }}.</span>
+                  </p>
+                  <div class="row" style="margin-top:18px;flex-wrap:wrap">
+                    <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
+                    <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span></button>
+                  </div>
+                </div>
+              </sc-if>
+
+            </div>
+
+            <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+              <div class="row" style="flex-wrap:wrap;gap:8px;margin-top:14px">
+                <span class="tiny" style="font-weight:600"><span data-l="ru">Примеры:</span><span data-l="en">Try:</span></span>
+                <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+                  <button class="pill" sc-camel-on-click="{{ c.fill }}"><span data-l="ru">{{ c.ru }}</span><span data-l="en">{{ c.en }}</span></button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div class="hero-art" style="position:relative;align-self:stretch;min-height:400px;display:flex;align-items:center;justify-content:flex-end">
+          <img src="assets/img/hero.png" alt="Кэби" style="width:min(680px,145%);display:block;margin-right:-12%">
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:center;gap:22px;margin-top:26px;flex-wrap:wrap">
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">14 дней бесплатно</span><span data-l="en">14 days free</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">карта не нужна</span><span data-l="en">no card required</span></span>
+        <span class="row tiny" style="gap:7px"><svg class="ico-sm" style="color:var(--mint)"><use href="#i-check"></use></svg><span data-l="ru">серверы в России</span><span data-l="en">servers in Russia</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЧТО ДЕЛАЕТ КЭБИ + КОНСТРУКТОР МОДУЛЕЙ ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="split-grid" style="display:grid;grid-template-columns:1fr 0.9fr;gap:48px;align-items:center">
+        <div>
+          <span class="kicker"><span data-l="ru">Знакомство</span><span data-l="en">Meet Кэби</span></span>
+          <h2>
+            <span data-l="ru">Подбираю модули <span class="accent">под вашу задачу</span></span>
+            <span data-l="en">I pick the modules <span class="accent">for your job</span></span>
+          </h2>
+          <p class="lead" style="margin-top:14px;max-width:44ch">
+            <span data-l="ru">Расскажите, чем занимается бизнес. Остальное — моя работа: собрать состав системы, настроить и не мешать вам работать.</span>
+            <span data-l="en">Tell me what your business does. The rest is my job: assemble the system, configure it and stay out of your way.</span>
+          </p>
+
+          <div class="stack" style="gap:18px;margin-top:30px">
+            <sc-for list="{{ mascotPoints }}" as="m" hint-placeholder-count="3">
+              <div class="row" style="align-items:flex-start;gap:14px">
+                <span class="{{ m.iconCls }}"><svg class="ico"><use href="{{ m.icon }}"></use></svg></span>
+                <div>
+                  <div style="font-weight:600;font-size:16px"><span data-l="ru">{{ m.tRu }}</span><span data-l="en">{{ m.tEn }}</span></div>
+                  <div class="small"><span data-l="ru">{{ m.dRu }}</span><span data-l="en">{{ m.dEn }}</span></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- Карточка сборки -->
+        <div class="card-line" style="padding:8px">
+          <div class="row" style="padding:14px 16px 13px;border-bottom:1px solid var(--line)">
+            <svg class="ico-sm" style="color:var(--accent)"><use href="#i-spark"></use></svg>
+            <span style="font-weight:600"><span data-l="ru">Ваша CRM</span><span data-l="en">Your CRM</span></span>
+            <span class="tiny mono" style="margin-left:auto">{{ modulesOn }}</span>
+          </div>
+          <sc-for list="{{ modules }}" as="md" hint-placeholder-count="4">
+            <div class="row" style="padding:13px 16px;border-bottom:1px solid var(--line)">
+              <span class="{{ md.iconCls }}"><svg class="ico-sm"><use href="{{ md.icon }}"></use></svg></span>
+              <span style="flex:1;font-size:15px;font-weight:500"><span data-l="ru">{{ md.ru }}</span><span data-l="en">{{ md.en }}</span></span>
+              <button class="{{ md.cls }}" sc-camel-on-click="{{ md.toggle }}" title="toggle"><i></i></button>
+            </div>
+          </sc-for>
+          <button class="btn-link row" sc-camel-on-click="{{ addModule }}" style="width:100%;padding:14px 16px;color:var(--ink-3);font-size:15px">
+            <span class="ico-box ico-box--sm" style="border-style:dashed"><svg class="ico-sm"><use href="#i-plus"></use></svg></span>
+            <span data-l="ru">Добавить модуль</span><span data-l="en">Add module</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== КАК ЭТО РАБОТАЕТ ===== -->
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></span>
+        <h2><span data-l="ru">Три шага до готовой системы</span><span data-l="en">Three steps to a working system</span></h2>
+      </div>
+      <div class="grid grid-3">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+          <div class="card">
+            <span class="mono" style="font-size:13px;font-weight:700;color:var(--accent-ink)">{{ s.n }}</span>
+            <h3 style="margin:14px 0 8px"><span data-l="ru">{{ s.tRu }}</span><span data-l="en">{{ s.tEn }}</span></h3>
+            <p class="small"><span data-l="ru">{{ s.dRu }}</span><span data-l="en">{{ s.dEn }}</span></p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПРИМЕРЫ ===== -->
+  <section class="sec" id="examples">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></span>
+        <h2><span data-l="ru">Собранные CRM <span class="accent">для разных дел</span></span><span data-l="en">CRMs assembled <span class="accent">for different trades</span></span></h2>
+        <p class="lead"><span data-l="ru">Каждая собрана из одного описания. Возьмите как есть или доработайте под себя.</span><span data-l="en">Each built from a single prompt. Take as-is or tailor it.</span></p>
+      </div>
+      <div class="grid grid-3">
+        <sc-for list="{{ examples }}" as="e" hint-placeholder-count="6">
+          <div class="card">
+            <span class="ico-box ico-box--warm"><svg class="ico"><use href="{{ e.icon }}"></use></svg></span>
+            <h3 style="margin:16px 0 6px"><span data-l="ru">{{ e.ru }}</span><span data-l="en">{{ e.en }}</span></h3>
+            <p class="small" style="margin-bottom:14px"><span data-l="ru">{{ e.dRu }}</span><span data-l="en">{{ e.dEn }}</span></p>
+            <span class="mono" style="font-size:12.5px;color:var(--mint-ink)">{{ e.tables }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ИНТЕРФЕЙС ===== -->
+  <section class="sec" id="interface">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Интерфейс</span><span data-l="en">Interface</span></span>
+        <h2><span data-l="ru">Настоящий аккаунт, <span class="accent">не макет</span></span><span data-l="en">A real account, <span class="accent">not a mockup</span></span></h2>
+        <p class="lead"><span data-l="ru">Так выглядит ваш аккаунт сразу после сборки — отчёты, счета и заявки уже настроены.</span><span data-l="en">This is your account right after assembly — reports, invoices and leads already set up.</span></p>
+      </div>
+
+      <div class="row" style="justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:22px">
+        <sc-for list="{{ shots }}" as="sh" hint-placeholder-count="4">
+          <button class="{{ sh.cls }}" sc-camel-on-click="{{ sh.pick }}"><span data-l="ru">{{ sh.ru }}</span><span data-l="en">{{ sh.en }}</span></button>
+        </sc-for>
+      </div>
+
+      <div class="browser">
+        <div class="browser-bar">
+          <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
+          <span class="browser-url mono"><span style="width:7px;height:7px;border-radius:50%;background:var(--mint);flex:none"></span>{{ shotUrl }}</span>
+        </div>
+        <div style="background:#eef1f4">
+          <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}"><img src="assets/img/screen-dashboard.png" alt="Сводный отчёт Кэби" style="width:100%;display:block"></sc-if>
+          <sc-if value="{{ isInvoices }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-invoices.png" alt="Счета Кэби" style="width:100%;display:block"></sc-if>
+          <sc-if value="{{ isLeads }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-leads.png" alt="Заявки Кэби" style="width:100%;display:block"></sc-if>
+          <sc-if value="{{ isInvoice }}" hint-placeholder-val="{{ false }}"><img src="assets/img/screen-invoice.png" alt="Счёт Кэби" style="width:100%;display:block"></sc-if>
+        </div>
+      </div>
+      <p class="tiny" style="text-align:center;margin-top:14px"><span data-l="ru">{{ shotCapRu }}</span><span data-l="en">{{ shotCapEn }}</span></p>
+    </div>
+  </section>
+
+  <!-- ===== ВОЗМОЖНОСТИ ===== -->
+  <section class="sec" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Возможности</span><span data-l="en">Features</span></span>
+        <h2><span data-l="ru">Гибкий движок, <span class="accent">а не шаблон</span></span><span data-l="en">A flexible engine, <span class="accent">not a template</span></span></h2>
+        <p class="lead"><span data-l="ru">Кэби настраивается без программирования: меняйте таблицы, поля и правила сами.</span><span data-l="en">Кэби is configured without code: change tables, fields and rules yourself.</span></p>
+      </div>
+      <div class="grid grid-2">
+        <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+          <div class="row" style="align-items:flex-start;gap:16px;padding:22px;border-top:1px solid var(--line)">
+            <span class="{{ f.iconCls }}"><svg class="ico"><use href="{{ f.icon }}"></use></svg></span>
+            <div>
+              <h3 style="margin-bottom:6px"><span data-l="ru">{{ f.ru }}</span><span data-l="en">{{ f.en }}</span></h3>
+              <p class="small"><span data-l="ru">{{ f.dRu }}</span><span data-l="en">{{ f.dEn }}</span></p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ТАРИФЫ ===== -->
+  <section class="sec" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></span>
+        <h2><span data-l="ru">Платите только <span class="accent">за пользователей</span></span><span data-l="en">Pay only <span class="accent">for users</span></span></h2>
+        <p class="lead"><span data-l="ru">Первые 14 дней бесплатно, карта не нужна. Все возможности доступны на любом тарифе.</span><span data-l="en">First 14 days free, no card needed. Every plan includes all features.</span></p>
+      </div>
+
+      <div class="grid grid-3">
+        <sc-for list="{{ plans }}" as="p" hint-placeholder-count="6">
+          <div class="{{ p.cardCls }}">
+            <span class="{{ p.badgeCls }}">{{ p.badge }}</span>
+            <div>
+              <div class="tiny mono" style="font-weight:600"><span data-l="ru">{{ p.titleRu }}</span><span data-l="en">{{ p.titleEn }}</span></div>
+              <div class="plan-price" style="margin-top:6px">{{ p.price }}</div>
+            </div>
+            <div>
+              <div class="plan-row"><span data-l="ru">Пользователей</span><span data-l="en">Users</span><b>{{ p.users }}</b></div>
+              <div class="plan-row"><span data-l="ru">Рассылка</span><span data-l="en">Messages</span><b><span data-l="ru">{{ p.mailRu }}</span><span data-l="en">{{ p.mailEn }}</span></b></div>
+              <div class="plan-row"><span data-l="ru">Сервер в России</span><span data-l="en">RU server</span><b class="mint"><span data-l="ru">да</span><span data-l="en">yes</span></b></div>
+            </div>
+            <a href="#cta" class="{{ p.btnCls }}"><span data-l="ru">Создать</span><span data-l="en">Start</span></a>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- Существенные условия: ЗоЗПП ст. 8, 10, 32 -->
+      <div class="card" style="margin-top:28px">
+        <h3 style="margin-bottom:12px"><span data-l="ru">Условия оказания услуги</span><span data-l="en">Service terms</span></h3>
+        <div class="small" data-l="ru">
+          <b>Исполнитель:</b> ООО «Клиентская база», ОГРН 1111690013600, ИНН 1657102956, 420044, Республика Татарстан, г. Казань, пр-кт Ямашева, д. 36, офис 325.<br>
+          <b>Что входит:</b> доступ к аккаунту CRM на выбранном тарифе — указанное число пользователей, объём рассылки, обновления и техническая поддержка.<br>
+          <b>Цены:</b> в рублях за календарный месяц, указаны с учётом всех налогов.<br>
+          <b>Срок:</b> аккаунт создаётся сразу после регистрации; первые 14 дней бесплатно. Далее услуга оказывается непрерывно в течение оплаченного периода.<br>
+          <b>Оплата и возврат:</b> оплата вперёд за выбранный период. Отказаться можно в любой момент; возвращается стоимость неиспользованного остатка периода за вычетом фактически понесённых расходов (ст. 32 Закона «О защите прав потребителей»).<br>
+          <b>Претензии:</b> на info@clientbase.ru или по адресу исполнителя. Срок рассмотрения — 10 дней с даты получения.<br>
+          Полные условия — в <a href="docs/offer.pdf" target="_blank" rel="noopener" class="inline-link">договоре-оферте</a>.
+        </div>
+        <div class="small" data-l="en">
+          <b>Provider:</b> Klientskaya Baza LLC, OGRN 1111690013600, INN 1657102956, 36 Yamasheva Ave., office 325, Kazan, 420044, Russia.<br>
+          <b>Included:</b> access to a CRM account on the chosen plan — the stated number of users, message quota, updates and support.<br>
+          <b>Prices:</b> in roubles per calendar month, all taxes included.<br>
+          <b>Term:</b> the account is created right after sign-up; the first 14 days are free.<br>
+          <b>Payment and refunds:</b> paid in advance. You may cancel at any time; the unused part of the period is refunded less costs actually incurred.<br>
+          <b>Claims:</b> info@clientbase.ru or the provider's address; reviewed within 10 days.<br>
+          Full terms are in the <a href="docs/offer.pdf" target="_blank" rel="noopener" class="inline-link">offer agreement</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ОТЗЫВЫ ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Отзывы</span><span data-l="en">Reviews</span></span>
+        <h2><span data-l="ru">С Кэби <span class="accent">уже работают</span></span><span data-l="en">Already <span class="accent">working with Кэби</span></span></h2>
+      </div>
+      <div class="grid grid-3">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+          <div class="card">
+            <svg class="ico" style="color:var(--accent);opacity:0.6"><use href="#i-quote"></use></svg>
+            <p style="font-size:15.5px;line-height:1.55;margin:14px 0 18px"><span data-l="ru">{{ r.ru }}</span><span data-l="en">{{ r.en }}</span></p>
+            <div style="font-weight:600;font-size:14.5px">{{ r.name }}</div>
+            <div class="tiny"><span data-l="ru">{{ r.roleRu }}</span><span data-l="en">{{ r.roleEn }}</span></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ФИНАЛЬНЫЙ ЭКРАН ===== -->
+  <section class="sec" id="cta">
+    <div class="wrap">
+      <div class="block-tint">
+        <div class="sec-head" style="margin-bottom:28px">
+          <h2><span data-l="ru">Опишите — и заберите <span class="accent">свою CRM</span></span><span data-l="en">Describe it — and take <span class="accent">your CRM</span></span></h2>
+          <p class="lead"><span data-l="ru">Опишите задачу и оставьте адрес электронной почты — соберём аккаунт и пришлём доступ. 14 дней бесплатно.</span><span data-l="en">Describe your task and leave your email — we'll assemble the account and send access. 14 days free.</span></p>
+        </div>
+
+        <div style="max-width:560px;margin:0 auto">
+          <div class="form-card">
+            <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="padding:16px 18px 6px">
+                  <textarea class="form-field" value="{{ text }}" sc-camel-on-input="{{ onType }}" placeholder="{{ ph }}" maxlength="{{ briefMax }}" rows="3" style="width:100%"></textarea>
+                </div>
+
+                <div class="form-row">
+                  <svg class="ico"><use href="#i-mail"></use></svg>
+                  <input class="form-field" value="{{ email }}" sc-camel-on-input="{{ onEmail }}" type="email" placeholder="{{ emailPh }}">
+                </div>
+
+                <div class="form-split">
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-user"></use></svg>
+                    <input class="form-field" value="{{ name }}" sc-camel-on-input="{{ onName }}" type="text" placeholder="{{ namePh }}">
+                  </div>
+                  <div class="form-sep"></div>
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-phone"></use></svg>
+                    <input class="form-field" value="{{ phone }}" sc-camel-on-input="{{ onPhone }}" type="tel" placeholder="{{ phonePh }}">
+                    <sc-if value="{{ smsCanVerify }}" hint-placeholder-val="{{ false }}"><button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ sendCode }}"><span data-l="ru">{{ verifyRu }}</span><span data-l="en">{{ verifyEn }}</span></button></sc-if>
+                    <sc-if value="{{ smsVerified }}" hint-placeholder-val="{{ false }}"><span class="ok-badge"><svg class="ico-sm"><use href="#i-check"></use></svg><span data-l="ru">подтверждён</span><span data-l="en">verified</span></span></sc-if>
+                  </div>
+                </div>
+
+                <sc-if value="{{ smsAwaitCode }}" hint-placeholder-val="{{ false }}">
+                  <div class="form-row">
+                    <svg class="ico"><use href="#i-chat"></use></svg>
+                    <input class="form-field code-input" value="{{ smsCode }}" sc-camel-on-input="{{ onSmsCode }}" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="{{ codePh }}">
+                    <button class="btn btn--ghost btn--sm" sc-camel-on-click="{{ resendCode }}"><span data-l="ru">{{ resendRu }}</span><span data-l="en">{{ resendEn }}</span></button>
+                  </div>
+                </sc-if>
+
+                <div class="{{ consentsCls }}">
+                  <label class="consent">
+                    <input type="checkbox" checked="{{ agreeOffer }}" sc-camel-on-change="{{ toggleOffer }}" class="{{ agreeCls }}">
+                    <span>
+                      <span data-l="ru">Принимаю условия <a href="docs/offer.pdf" target="_blank" rel="noopener">договора-оферты</a></span>
+                      <span data-l="en">I accept the <a href="docs/offer.pdf" target="_blank" rel="noopener">terms of the offer</a></span>
+                    </span>
+                  </label>
+                  <label class="consent">
+                    <input type="checkbox" checked="{{ agreePdn }}" sc-camel-on-change="{{ togglePdn }}" class="{{ agreeCls }}">
+                    <span>
+                      <span data-l="ru">Даю <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен с <a href="docs/privacy.pdf" target="_blank" rel="noopener">политикой обработки</a></span>
+                      <span data-l="en">I give <a href="docs/consent-pdn.pdf" target="_blank" rel="noopener">consent to the processing of personal data</a> and have read the <a href="docs/privacy.pdf" target="_blank" rel="noopener">privacy policy</a></span>
+                    </span>
+                  </label>
+                  <label class="consent">
+                    <input type="checkbox" checked="{{ agreeAds }}" sc-camel-on-change="{{ toggleAds }}" class="agree-box">
+                    <span>
+                      <span data-l="ru">Согласен получать рекламные и информационные сообщения по электронной почте, телефону, в SMS-сообщениях и мессенджерах — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">условия</a>. Необязательно</span>
+                      <span data-l="en">I agree to receive marketing messages by email, phone, SMS and messengers — <a href="docs/consent-ads.pdf" target="_blank" rel="noopener">terms</a>. Optional</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="form-foot">
+                  <sc-if value="{{ voiceOn }}" hint-placeholder-val="{{ true }}">
+                    <button class="{{ micCls }}" sc-camel-on-click="{{ toggleVoice }}" title="voice">
+                      <svg class="ico-sm"><use href="#i-mic"></use></svg>
+                      <span data-l="ru">{{ micLabelRu }}</span><span data-l="en">{{ micLabelEn }}</span>
+                    </button>
+                  </sc-if>
+                  <span class="mono tiny {{ countCls }}">{{ charCount }}</span>
+                  <button class="btn btn--primary" sc-camel-on-click="{{ submit }}" disabled="{{ submitOff }}" style="margin-left:auto">
+                    <span data-l="ru">{{ regRu }}</span><span data-l="en">{{ regEn }}</span>
+                    <svg class="ico-sm"><use href="#i-arrow"></use></svg>
+                  </button>
+                </div>
+
+                <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                  <div class="hint"><span data-l="ru">{{ hintRu }}</span><span data-l="en">{{ hintEn }}</span></div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:26px">
+                <div class="row">
+                  <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
+                  <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
+                </div>
+                <p class="small" style="margin-top:14px">
+                  <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Логин и пароль отправили на {{ sentEmail }}.</span>
+                  <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. The login and password went to {{ sentEmail }}.</span>
+                </p>
+                <div class="row" style="margin-top:18px;flex-wrap:wrap">
+                  <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
+                  <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span></button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+          <p class="tiny mono" style="text-align:center;margin-top:14px">{{ regNote }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПОДВАЛ ===== -->
+  <footer class="wrap" style="padding-top:8px">
+    <div class="foot">
+      <div class="foot-cols">
+        <div>
+          <img src="assets/img/logo.svg" alt="Кэби" width="142" height="38" style="display:block;height:26px;width:auto">
+          <p class="small" style="margin-top:14px;max-width:30ch"><span data-l="ru">ИИ-конфигуратор CRM. Опишите — и работайте.</span><span data-l="en">AI CRM configurator. Describe it — and go.</span></p>
+        </div>
+        <div>
+          <div class="foot-title"><span data-l="ru">Продукт</span><span data-l="en">Product</span></div>
+          <a class="foot-link" href="#how"><span data-l="ru">Как это работает</span><span data-l="en">How it works</span></a>
+          <a class="foot-link" href="#examples"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
+          <a class="foot-link" href="#features"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
+          <a class="foot-link" href="#pricing"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
+        </div>
+        <div>
+          <div class="foot-title"><span data-l="ru">Документы</span><span data-l="en">Documents</span></div>
+          <a class="foot-link" href="docs/privacy.pdf" target="_blank" rel="noopener"><span data-l="ru">Политика обработки персональных данных</span><span data-l="en">Privacy policy</span></a>
+          <a class="foot-link" href="docs/consent-pdn.pdf" target="_blank" rel="noopener"><span data-l="ru">Согласие на обработку данных</span><span data-l="en">Data processing consent</span></a>
+          <a class="foot-link" href="docs/consent-ads.pdf" target="_blank" rel="noopener"><span data-l="ru">Согласие на рекламу</span><span data-l="en">Marketing consent</span></a>
+          <a class="foot-link" href="docs/offer.pdf" target="_blank" rel="noopener"><span data-l="ru">Договор-оферта</span><span data-l="en">Offer agreement</span></a>
+        </div>
+        <div>
+          <div class="foot-title"><span data-l="ru">Контакты</span><span data-l="en">Contacts</span></div>
+          <a class="foot-link" href="mailto:info@clientbase.ru">info@clientbase.ru</a>
+          <a class="foot-link" href="tel:+78001000936">8 800 100-09-36</a>
+          <button class="btn-link foot-link" sc-camel-on-click="{{ resetCookies }}"><span data-l="ru">Настройки cookie</span><span data-l="en">Cookie settings</span></button>
+        </div>
+      </div>
+
+      <!-- Сведения о владельце сайта: 149-ФЗ ст. 10 ч. 2, ЗоЗПП ст. 9 -->
+      <div class="foot-legal">
+        <div>
+          <span data-l="ru">Общество с ограниченной ответственностью «Клиентская база» (ООО «КБ»)</span><span data-l="en">Klientskaya Baza LLC</span><br>
+          ОГРН 1111690013600 · ИНН 1657102956 · КПП 165701001<br>
+          <span data-l="ru">420044, Республика Татарстан, г. Казань, пр-кт Ямашева, д. 36, офис 325</span><span data-l="en">36 Yamasheva Ave., office 325, Kazan, 420044, Russia</span>
+        </div>
+        <div class="mono">© 2026 · <span title="номер сборки сайта">сборка {{ build }}</span></div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280}}">
+class Component extends DCLogic {
+  state = { lang: 'ru', text: '', email: '', name: '', phone: '', agreeOffer: false, agreePdn: false, agreeAds: false,
+            smsOn: false, smsPhase: 'idle', smsPhone: '', smsCode: '', smsBusy: false, smsResendAt: 0, smsTick: 0, phoneToken: '', flash: false, sending: false, listening: false, phase: 'input', hint: '', sentEmail: '', login: '', mods: { sales: true, clients: true, analytics: true, automation: true }, shot: 'dash' };
+
+  SHOTS = [
+    { key: 'dash', ru: 'Сводный отчёт', en: 'Dashboard', slug: 'dashboard', src: 'assets/ui-dash.png', capRu: 'Ключевые метрики, графики оплат и новые клиенты на одном экране.', capEn: 'Key metrics, payment charts and new clients on one screen.' },
+    { key: 'invoices', ru: 'Счета', en: 'Invoices', slug: 'invoices', src: 'assets/ui-invoices.png', capRu: 'Таблица счетов с фильтрами, статусами оплаты и массовыми действиями.', capEn: 'Invoice table with filters, payment statuses and bulk actions.' },
+    { key: 'leads', ru: 'Заявки', en: 'Leads', slug: 'leads', src: 'assets/ui-leads.png', capRu: 'Канбан-доска заявок по стадиям — от новой до закрытой сделки.', capEn: 'Kanban board of leads by stage — from new to closed deal.' },
+    { key: 'invoice', ru: 'Счёт', en: 'Invoice card', slug: 'invoices/118', src: 'assets/ui-invoice.png', capRu: 'Карточка счёта: позиции, оплаты, печать и рассылка по e-mail.', capEn: 'Invoice card: line items, payments, printing and e-mail sending.' }
+  ];
+
+  componentWillUnmount(){ this.stopVoice(); this.stopTicker(); clearTimeout(this.flashTimer); clearTimeout(this.goTimer); }
+
+  // Линейка Nocode, RU сервер. Цены — как на странице тарифов clientbase.ru
+  PLANS = [
+    { users: 1,  price: '1 590',  mail: 100,  star: true },
+    { users: 3,  price: '2 990',  mail: 300 },
+    { users: 7,  price: '4 590',  mail: 700 },
+    { users: 12, price: '5 990',  mail: '1 000' },
+    { users: 25, price: '8 990',  mail: '2 500' },
+    { users: 50, price: '14 390', mail: '5 000', badge: true }
+  ];
+
+  CHIPS = [
+    { ru: 'Салон красоты', en: 'Beauty salon', fill: { ru: 'CRM для салона красоты: клиенты, записи в календаре, услуги и цены, напоминания по SMS, зарплата мастеров.', en: 'CRM for a beauty salon: clients, calendar bookings, services & prices, SMS reminders, staff payroll.' } },
+    { ru: 'Доставка еды', en: 'Food delivery', fill: { ru: 'CRM для доставки еды: заказы, меню, курьеры, статусы доставки, оплата и аналитика по дням.', en: 'CRM for food delivery: orders, menu, couriers, delivery statuses, payments and daily analytics.' } },
+    { ru: 'Автошкола', en: 'Driving school', fill: { ru: 'CRM для автошколы: ученики, группы, расписание занятий, инструкторы, оплата и договоры.', en: 'CRM for a driving school: students, groups, lesson schedule, instructors, payments and contracts.' } },
+    { ru: 'Оптовые продажи', en: 'Wholesale', fill: { ru: 'CRM для оптовой торговли: клиенты, склад, счета, сделки, воронка продаж и отчёты по менеджерам.', en: 'CRM for wholesale: clients, stock, invoices, deals, sales funnel and manager reports.' } }
+  ];
+
+  setLang = (l) => this.setState({ lang: l });
+  onType = (e) => this.setState({ text: e.target.value });
+  onEmail = (e) => this.setState({ email: e.target.value });
+  onName = (e) => this.setState({ name: e.target.value });
+  onPhone = (e) => {
+    const v = e.target.value;
+    const n = this.normPhone(v);
+    const st = { phone: v };
+    // Сменили номер после отправки кода или подтверждения — начинаем заново
+    if (this.state.smsPhase !== 'idle' && n !== this.state.smsPhone) {
+      st.smsPhase = 'idle'; st.phoneToken = ''; st.smsCode = ''; this.stopTicker();
+    }
+    // Вернули уже подтверждённый номер — вторая SMS не нужна
+    if (st.smsPhase === 'idle' || this.state.smsPhase === 'idle') {
+      if (this.verified && n && n === this.verified.phone) {
+        st.smsPhase = 'verified'; st.smsPhone = n; st.phoneToken = this.verified.token;
+      }
+    }
+    this.setState(st);
+  };
+
+  // ── Голосовой ввод: Web Speech API ────────────────────────────────────────
+  // Работает в Chrome / Edge / Safari и только на https (или localhost).
+  SR = typeof window !== 'undefined' ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
+  recog = null;
+  voiceBase = '';   // текст, набранный до начала диктовки
+
+  VOICE_ERR = {
+    'not-allowed':   { ru: 'Нет доступа к микрофону — разрешите его в настройках браузера.', en: 'Microphone blocked — allow access in your browser settings.' },
+    'service-not-allowed': { ru: 'Нет доступа к микрофону — разрешите его в настройках браузера.', en: 'Microphone blocked — allow access in your browser settings.' },
+    'audio-capture': { ru: 'Микрофон не найден. Проверьте, что он подключён.', en: 'No microphone found. Check that one is connected.' },
+    'no-speech':     { ru: 'Ничего не услышали. Попробуйте ещё раз.', en: 'Did not catch anything. Try again.' },
+    'network':       { ru: 'Распознавание речи недоступно — нет связи с сервисом.', en: 'Speech recognition is unavailable — no connection to the service.' }
+  };
+
+  stopVoice = () => {
+    if (this.recog) { try { this.recog.stop(); } catch (e) {} this.recog = null; }
+  };
+
+  toggleVoice = () => {
+    if (this.state.listening) { this.stopVoice(); this.setState({ listening: false }); return; }
+
+    if (!this.SR) {
+      this.setHint('Голосовой ввод не поддерживается в этом браузере — наберите текст вручную.',
+                   'Voice input is not supported in this browser — please type instead.');
+      return;
+    }
+    if (typeof window !== 'undefined' && !window.isSecureContext) {
+      this.setHint('Голосовой ввод работает только на защищённом соединении (https).',
+                   'Voice input only works over a secure connection (https).');
+      return;
+    }
+
+    let r;
+    try { r = new this.SR(); } catch (e) {
+      this.setHint('Не удалось включить микрофон.', 'Could not start the microphone.');
+      return;
+    }
+    r.lang = this.state.lang === 'ru' ? 'ru-RU' : 'en-US';
+    r.continuous = true;
+    r.interimResults = true;
+
+    this.voiceBase = this.state.text;
+
+    r.onresult = (e) => {
+      let final = '', interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const chunk = e.results[i][0].transcript;
+        if (e.results[i].isFinal) final += chunk; else interim += chunk;
+      }
+      if (final.trim()) this.voiceBase = this.join(this.voiceBase, final.trim());
+      this.setState({ text: interim.trim() ? this.join(this.voiceBase, interim.trim()) : this.voiceBase });
+    };
+    r.onerror = (e) => {
+      const m = this.VOICE_ERR[e.error];
+      this.recog = null;
+      this.setState({ listening: false });
+      if (m) this.setHint(m.ru, m.en);
+    };
+    r.onend = () => { this.recog = null; this.setState({ listening: false }); };
+
+    try { r.start(); } catch (e) {
+      this.setHint('Не удалось включить микрофон.', 'Could not start the microphone.');
+      return;
+    }
+    this.recog = r;
+    this.setState({ listening: true, hint: '' });
+  };
+
+  join = (a, b) => (a ? a.replace(/\s+$/, '') + ' ' : '') + b;
+  setHint = (ru, en) => this.setState({ hint: JSON.stringify({ ru, en }) });
+
+  fill = (c) => () => this.setState({ text: this.state.lang === 'ru' ? c.fill.ru : c.fill.en, hint: '' });
+
+  emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  nameOk = (v) => v.trim().length >= 2;
+  // Только российские мобильные — тот же разбор, что и на сервере в api/sms.php.
+  // Возвращает 11 цифр вида 79XXXXXXXXX либо null.
+  normPhone = (v) => {
+    let d = v.replace(/\D+/g, '');
+    if (d.length === 10 && d[0] === '9') d = '7' + d;
+    if (d.length === 11 && d[0] === '8') d = '7' + d.slice(1);
+    return (d.length === 11 && d.slice(0, 2) === '79') ? d : null;
+  };
+  phoneOk = (v) => !!this.normPhone(v);
+
+  // ── Подтверждение телефона по SMS (api/sms.php) ──────────────────────────
+  SMS_API = 'api/sms.php';
+  smsTicker = null;
+  chal = null;   // талон на отправку: { value, at, minAge } — не в state, чтобы читать сразу после await
+  verified = null;   // последний подтверждённый номер: { phone, token }
+
+  componentDidMount() { this.initSms(); }
+
+  // Талон выдаёт сервер; заодно по нему понятно, включён ли модуль вообще.
+  // Если конфига на сервере нет — форма работает как раньше, без SMS.
+  initSms = async () => {
+    try {
+      const res = await fetch(this.SMS_API + '?action=challenge', { cache: 'no-store' });
+      const data = await res.json().catch(() => null);
+      if (res.ok && data && data.ok) {
+        this.chal = { value: data.challenge, at: Date.now(), minAge: (data.min_age || 3) * 1000 };
+        if (!this.state.smsOn) this.setState({ smsOn: true });
+        return true;
+      }
+      console.warn('[sms] подтверждение телефона выключено:', data && data.error);
+    } catch (e) {
+      console.warn('[sms] недоступно:', e);
+    }
+    this.chal = null;
+    this.setState({ smsOn: false });
+    return false;
+  };
+
+  SMS_ERRORS = {
+    too_soon:          { ru: 'Код уже отправлен. Повторить можно через {n} с.', en: 'A code was just sent. You can resend in {n} s.' },
+    phone_limit:       { ru: 'На этот номер уже отправлено слишком много кодов. Попробуйте позже.', en: 'Too many codes were sent to this number. Please try later.' },
+    ip_limit:          { ru: 'Слишком много запросов. Попробуйте позже.', en: 'Too many requests. Please try later.' },
+    busy:              { ru: 'Сервис подтверждения перегружен. Попробуйте через несколько минут.', en: 'The verification service is busy. Please try in a few minutes.' },
+    send_failed:       { ru: 'Не удалось доставить SMS. Проверьте номер или попробуйте позже.', en: 'The SMS could not be delivered. Check the number or try later.' },
+    bad_phone:         { ru: 'Нужен российский мобильный номер.', en: 'A Russian mobile number is required.' },
+    wrong_code:        { ru: 'Неверный код. Осталось попыток: {n}.', en: 'Wrong code. Attempts left: {n}.' },
+    expired:           { ru: 'Код устарел. Запросите новый.', en: 'The code has expired. Request a new one.' },
+    no_code:           { ru: 'Сначала запросите код.', en: 'Request a code first.' },
+    too_many_attempts: { ru: 'Слишком много неверных попыток. Запросите новый код.', en: 'Too many wrong attempts. Request a new code.' },
+    origin:            { ru: 'Запрос отклонён. Обновите страницу и попробуйте снова.', en: 'Request rejected. Reload the page and try again.' }
+  };
+  smsError = (code, data) => {
+    const m = this.SMS_ERRORS[code] || { ru: 'Не удалось подтвердить телефон. Попробуйте ещё раз.', en: 'Could not verify the phone. Please try again.' };
+    const n = data && (data.retry_after != null ? data.retry_after : data.attempts_left);
+    this.setHint(m.ru.replace('{n}', n), m.en.replace('{n}', n));
+  };
+
+  smsPost = async (fields) => {
+    const res = await fetch(this.SMS_API, { method: 'POST', body: new URLSearchParams(fields) });
+    return res.json().catch(() => ({ ok: false, error: 'bad_response' }));
+  };
+
+  sendCode = async (retried) => {
+    const phone = this.normPhone(this.state.phone);
+    if (!phone || this.state.smsBusy) return;
+    this.setState({ smsBusy: true, hint: '' });
+    try {
+      if (!this.chal && !(await this.initSms())) { this.setState({ smsBusy: false }); return; }
+      // Талон должен «отлежаться» несколько секунд — это и есть защита от
+      // автоматов, которые бьют в отправку сразу после загрузки страницы
+      const wait = this.chal.at + this.chal.minAge - Date.now();
+      if (wait > 0) await new Promise(r => setTimeout(r, wait));
+      const data = await this.smsPost({ action: 'send', phone, challenge: this.chal.value, website: '' });
+      if (data.ok) {
+        this.setState({ smsBusy: false, smsPhase: 'sent', smsPhone: phone, smsCode: '', phoneToken: '',
+                        smsResendAt: Date.now() + (data.resend_after || 60) * 1000 });
+        this.startTicker();
+        return;
+      }
+      // Талон протух или сменился адрес — берём новый и пробуем ещё раз
+      if (data.error === 'bad_challenge' && !retried && await this.initSms()) {
+        this.setState({ smsBusy: false });
+        return this.sendCode(true);
+      }
+      this.setState({ smsBusy: false });
+      this.smsError(data.error, data);
+    } catch (e) {
+      console.error('[sms] send:', e);
+      this.setState({ smsBusy: false });
+      this.smsError('send_failed');
+    }
+  };
+
+  resendCode = () => { if (Date.now() >= this.state.smsResendAt) this.sendCode(false); };
+
+  onSmsCode = (e) => {
+    const v = e.target.value.replace(/\D+/g, '').slice(0, 6);
+    this.setState({ smsCode: v });
+    if (v.length === 6) this.checkCode(v);
+  };
+
+  checkCode = async (code) => {
+    const phone = this.state.smsPhone;
+    if (!phone || this.state.smsBusy) return;
+    this.setState({ smsBusy: true, hint: '' });
+    try {
+      const data = await this.smsPost({ action: 'check', phone, code });
+      if (data.ok) {
+        this.stopTicker();
+        this.verified = { phone, token: data.phone_token };   // помним на случай правки номера
+        this.setState({ smsBusy: false, smsPhase: 'verified', phoneToken: data.phone_token, hint: '' });
+        return;
+      }
+      // Эти отказы означают, что код надо запрашивать заново
+      const restart = data.error === 'expired' || data.error === 'no_code' || data.error === 'too_many_attempts';
+      if (restart) this.stopTicker();
+      this.setState({ smsBusy: false, smsCode: '', smsPhase: restart ? 'idle' : 'sent' });
+      this.smsError(data.error, data);
+    } catch (e) {
+      console.error('[sms] check:', e);
+      this.setState({ smsBusy: false, smsCode: '' });
+      this.smsError('bad_response');
+    }
+  };
+
+  // Раз в секунду перерисовываем обратный отсчёт до повторной отправки
+  startTicker = () => {
+    this.stopTicker();
+    this.smsTicker = setInterval(() => {
+      this.setState({ smsTick: Date.now() });
+      if (Date.now() >= this.state.smsResendAt) this.stopTicker();
+    }, 1000);
+  };
+  stopTicker = () => { if (this.smsTicker) { clearInterval(this.smsTicker); this.smsTicker = null; } };
+
+  // ── Регистрация аккаунта ──────────────────────────────────────────────────
+  // Обработчик Платформы КБ — client_register_fast.php.
+  // Он сам отдаёт Access-Control-Allow-Origin: *, поэтому межсайтовый запрос
+  // с keby.clientbase.ru проходит без правок на сервере. Два следствия:
+  // звёздочка запрещает credentials, а свой заголовок validateAcc вызвал бы
+  // предварительный OPTIONS, который скрипт не разрешает. Ни то, ни другое
+  // ему и не нужно — cookie и заголовок он не читает, только $_REQUEST.
+  KB_ORIGIN = 'https://clientbase.ru';
+  REGISTER_PATH = '/client_register_fast.php';
+  MCONF_ID = 3553;         // id конфигурации Кэби (0 — та, что стоит по умолчанию для clientbase.ru)
+  METRIKA_ID = 19963723;
+  GOAL = 'freeaccount';
+  SLOW_CREATE_MS = 30000;  // на случай ответа type: 'standard'
+  BRIEF_MIN = 15;
+  BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
+
+  BUILD = '2026-09-22.2';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  METRIKA_ID = 19963723;
+  GOAL = 'freeaccount';
+  SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
+
+  // Адрес обработчика. Если лендинг уже лежит на самом clientbase.ru
+  // (например, по пути /keby/), запрос становится своим и CORS не нужен
+  // вовсе. С поддомена keby.clientbase.ru идём на основной домен.
+  registerUrl = () => {
+    const h = location.hostname;
+    const own = h === 'clientbase.ru' || h === 'www.clientbase.ru';
+    return (own ? '' : this.KB_ORIGIN) + this.REGISTER_PATH;
+  };
+
+  cookie = (name) => {
+    const m = document.cookie.match(new RegExp(
+      '(?:^|; )' + name.replace(/([.$?*|{}()\[\]\\\/+^])/g, '\\$1') + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  };
+
+  // Три независимых согласия: оферта и обработка данных обязательны, реклама — нет
+  toggleOffer = (e) => this.setState({ agreeOffer: !!e.target.checked, flash: false, hint: '' });
+  togglePdn   = (e) => this.setState({ agreePdn:   !!e.target.checked, flash: false, hint: '' });
+  toggleAds   = (e) => this.setState({ agreeAds:   !!e.target.checked });
+
+  CONSENT_VERSION = '2026-09-21';   // редакция текста согласий; меняется вместе с файлами в docs/
+
+  // Отметка о согласии на нашей стороне: обязанность доказать согласие лежит
+  // на операторе (152-ФЗ ст. 9 ч. 3). Ответ не ждём, ошибку глотаем — форма
+  // не должна падать из-за журнала.
+  logConsent = () => {
+    try {
+      const body = new URLSearchParams({
+        action: 'form', choice: 'yes', version: this.CONSENT_VERSION,
+        page: location.href, form: 'keby-landing'
+      });
+      fetch('api/consent.php', { method: 'POST', body, keepalive: true }).catch(() => {});
+    } catch (e) { /* старый браузер — останется след на стороне КБ */ }
+  };
+
+  // «Настройки cookie» в подвале: очищает сохранённый выбор и показывает баннер снова
+  resetCookies = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (window.keby && window.keby.resetCookieConsent) window.keby.resetCookieConsent();
+  };
+
+  flashTimer = null;
+  goTimer = null;
+  askAgree = () => {
+    clearTimeout(this.flashTimer);
+    this.setState({ flash: true });
+    this.flashTimer = setTimeout(() => this.setState({ flash: false }), 3000);
+    this.setHint('Отметьте оба обязательных согласия: оферта и обработка персональных данных.',
+                 'Tick both required boxes: the offer and the personal data processing consent.');
+  };
+
+  buildBody = (email, brief, name, phone) => {
+    const utm = Object.fromEntries(
+      (location.search.match(/(?:utm_).+?=[^&]*/g) || []).map(n => n.split('=')));
+    const p = new URLSearchParams();
+    p.set('mconf_id', String(this.MCONF_ID));
+    p.set('memail', email);
+    p.set('mcontact', name);                      // ФИО
+    p.set('mphone', '+' + this.normPhone(phone));  // телефон, всегда +79XXXXXXXXX
+    p.set('phone_token', this.state.phoneToken);  // подпись о подтверждении по SMS
+    p.set('source', 'keby');                       // признак лендинга: манеж по нему решает, требовать ли SMS
+    const referer = this.cookie('referer_frm'); if (referer) p.set('referer', referer);
+    const code = this.cookie('partner_id');     if (code) p.set('code', code);
+    const friend = this.cookie('friend_id');    if (friend) p.set('friend', friend);
+    for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
+      p.set(k, utm[k] || '');
+    }
+    p.set('utm_mark_title', this.cookie('title_mark') || '');
+    // Описание задачи. У client_register_fast.php поля под него нет — параметр
+    // дойдёт до обработчика, но будет проигнорирован, пока его там не примут.
+    p.set('brief', brief);
+
+    // След согласия: без него факт согласия нечем подтвердить (152-ФЗ ст. 9 ч. 3).
+    // Прокси на clientbase.ru пересылает только перечисленные у него поля —
+    // чтобы эти доехали до manage, их надо добавить в его список.
+    p.set('consent_offer', '1');
+    p.set('consent_pdn', '1');
+    p.set('consent_ads', this.state.agreeAds ? '1' : '0');
+    p.set('consent_version', this.CONSENT_VERSION);
+    p.set('consent_page', location.href);
+    p.set('form_name', 'keby-landing');
+    return p.toString();
+  };
+
+  // Отказы оба обработчика отдают простым текстом, а не JSON:
+  // client_register_fast.php — через die("Error: ..."),
+  // client_register.php — ещё и через cb_die(...) без приставки Error.
+  SERVER_ERRORS = [
+    { has: 'Too many registrations',
+      ru: 'Сегодня достигнут предел регистраций. Попробуйте завтра или напишите на info@clientbase.ru.',
+      en: 'The registration limit for today has been reached. Please try tomorrow or write to info@clientbase.ru.' },
+    { has: 'many registrations',
+      ru: 'С этого адреса или устройства за последний час уже создано три аккаунта. Попробуйте позже или напишите на info@clientbase.ru.',
+      en: 'Three accounts have already been created from this address or device in the past hour. Please try later or write to info@clientbase.ru.' },
+    { has: 'already exists',
+      ru: 'Аккаунт с таким адресом уже существует. Войдите в него или напишите на info@clientbase.ru.',
+      en: 'An account with this address already exists. Sign in or write to info@clientbase.ru.' },
+    { has: 'phone not verified',
+      ru: 'Подтверждение телефона устарело. Запросите код ещё раз.',
+      en: 'The phone verification has expired. Request the code again.' },
+    { has: 'empty e-mail',
+      ru: 'Обработчик не увидел адрес электронной почты. Проверьте его и попробуйте ещё раз.',
+      en: 'The handler did not receive the email. Check the address and try again.' }
+  ];
+
+  showServerError = (raw) => {
+    console.warn('[регистрация] обработчик отказал:', raw);
+    this.setState({ sending: false });
+    const known = this.SERVER_ERRORS.find(e => raw.indexOf(e.has) !== -1);
+    if (known && known.has === 'phone not verified') this.setState({ smsPhase: 'idle', phoneToken: '', smsCode: '' });
+    if (known) { this.setHint(known.ru, known.en); return; }
+    this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
+                 'Could not create the account. Please try again or write to info@clientbase.ru.');
+  };
+
+  openAccount = (login) => {
+    if (typeof window.ym === 'function') window.ym(this.METRIKA_ID, 'reachGoal', this.GOAL);
+    location.href = '//' + login + '.clientbase.ru/login.php?ot_key=anybody';
+  };
+
+  submit = async () => {
+    if (this.state.sending) return;
+
+    const brief = this.state.text.trim();
+    const email = this.state.email.trim();
+    const name = this.state.name.trim();
+    const phone = this.state.phone.trim();
+
+    if (brief.length < this.BRIEF_MIN) {
+      this.setHint('Опишите задачу подробнее — хотя бы пара предложений о том, что должна уметь CRM.',
+                   'Describe the task in a bit more detail — a couple of sentences about what the CRM should do.');
+      return;
+    }
+    if (!this.emailOk(email)) {
+      this.setHint('Укажите адрес электронной почты — на него придут логин и пароль от аккаунта.',
+                   'Enter your email — the account login and password will be sent there.');
+      return;
+    }
+    if (!this.nameOk(name)) {
+      this.setHint('Как к вам обращаться? Напишите имя.',
+                   'How should we address you? Please enter your name.');
+      return;
+    }
+    if (!this.phoneOk(phone)) {
+      this.setHint('Укажите российский мобильный номер — по нему свяжемся, если понадобится уточнить задачу.',
+                   'Enter a Russian mobile number — we will call if the task needs clarifying.');
+      return;
+    }
+    if (this.state.smsOn && !this.state.phoneToken) {
+      this.setHint('Подтвердите телефон: нажмите «Подтвердить» и введите код из SMS-сообщения.',
+                   'Verify the phone: press "Verify" and enter the code from the SMS.');
+      return;
+    }
+    if (!this.state.agreeOffer || !this.state.agreePdn) { this.askAgree(); return; }
+
+    this.stopVoice();
+    this.setState({ sending: true, listening: false, hint: '' });
+    this.logConsent();
+
+    if (typeof window.gtag === 'function') window.gtag('event', 'cb_freeaccount');
+
+    try {
+      const res = await fetch(this.registerUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: this.buildBody(email, brief, name, phone)
+      });
+
+      const raw = (await res.text()).trim();
+      // Бэк отвечает страницей 404, когда создание аккаунтов приостановлено
+      if (!res.ok || raw.indexOf('<title>404 Not Found</title>') !== -1) throw new Error('paused');
+
+      // Успех — всегда JSON. Всё остальное это текст отказа
+      let data;
+      try { data = JSON.parse(raw); } catch (e) { this.showServerError(raw); return; }
+      const login = data && data.data && data.data.command && data.data.command.data
+                 && data.data.command.data.command && data.data.command.data.command.parameters
+                 && data.data.command.data.command.parameters.login;
+      if (!login) {
+        // Ответ разобрался как JSON, но логина в нём нет. Печатаем целиком —
+        // по нему видно, что именно вернул сервер управления
+        console.error('[регистрация] в ответе нет логина. Ответ сервера:', data);
+        console.error('[регистрация] тот же ответ строкой:', raw);
+        throw new Error('no login');
+      }
+
+      this.setState({ phase: 'done', sending: false, sentEmail: email, login: login });
+      const wait = data.type === 'fast' ? 0 : this.SLOW_CREATE_MS;
+      this.goTimer = setTimeout(() => this.openAccount(login), wait);
+    } catch (err) {
+      console.error('[регистрация] запрос к ' + this.registerUrl() + ' не прошёл:', err);
+      console.error('[регистрация] если здесь TypeError: Failed to fetch — запрос не выпустил браузер (CORS или сеть).');
+      this.setState({ sending: false });
+      this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
+                   'Could not create the account. Please try again or write to info@clientbase.ru.');
+    }
+  };
+
+  reset = () => {
+    this.stopVoice();
+    clearTimeout(this.flashTimer);
+    clearTimeout(this.goTimer);
+    this.stopTicker();
+    this.setState({ phase: 'input', text: '', email: '', name: '', phone: '', agreeOffer: false, agreePdn: false, agreeAds: false,
+                    smsPhase: 'idle', smsPhone: '', smsCode: '', smsBusy: false, phoneToken: '', flash: false, sending: false,
+                    listening: false, hint: '', sentEmail: '', login: '' });
+  };
+
+  toggleMod = (k) => () => this.setState(s => ({ mods: { ...s.mods, [k]: !s.mods[k] } }));
+  pickShot = (k) => () => this.setState({ shot: k });
+  addModule = () => alert(this.state.lang === 'ru' ? 'Опишите нужный модуль в поле ТЗ — Кэби добавит его в вашу CRM.' : 'Describe the module you need in the brief — Кэби will add it to your CRM.');
+
+  renderVals() {
+    const ru = this.state.lang === 'ru';
+    const cc = this.state.text.length;
+    let hint = null;
+    try { hint = this.state.hint ? JSON.parse(this.state.hint) : null; } catch (e) { hint = null; }
+    const flash = this.state.flash;
+    const resendLeft = Math.max(0, Math.ceil((this.state.smsResendAt - Date.now()) / 1000));
+    // Кнопка заперта, пока не отмечены оба обязательных согласия (152-ФЗ ст. 9 ч. 1)
+    const submitLocked = !(this.state.agreeOffer && this.state.agreePdn);
+    const modsOn = Object.values(this.state.mods).filter(Boolean).length;
+
+    return {
+      lang: this.state.lang,
+      text: this.state.text,
+      listening: this.state.listening,
+      email: this.state.email,
+      isInput: this.state.phase === 'input',
+      isDone: this.state.phase === 'done',
+      sentEmail: this.state.sentEmail,
+      login: this.state.login,
+      accountHost: this.state.login ? this.state.login + '.clientbase.ru' : '',
+      openAccount: () => this.openAccount(this.state.login),
+
+      setRu: () => this.setLang('ru'),
+      setEn: () => this.setLang('en'),
+      ruBtnCls: ru ? 'on' : '',
+      enBtnCls: ru ? '' : 'on',
+
+      onType: this.onType,
+      onEmail: this.onEmail,
+      onName: this.onName,
+      onPhone: this.onPhone,
+      name: this.state.name,
+      phone: this.state.phone,
+      namePh: ru ? 'Ваше имя' : 'Your name',
+      phonePh: '+7 999 123-45-67',
+
+      // подтверждение по SMS
+      smsCanVerify: this.state.smsOn && this.state.smsPhase === 'idle' && !!this.normPhone(this.state.phone),
+      smsAwaitCode: this.state.smsPhase === 'sent',
+      smsVerified: this.state.smsPhase === 'verified',
+      sendCode: () => this.sendCode(false),
+      resendCode: this.resendCode,
+      onSmsCode: this.onSmsCode,
+      smsCode: this.state.smsCode,
+      codePh: ru ? 'код из SMS' : 'SMS code',
+      verifyRu: this.state.smsBusy ? 'Отправляем…' : 'Подтвердить',
+      verifyEn: this.state.smsBusy ? 'Sending…' : 'Verify',
+      resendRu: resendLeft > 0 ? 'Ещё раз через ' + resendLeft + ' с' : 'Отправить ещё раз',
+      resendEn: resendLeft > 0 ? 'Resend in ' + resendLeft + ' s' : 'Resend',
+
+      ph: ru ? 'Например: CRM для салона красоты — клиенты, записи, напоминания по SMS, зарплата мастеров…' : 'e.g. CRM for a beauty salon — clients, bookings, SMS reminders, staff payroll…',
+      emailPh: ru ? 'you@company.ru' : 'you@company.com',
+      charCount: cc ? cc + ' / ' + this.BRIEF_MAX : '',
+      countCls: cc >= this.BRIEF_MAX ? 'over' : '',
+      briefMax: this.BRIEF_MAX,
+
+      toggleVoice: this.toggleVoice,
+      voiceOn: !!this.SR,
+      micCls: 'btn btn--sm ' + (this.state.listening ? 'btn--primary' : 'btn--ghost'),
+      micLabelRu: this.state.listening ? 'Слушаю…' : 'Наговорить',
+      micLabelEn: this.state.listening ? 'Listening…' : 'Dictate',
+
+      hasHint: !!hint,
+      hintRu: hint ? hint.ru : '',
+      hintEn: hint ? hint.en : '',
+
+      submit: this.submit,
+      reset: this.reset,
+      sending: this.state.sending,
+      submitRu: this.state.sending ? 'Отправляем…' : 'Собрать мою CRM',
+      submitEn: this.state.sending ? 'Sending…' : 'Build my CRM',
+      regRu: this.state.sending ? 'Отправляем…' : 'Создать аккаунт',
+      regEn: this.state.sending ? 'Sending…' : 'Create account',
+      regNote: ru ? 'Без карты · отписка в 1 клик' : 'No card · 1-click opt-out',
+      submitOff: submitLocked,
+
+      agreeOffer: this.state.agreeOffer,
+      agreePdn: this.state.agreePdn,
+      agreeAds: this.state.agreeAds,
+      toggleOffer: this.toggleOffer,
+      togglePdn: this.togglePdn,
+      toggleAds: this.toggleAds,
+      agreeCls: 'agree-box' + (flash ? ' agree-flash' : ''),
+      consentsCls: 'consents' + (flash ? ' consents--flash' : ''),
+      resetCookies: this.resetCookies,
+      build: this.BUILD,
+
+      mascotPoints: [
+        { icon: '#i-blocks', iconCls: 'ico-box ico-box--warm', tRu: 'Подбираю модули', tEn: 'I pick the modules', dRu: 'оптимальный набор под вашу задачу', dEn: 'the optimal set for your task' },
+        { icon: '#i-automation', iconCls: 'ico-box ico-box--mint', tRu: 'Настраиваю', tEn: 'I configure', dRu: 'под ваши процессы и роли', dEn: 'for your processes and roles' },
+        { icon: '#i-analytics', iconCls: 'ico-box', tRu: 'Улучшаю', tEn: 'I improve', dRu: 'эффективность вашей команды', dEn: 'your team\'s efficiency' }
+      ],
+
+      modulesOn: ru ? modsOn + ' из 4' : modsOn + ' of 4',
+      modules: [
+        { key: 'sales', icon: '#i-sales', iconCls: 'ico-box ico-box--warm ico-box--sm', ru: 'Продажи', en: 'Sales' },
+        { key: 'clients', icon: '#i-clients', iconCls: 'ico-box ico-box--mint ico-box--sm', ru: 'Клиенты', en: 'Clients' },
+        { key: 'analytics', icon: '#i-analytics', iconCls: 'ico-box ico-box--warm ico-box--sm', ru: 'Аналитика', en: 'Analytics' },
+        { key: 'automation', icon: '#i-automation', iconCls: 'ico-box ico-box--mint ico-box--sm', ru: 'Автоматизация', en: 'Automation' }
+      ].map(m => ({ ...m, toggle: this.toggleMod(m.key), cls: 'switch' + (this.state.mods[m.key] ? ' on' : '') })),
+      addModule: this.addModule,
+
+      shots: this.SHOTS.map(s => ({ ...s, pick: this.pickShot(s.key),
+        cls: 'pill' + (this.state.shot === s.key ? ' pill--on' : '') })),
+      isDash: this.state.shot === 'dash',
+      isInvoices: this.state.shot === 'invoices',
+      isLeads: this.state.shot === 'leads',
+      isInvoice: this.state.shot === 'invoice',
+      shotUrl: 'crm.keby.ai/' + (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).slug,
+      shotCapRu: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capRu,
+      shotCapEn: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capEn,
+
+      chips: this.CHIPS.map(c => ({ ru: c.ru, en: c.en, fill: this.fill(c) })),
+
+      steps: [
+        { n: '01', tRu: 'Опишите задачу', tEn: 'Describe the task', dRu: 'Текстом или голосом расскажите, чем занимается бизнес и что нужно учитывать.', dEn: 'Tell us in text or voice what your business does and what to track.' },
+        { n: '02', tRu: 'ИИ собирает систему', tEn: 'AI assembles it', dRu: 'Кэби проектирует таблицы, связи, роли, автоматизации и отчёты под ваш процесс.', dEn: 'Кэби designs tables, relations, roles, automations and reports for your process.' },
+        { n: '03', tRu: 'Работайте и меняйте', tEn: 'Use it & adjust', dRu: 'Готовый аккаунт открывается сразу — дорабатывайте в no-code без программистов.', dEn: 'Your account opens instantly — refine it in no-code, no developers needed.' }
+      ],
+
+      examples: [
+        { icon: '#i-scissors', ru: 'Салон красоты', en: 'Beauty salon', dRu: 'Записи, услуги, напоминания, зарплата мастеров.', dEn: 'Bookings, services, reminders, staff payroll.', tables: '6 таблиц · 4 отчёта' },
+        { icon: '#i-tooth', ru: 'Стоматология', en: 'Dental clinic', dRu: 'Пациенты, карты, приёмы, страховки.', dEn: 'Patients, charts, visits, insurance.', tables: '8 таблиц · 5 отчётов' },
+        { icon: '#i-bowl', ru: 'Доставка еды', en: 'Food delivery', dRu: 'Заказы, меню, курьеры, статусы.', dEn: 'Orders, menu, couriers, statuses.', tables: '7 таблиц · 3 отчёта' },
+        { icon: '#i-car', ru: 'Автошкола', en: 'Driving school', dRu: 'Ученики, группы, расписание, оплата.', dEn: 'Students, groups, schedule, payments.', tables: '6 таблиц · 4 отчёта' },
+        { icon: '#i-home', ru: 'Недвижимость', en: 'Real estate', dRu: 'Объекты, клиенты, показы, сделки.', dEn: 'Listings, clients, viewings, deals.', tables: '9 таблиц · 6 отчётов' },
+        { icon: '#i-box', ru: 'Оптовые продажи', en: 'Wholesale', dRu: 'Склад, счета, воронка, менеджеры.', dEn: 'Stock, invoices, funnel, managers.', tables: '10 таблиц · 7 отчётов' }
+      ],
+
+      features: [
+        { icon: '#i-blocks', iconCls: 'ico-box ico-box--warm', ru: 'No-code конструктор', en: 'No-code builder', dRu: 'Меняйте таблицы, поля и формы мышкой — без единой строчки кода.', dEn: 'Change tables, fields and forms with the mouse — no code.' },
+        { icon: '#i-automation', iconCls: 'ico-box ico-box--mint', ru: 'Автоматизации', en: 'Automations', dRu: 'Напоминания, статусы, письма и задачи запускаются сами по правилам.', dEn: 'Reminders, statuses, emails and tasks fire automatically by rules.' },
+        { icon: '#i-lock', iconCls: 'ico-box ico-box--warm', ru: 'Роли и права', en: 'Roles & access', dRu: 'Тонко настраивайте, кто что видит и может менять в системе.', dEn: 'Fine-tune who sees and edits what across the system.' },
+        { icon: '#i-plug', iconCls: 'ico-box ico-box--mint', ru: 'Интеграции', en: 'Integrations', dRu: 'Telegram, WhatsApp, почта, платежи, 1С и открытый программный интерфейс (API).', dEn: 'Telegram, WhatsApp, email, payments, 1C and an open API.' },
+        { icon: '#i-report', iconCls: 'ico-box ico-box--warm', ru: 'Отчёты и дашборды', en: 'Reports & dashboards', dRu: 'Считайте выручку, KPI и воронку в наглядных отчётах.', dEn: 'Track revenue, KPIs and funnels in clear reports.' },
+        { icon: '#i-mobile', iconCls: 'ico-box ico-box--mint', ru: 'Мобильное приложение', en: 'Mobile app', dRu: 'Вся CRM в кармане — на телефоне и планшете, онлайн и офлайн.', dEn: 'Your whole CRM in your pocket — phone and tablet, on/offline.' }
+      ],
+
+      plans: this.PLANS.map(pl => ({
+        users: pl.users,
+        titleRu: 'Тариф ' + pl.users,
+        titleEn: 'Plan ' + pl.users,
+        price: pl.price + (ru ? ' ₽/мес' : ' \u20bd/mo'),
+        badge: ru ? 'Максимум' : 'Max',
+        badgeCls: pl.badge ? 'plan-badge' : 'plan-badge is-hidden',
+        mailRu: pl.mail + ' писем/день',
+        mailEn: pl.mail + ' emails/day',
+        cardCls: 'plan' + (pl.badge ? ' plan--star' : ''),
+        btnCls: 'btn btn--wide ' + (pl.badge ? 'btn--primary' : 'btn--ghost')
+      })),
+
+      reviews: [
+        { ru: '«Описали процесс салона голосом — через пять минут получили рабочий аккаунт. То, на что раньше уходили недели.»', en: '"We described our salon by voice — got a working account in five minutes. Used to take weeks."', name: 'Марина К.', roleRu: 'Владелица сети салонов', roleEn: 'Salon chain owner' },
+        { ru: '«Наконец CRM, которую не стыдно менять самим. Добавили таблицу и автоматизацию без разработчика за вечер.»', en: '"Finally a CRM we can change ourselves. Added a table and an automation in an evening, no developer."', name: 'Игорь П.', roleRu: 'Руководитель отдела продаж', roleEn: 'Head of sales' },
+        { ru: '«Собрали CRM для доставки прямо из описания. Курьеры, статусы, отчёты — всё уже было настроено.»', en: '"Built our delivery CRM straight from a prompt. Couriers, statuses, reports — all preconfigured."', name: 'Алина Р.', roleRu: 'Основатель службы доставки', roleEn: 'Delivery startup founder' }
+      ]
+    };
+  }
+}
+</script>
+
+</body></html>
