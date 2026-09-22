@@ -49,6 +49,13 @@
 
 * { box-sizing: border-box }
 html, body { margin: 0 }
+/* Переходы по якорям: плавно и с отступом под липкую шапку, иначе заголовок
+   секции уезжает под неё */
+html { scroll-behavior: smooth }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+section[id] { scroll-margin-top: 76px }
+/* Обводка при переходе с клавиатуры — только когда ведут с клавиатуры */
+:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; border-radius: 4px }
 body {
   background: var(--paper);
   color: var(--ink);
@@ -345,6 +352,59 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 .plan-price { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -0.03em }
 .plan-row { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-2); padding-block: 7px; border-top: 1px solid var(--line) }
 
+/* ── Сравнение «без Кэби / с Кэби» ────────────────────────────────────── */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
+.compare-col { border: 1px solid var(--line); border-radius: var(--r-lg); padding: 26px }
+.compare-col--good { border-color: transparent; background: var(--mint-soft) }
+.compare-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; margin-bottom: 18px }
+.compare-li { display: flex; align-items: flex-start; gap: 11px; padding-block: 11px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.45 }
+.compare-li:first-of-type { border-top: none }
+.compare-col--good .compare-li { border-color: rgba(9,122,97,0.14) }
+.compare-li .ico-sm { margin-top: 2px }
+.compare-col--bad { color: var(--ink-2) }
+.compare-col--bad .ico-sm { color: var(--ink-3) }
+.compare-col--good .ico-sm { color: var(--mint-ink) }
+
+/* ── Вопросы и ответы ─────────────────────────────────────────────────── */
+/* На <details>, без скриптов: раскрывается и без JavaScript */
+.faq { max-width: 44rem; margin: 0 auto; border-top: 1px solid var(--line) }
+.faq details { border-bottom: 1px solid var(--line) }
+.faq summary {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 20px 0; cursor: pointer; list-style: none;
+  font-weight: 600; font-size: 16.5px; color: var(--ink);
+}
+.faq summary::-webkit-details-marker { display: none }
+.faq summary::after {
+  content: ''; flex: none; margin-left: auto; width: 13px; height: 13px;
+  border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.18s;
+}
+.faq details[open] summary::after { transform: rotate(225deg) translate(-3px, -3px) }
+.faq summary:hover { color: var(--accent-ink) }
+.faq-a { padding: 0 34px 22px 0; font-size: 15px; line-height: 1.6; color: var(--ink-2) }
+
+/* ── Полоса доверия ───────────────────────────────────────────────────── */
+.trust { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+.trust-i { display: flex; align-items: flex-start; gap: 13px }
+.trust-i b { display: block; font-size: 15px; margin-bottom: 3px }
+
+/* ── Кнопка внизу экрана на телефоне ──────────────────────────────────── */
+.sticky-cta { display: none }
+@media (max-width: 900px) {
+  .sticky-cta {
+    display: flex; align-items: center; gap: 12px;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-top: 1px solid var(--line);
+  }
+  .sticky-cta .btn { flex: 1 }
+  body { padding-bottom: 72px }
+}
+
 /* ── Отзывы ───────────────────────────────────────────────────────────── */
 .avatar {
   flex: none; width: 40px; height: 40px; border-radius: 50%;
@@ -384,6 +444,8 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
   .stats { grid-template-columns: 1fr }
   .stat { border-left: none; border-top: 1px solid var(--line); padding: 18px 0 }
   .stat:first-child { border-top: none; padding-top: 0 }
+  .compare { grid-template-columns: 1fr }
+  .trust { grid-template-columns: 1fr; gap: 22px }
 }
 @media (max-width: 560px) {
   .form-split { flex-direction: column }

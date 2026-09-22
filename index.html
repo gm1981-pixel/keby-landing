@@ -76,6 +76,8 @@
     <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16.5v2.2M20 16.5v2.2"/><path d="M3 16.5v-3.2l2-4.6A2 2 0 016.8 7.5h10.4a2 2 0 011.8 1.2l2 4.6v3.2z"/><path d="M3 13.3h18"/><circle cx="7.5" cy="16.4" r="1"/><circle cx="16.5" cy="16.4" r="1"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5v-5h4v5"/></symbol>
     <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 7.8l8.5-4.3 8.5 4.3v8.4L12 20.5l-8.5-4.3z"/><path d="M3.5 7.8L12 12l8.5-4.2M12 12v8.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
     <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9.5 6.5c-3 1.3-4.5 3.6-4.5 6.8V18h5.5v-5.5H7.3c0-1.9.8-3.3 2.2-4.2zM20 6.5c-3 1.3-4.5 3.6-4.5 6.8V18H21v-5.5h-3.2c0-1.9.8-3.3 2.2-4.2z"/></symbol>
 
     <!-- Рукописные стрелки и росчерк под словом. Линии намеренно неровные:
@@ -382,6 +384,42 @@
     </div>
   </section>
 
+  <!-- ===== СРАВНЕНИЕ ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker kicker--mint"><span data-l="ru">Разница</span><span data-l="en">The difference</span></span>
+        <h2><span data-l="ru">Как это выглядит <span class="accent">обычно</span></span><span data-l="en">How it <span class="accent">usually</span> goes</span></h2>
+      </div>
+      <div class="compare">
+        <div class="compare-col compare-col--bad">
+          <div class="compare-title">
+            <span class="ico-box ico-box--sm"><svg class="ico-sm"><use href="#i-x"></use></svg></span>
+            <span data-l="ru">Внедрение CRM как обычно</span><span data-l="en">A usual CRM rollout</span>
+          </div>
+          <sc-for list="{{ compareBad }}" as="cb" hint-placeholder-count="5">
+            <div class="compare-li">
+              <svg class="ico-sm"><use href="#i-x"></use></svg>
+              <span><span data-l="ru">{{ cb.ru }}</span><span data-l="en">{{ cb.en }}</span></span>
+            </div>
+          </sc-for>
+        </div>
+        <div class="compare-col compare-col--good">
+          <div class="compare-title">
+            <span class="ico-box ico-box--mint ico-box--sm"><svg class="ico-sm"><use href="#i-spark"></use></svg></span>
+            <span data-l="ru">Как это с Кэби</span><span data-l="en">The same with Кэби</span>
+          </div>
+          <sc-for list="{{ compareGood }}" as="cg" hint-placeholder-count="5">
+            <div class="compare-li">
+              <svg class="ico-sm"><use href="#i-check"></use></svg>
+              <span><span data-l="ru">{{ cg.ru }}</span><span data-l="en">{{ cg.en }}</span></span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== ПРИМЕРЫ ===== -->
   <section class="sec" id="examples">
     <div class="wrap">
@@ -412,10 +450,16 @@
         <p class="lead"><span data-l="ru">Так выглядит ваш аккаунт сразу после сборки — отчёты, счета и заявки уже настроены.</span><span data-l="en">This is your account right after assembly — reports, invoices and leads already set up.</span></p>
       </div>
 
-      <div class="row" style="justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:22px">
+      <div class="row" style="justify-content:center;flex-wrap:wrap;gap:8px">
         <sc-for list="{{ shots }}" as="sh" hint-placeholder-count="4">
           <button class="{{ sh.cls }}" sc-camel-on-click="{{ sh.pick }}"><span data-l="ru">{{ sh.ru }}</span><span data-l="en">{{ sh.en }}</span></button>
         </sc-for>
+      </div>
+      <div class="row" style="justify-content:center;margin:2px 0 18px">
+        <div class="hand-row">
+          <svg class="hand-arrow hand-arrow--sm" aria-hidden="true" focusable="false"><use href="#h-arrow-ur"></use></svg>
+          <span class="hand hand--grey"><span data-l="ru">это разные экраны одного аккаунта — переключайте</span><span data-l="en">these are screens of one account — switch between them</span></span>
+        </div>
       </div>
 
       <div class="browser">
@@ -513,6 +557,24 @@
     </div>
   </section>
 
+  <!-- ===== ВОПРОСЫ ===== -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker"><span data-l="ru">Вопросы</span><span data-l="en">Questions</span></span>
+        <h2><span data-l="ru">О чём <span class="accent">спрашивают чаще всего</span></span><span data-l="en">What people <span class="accent">ask most</span></span></h2>
+      </div>
+      <div class="faq">
+        <sc-for list="{{ faq }}" as="q" hint-placeholder-count="6">
+          <details>
+            <summary><span data-l="ru">{{ q.qRu }}</span><span data-l="en">{{ q.qEn }}</span></summary>
+            <div class="faq-a"><span data-l="ru">{{ q.aRu }}</span><span data-l="en">{{ q.aEn }}</span></div>
+          </details>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== ОТЗЫВЫ ===== -->
   <section class="sec">
     <div class="wrap">
@@ -534,6 +596,35 @@
             </div>
           </div>
         </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПОЧЕМУ НАМ МОЖНО ДОВЕРЯТЬ ===== -->
+  <section class="sec" style="padding-block:52px">
+    <div class="wrap">
+      <div class="trust">
+        <div class="trust-i">
+          <span class="ico-box ico-box--warm"><svg class="ico"><use href="#i-blocks"></use></svg></span>
+          <div>
+            <b><span data-l="ru">Проект «Клиентской базы»</span><span data-l="en">A Klientskaya Baza product</span></b>
+            <span class="small"><span data-l="ru">Кэби собирает аккаунты на той же платформе, на которой компании работают не первый год.</span><span data-l="en">Кэби assembles accounts on the same platform companies have been running on for years.</span></span>
+          </div>
+        </div>
+        <div class="trust-i">
+          <span class="ico-box ico-box--mint"><svg class="ico"><use href="#i-server"></use></svg></span>
+          <div>
+            <b><span data-l="ru">Серверы в России</span><span data-l="en">Servers in Russia</span></b>
+            <span class="small"><span data-l="ru">Аккаунт и данные остаются на российских серверах — это тариф по умолчанию.</span><span data-l="en">The account and its data stay on Russian servers — that is the default plan.</span></span>
+          </div>
+        </div>
+        <div class="trust-i">
+          <span class="ico-box ico-box--warm"><svg class="ico"><use href="#i-lock"></use></svg></span>
+          <div>
+            <b><span data-l="ru">Данные по закону</span><span data-l="en">Data handled by the book</span></b>
+            <span class="small"><span data-l="ru">Обработка персональных данных — по 152-ФЗ, с согласиями и политикой, которые лежат в подвале.</span><span data-l="en">Personal data is processed under Russian law, with the consents and policy linked in the footer.</span></span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -665,6 +756,7 @@
           <a class="foot-link" href="#examples"><span data-l="ru">Примеры</span><span data-l="en">Examples</span></a>
           <a class="foot-link" href="#features"><span data-l="ru">Возможности</span><span data-l="en">Features</span></a>
           <a class="foot-link" href="#pricing"><span data-l="ru">Тарифы</span><span data-l="en">Pricing</span></a>
+          <a class="foot-link" href="#faq"><span data-l="ru">Вопросы и ответы</span><span data-l="en">Questions</span></a>
         </div>
         <div>
           <div class="foot-title"><span data-l="ru">Документы</span><span data-l="en">Documents</span></div>
@@ -692,6 +784,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- Кнопка, прилипшая к низу экрана: на телефоне форма далеко, а решение
+       принимают по дороге. На широком экране скрыта — там есть шапка. -->
+  <div class="sticky-cta">
+    <span class="tiny" style="flex:none;white-space:nowrap"><span data-l="ru">14 дней бесплатно</span><span data-l="en">14 days free</span></span>
+    <a href="#cta" class="btn btn--primary"><span data-l="ru">Собрать мою CRM</span><span data-l="en">Build my CRM</span></a>
+  </div>
 
 </div>
 </x-dc>
@@ -973,7 +1072,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.3';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-22.4';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -1303,6 +1402,44 @@ class Component extends DCLogic {
       shotCapEn: (this.SHOTS.find(s => s.key === this.state.shot) || this.SHOTS[0]).capEn,
 
       chips: this.CHIPS.map(c => ({ ru: c.ru, en: c.en, fill: this.fill(c) })),
+
+      // «Как обычно» против «как с Кэби». Слева — то, с чем люди приходят,
+      // справа — только те обещания, которые уже сказаны на странице
+      compareBad: [
+        { ru: 'Месяцы на согласование технического задания и внедрение', en: 'Months of specs, approvals and rollout' },
+        { ru: 'Программист или интегратор нужен на каждую правку', en: 'A developer or integrator for every little change' },
+        { ru: 'Готовый шаблон, под который подгоняют ваш процесс', en: 'A fixed template your process has to bend to' },
+        { ru: 'Оплата вперёд — а подойдёт или нет, выясняется потом', en: 'Pay first, find out whether it fits later' },
+        { ru: 'Счёт за функции, которыми вы не пользуетесь', en: 'Billed for features you never use' }
+      ],
+      compareGood: [
+        { ru: 'Аккаунт собирается из вашего описания за пару минут', en: 'The account is built from your description in a couple of minutes' },
+        { ru: 'Таблицы, поля и правила меняются мышкой, без кода', en: 'Tables, fields and rules change with the mouse, no code' },
+        { ru: 'Состав модулей — под ваш процесс, а не наоборот', en: 'The module set follows your process, not the other way round' },
+        { ru: '14 дней бесплатно и без карты — сначала посмотрите', en: '14 days free and no card — look first' },
+        { ru: 'В счёте только число пользователей', en: 'The bill is just the number of users' }
+      ],
+
+      faq: [
+        { qRu: 'Нужен ли программист?', qEn: 'Do I need a developer?',
+          aRu: 'Нет. Кэби собирает аккаунт сам, а дальше таблицы, поля, права и отчёты меняются мышкой — это no-code платформа.',
+          aEn: 'No. Кэби assembles the account itself, and after that tables, fields, permissions and reports are changed with the mouse — it is a no-code platform.' },
+        { qRu: 'Что будет через 14 дней?', qEn: 'What happens after 14 days?',
+          aRu: 'Аккаунт останется у вас, нужно будет выбрать тариф по числу пользователей. Карту заранее не спрашиваем, поэтому ничего не спишется само.',
+          aEn: 'The account stays yours; you pick a plan based on the number of users. We never ask for a card up front, so nothing is charged automatically.' },
+        { qRu: 'А если собранная система не подойдёт?', qEn: 'What if the assembled system does not fit?',
+          aRu: 'Поправьте её сами: модули включаются и выключаются, таблицы и поля добавляются. Можно и описать задачу заново — Кэби соберёт другой вариант.',
+          aEn: 'Adjust it yourself: modules switch on and off, tables and fields can be added. You can also describe the task again and Кэби will assemble another version.' },
+        { qRu: 'Где хранятся данные?', qEn: 'Where is the data stored?',
+          aRu: 'На серверах в России. Персональные данные обрабатываются по 152-ФЗ; политика обработки и тексты согласий — по ссылкам в подвале.',
+          aEn: 'On servers in Russia. Personal data is processed under Russian law; the privacy policy and consent texts are linked in the footer.' },
+        { qRu: 'Зачем подтверждать телефон по SMS?', qEn: 'Why verify the phone by SMS?',
+          aRu: 'Чтобы аккаунты не создавали автоматы. Код приходит один раз, а номер нужен, чтобы связаться с вами, если по задаче будут вопросы.',
+          aEn: 'To keep bots from creating accounts. The code is sent once, and the number lets us reach you if the task needs clarifying.' },
+        { qRu: 'Чем это отличается от обычной CRM?', qEn: 'How is this different from a usual CRM?',
+          aRu: 'Обычную CRM настраивают под вас — неделями и руками. Здесь настройка получается из вашего описания сразу, а дорабатываете вы её уже сами.',
+          aEn: 'A usual CRM is configured for you — by hand, over weeks. Here the configuration comes straight from your description, and you refine it yourself.' }
+      ],
 
       steps: [
         { n: '01', tRu: 'Опишите задачу', tEn: 'Describe the task', dRu: 'Текстом или голосом расскажите, чем занимается бизнес и что нужно учитывать.', dEn: 'Tell us in text or voice what your business does and what to track.' },

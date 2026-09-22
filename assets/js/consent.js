@@ -84,6 +84,9 @@
     'border:1px solid var(--line);background:#fff;color:var(--ink-2)}' +
     '#keby-cookie button.keby-cookie-accept{background:var(--ink);' +
     'color:#fff;border-color:var(--ink)}' +
+    // На телефоне снизу висит кнопка «Собрать мою CRM» — поднимаем баннер
+    // над ней, иначе они перекрываются
+    '@media (max-width:900px){#keby-cookie{bottom:84px}}' +
     '@media (max-width:520px){#keby-cookie{padding:16px}' +
     '#keby-cookie .keby-cookie-actions{width:100%}' +
     '#keby-cookie button{flex:1}}';
