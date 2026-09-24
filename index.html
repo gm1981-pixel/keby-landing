@@ -231,15 +231,25 @@
                 <div style="padding:26px">
                   <div class="row">
                     <span class="ico-box ico-box--sm"><svg class="ico-sm"><use href="#i-check"></use></svg></span>
-                    <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
+                    <h3><span data-l="ru">{{ doneTitleRu }}</span><span data-l="en">{{ doneTitleEn }}</span></h3>
                   </div>
-                  <p class="small" style="margin-top:14px">
-                    <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Сейчас откроем его, логин и пароль отправили на {{ sentEmail }}.</span>
-                    <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. We are opening it now; the login and password went to {{ sentEmail }}.</span>
-                  </p>
+                  <sc-if value="{{ canOpen }}" hint-placeholder-val="{{ true }}">
+                    <p class="small" style="margin-top:14px">
+                      <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Сейчас откроем его, логин и пароль отправили на {{ sentEmail }}.</span>
+                      <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. We are opening it now; the login and password went to {{ sentEmail }}.</span>
+                    </p>
+                  </sc-if>
+                  <sc-if value="{{ noHost }}" hint-placeholder-val="{{ false }}">
+                    <p class="small" style="margin-top:14px">
+                      <span data-l="ru">Ответ сервера регистрации до страницы не дошёл, но заявка ушла. Логин, пароль и адрес аккаунта придут на <b style="color:var(--ink)">{{ sentEmail }}</b> в течение пары минут — загляните и в папку «Спам». Если письма не будет, напишите на info@clientbase.ru: повторно отправлять форму не нужно.</span>
+                      <span data-l="en">The registration server's reply did not reach this page, but the request went through. The login, password and account address will arrive at <b style="color:var(--ink)">{{ sentEmail }}</b> within a couple of minutes — check the spam folder too. If nothing arrives, write to info@clientbase.ru: there is no need to submit the form again.</span>
+                    </p>
+                  </sc-if>
                   <div class="row" style="margin-top:18px;flex-wrap:wrap">
-                    <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
-                    <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span></button>
+                    <sc-if value="{{ canOpen }}" hint-placeholder-val="{{ true }}">
+                      <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
+                    </sc-if>
+                    <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">{{ resetLabelRu }}</span><span data-l="en">{{ resetLabelEn }}</span></button>
                   </div>
                 </div>
               </sc-if>
@@ -745,15 +755,25 @@
               <div style="padding:26px">
                 <div class="row">
                   <img src="assets/img/mark.svg" alt="" width="40" height="40" style="display:block;flex:none">
-                  <h3><span data-l="ru">Заявка принята</span><span data-l="en">Request received</span></h3>
+                  <h3><span data-l="ru">{{ doneTitleRu }}</span><span data-l="en">{{ doneTitleEn }}</span></h3>
                 </div>
-                <p class="small" style="margin-top:14px">
-                  <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Логин и пароль отправили на {{ sentEmail }}.</span>
-                  <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. The login and password went to {{ sentEmail }}.</span>
-                </p>
+                <sc-if value="{{ canOpen }}" hint-placeholder-val="{{ true }}">
+                  <p class="small" style="margin-top:14px">
+                    <span data-l="ru">Ваш аккаунт: <b style="color:var(--ink)">{{ accountHost }}</b>. Логин и пароль отправили на {{ sentEmail }}.</span>
+                    <span data-l="en">Your account: <b style="color:var(--ink)">{{ accountHost }}</b>. The login and password went to {{ sentEmail }}.</span>
+                  </p>
+                </sc-if>
+                <sc-if value="{{ noHost }}" hint-placeholder-val="{{ false }}">
+                  <p class="small" style="margin-top:14px">
+                    <span data-l="ru">Ответ сервера регистрации до страницы не дошёл, но заявка ушла. Логин, пароль и адрес аккаунта придут на <b style="color:var(--ink)">{{ sentEmail }}</b> в течение пары минут — загляните и в папку «Спам». Если письма не будет, напишите на info@clientbase.ru: повторно отправлять форму не нужно.</span>
+                    <span data-l="en">The registration server's reply did not reach this page, but the request went through. The login, password and account address will arrive at <b style="color:var(--ink)">{{ sentEmail }}</b> within a couple of minutes — check the spam folder too. If nothing arrives, write to info@clientbase.ru: there is no need to submit the form again.</span>
+                  </p>
+                </sc-if>
                 <div class="row" style="margin-top:18px;flex-wrap:wrap">
-                  <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
-                  <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">Создать ещё один</span><span data-l="en">Create another</span></button>
+                  <sc-if value="{{ canOpen }}" hint-placeholder-val="{{ true }}">
+                    <button class="btn btn--ink" sc-camel-on-click="{{ openAccount }}"><span data-l="ru">Перейти в аккаунт</span><span data-l="en">Open the account</span></button>
+                  </sc-if>
+                  <button class="btn btn--ghost" sc-camel-on-click="{{ reset }}"><span data-l="ru">{{ resetLabelRu }}</span><span data-l="en">{{ resetLabelEn }}</span></button>
                 </div>
               </div>
             </sc-if>
@@ -1105,7 +1125,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-22.15';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-24.16';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -1230,6 +1250,28 @@ class Component extends DCLogic {
     location.href = '//' + login + '.clientbase.ru/login.php?ot_key=anybody';
   };
 
+  // Логин лежит глубоко в ответе манежа, и вложенность у него уже менялась.
+  // Ищем ключ login по всему дереву, чтобы страница не спотыкалась о форму
+  // ответа, когда сам аккаунт создан.
+  findLogin = (node, depth = 0) => {
+    if (!node || typeof node !== 'object' || depth > 12) return '';
+    if (typeof node.login === 'string' && node.login) return node.login;
+    for (const v of Object.values(node)) {
+      const found = this.findLogin(v, depth + 1);
+      if (found) return found;
+    }
+    return '';
+  };
+
+  // Ответ обработчика до страницы не дошёл — или дошёл, но логина в нём нет.
+  // Запрос при этом ушёл, и аккаунт, скорее всего, создан: письмо с логином и
+  // паролем человек получит. Говорить здесь «не удалось создать аккаунт»
+  // нельзя — это неправда, и человек отправляет форму второй раз.
+  showSentBlind = (email) => {
+    clearTimeout(this.goTimer);
+    this.setState({ phase: 'done', sending: false, sentEmail: email, login: '' });
+  };
+
   submit = async () => {
     if (this.state.sending) return;
 
@@ -1271,41 +1313,69 @@ class Component extends DCLogic {
 
     if (typeof window.gtag === 'function') window.gtag('event', 'cb_freeaccount');
 
+    // Три исхода различаются, и путать их нельзя:
+    //   1. обработчик ответил отказом — показываем причину;
+    //   2. обработчик ответил успехом — открываем аккаунт;
+    //   3. ответа мы не увидели (CORS, обрыв связи) — запрос при этом ушёл и
+    //      аккаунт создан, поэтому говорим про письмо, а не про неудачу.
+    let raw;
     try {
       const res = await fetch(this.registerUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: this.buildBody(email, brief, name, phone)
       });
-
-      const raw = (await res.text()).trim();
-      // Бэк отвечает страницей 404, когда создание аккаунтов приостановлено
-      if (!res.ok || raw.indexOf('<title>404 Not Found</title>') !== -1) throw new Error('paused');
-
-      // Успех — всегда JSON. Всё остальное это текст отказа
-      let data;
-      try { data = JSON.parse(raw); } catch (e) { this.showServerError(raw); return; }
-      const login = data && data.data && data.data.command && data.data.command.data
-                 && data.data.command.data.command && data.data.command.data.command.parameters
-                 && data.data.command.data.command.parameters.login;
-      if (!login) {
-        // Ответ разобрался как JSON, но логина в нём нет. Печатаем целиком —
-        // по нему видно, что именно вернул сервер управления
-        console.error('[регистрация] в ответе нет логина. Ответ сервера:', data);
-        console.error('[регистрация] тот же ответ строкой:', raw);
-        throw new Error('no login');
+      raw = (await res.text()).trim();
+      // Страницей 404 отвечают, когда создание аккаунтов приостановлено.
+      // Прокси может отдать её и под кодом 200, поэтому смотрим и на тело
+      const paused = res.status === 404 || raw.indexOf('<title>404 Not Found</title>') !== -1;
+      if (!res.ok || paused) {
+        console.error('[регистрация] обработчик вернул ' + res.status + ':', raw.slice(0, 400));
+        this.setState({ sending: false });
+        if (paused) {
+          this.setHint('Создание аккаунтов сейчас приостановлено. Напишите на info@clientbase.ru — поможем вручную.',
+                       'Account creation is paused right now. Write to info@clientbase.ru and we will help you by hand.');
+        } else {
+          this.setHint('Сервер регистрации ответил ошибкой. Попробуйте ещё раз или напишите на info@clientbase.ru.',
+                       'The registration server returned an error. Please try again or write to info@clientbase.ru.');
+        }
+        return;
       }
-
-      this.setState({ phase: 'done', sending: false, sentEmail: email, login: login });
-      const wait = data.type === 'fast' ? 0 : this.SLOW_CREATE_MS;
-      this.goTimer = setTimeout(() => this.openAccount(login), wait);
     } catch (err) {
-      console.error('[регистрация] запрос к ' + this.registerUrl() + ' не прошёл:', err);
-      console.error('[регистрация] если здесь TypeError: Failed to fetch — запрос не выпустил браузер (CORS или сеть).');
-      this.setState({ sending: false });
-      this.setHint('Не удалось создать аккаунт. Попробуйте ещё раз или напишите на info@clientbase.ru.',
-                   'Could not create the account. Please try again or write to info@clientbase.ru.');
+      // Сюда мы попадаем и когда браузер не дал прочитать ответ чужого домена
+      // (Access-Control-Allow-Origin не разрешает наш адрес), и когда связь
+      // оборвалась. В обоих случаях запрос до обработчика, скорее всего, дошёл
+      console.error('[регистрация] ответ от ' + this.registerUrl() + ' не прочитан:', err);
+      console.error('[регистрация] TypeError: Failed to fetch здесь означает CORS или обрыв связи: ' +
+                    'запрос ушёл, но ответ браузер до страницы не допустил.');
+      if (navigator.onLine === false) {
+        this.setState({ sending: false });
+        this.setHint('Похоже, пропала связь. Проверьте интернет и отправьте форму ещё раз.',
+                     'The connection seems to be down. Check the internet and submit the form again.');
+        return;
+      }
+      this.showSentBlind(email);
+      return;
     }
+
+    // Успех — всегда JSON. Всё остальное это текст отказа
+    let data;
+    try { data = JSON.parse(raw); } catch (e) { this.showServerError(raw); return; }
+
+    const login = this.findLogin(data);
+    if (!login) {
+      // Ответ разобрался как JSON, но логина в нём нет. Отказы приходят
+      // текстом, значит аккаунт, скорее всего, создан — просто ответ другой
+      // формы. Печатаем его целиком: по нему видно, что вернул манеж
+      console.error('[регистрация] в ответе нет логина. Ответ сервера:', data);
+      console.error('[регистрация] тот же ответ строкой:', raw);
+      this.showSentBlind(email);
+      return;
+    }
+
+    this.setState({ phase: 'done', sending: false, sentEmail: email, login: login });
+    const wait = data.type === 'fast' ? 0 : this.SLOW_CREATE_MS;
+    this.goTimer = setTimeout(() => this.openAccount(login), wait);
   };
 
   reset = () => {
@@ -1342,6 +1412,14 @@ class Component extends DCLogic {
       isDone: this.state.phase === 'done',
       sentEmail: this.state.sentEmail,
       login: this.state.login,
+      // Логин известен — зовём в аккаунт. Не известен (ответ не дошёл) —
+      // ведём к письму и не показываем кнопку, которой некуда вести
+      canOpen: !!this.state.login,
+      noHost: !this.state.login,
+      doneTitleRu: this.state.login ? 'Заявка принята' : 'Заявка отправлена',
+      doneTitleEn: this.state.login ? 'Request received' : 'Request sent',
+      resetLabelRu: this.state.login ? 'Создать ещё один' : 'Вернуться к форме',
+      resetLabelEn: this.state.login ? 'Create another' : 'Back to the form',
       accountHost: this.state.login ? this.state.login + '.clientbase.ru' : '',
       openAccount: () => this.openAccount(this.state.login),
 
