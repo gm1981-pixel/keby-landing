@@ -73,7 +73,7 @@
     'max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--line);' +
     'border-radius:14px;box-shadow:0 14px 40px -22px rgba(42,41,51,0.5);' +
     'padding:18px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;' +
-    "font-family:Inter,system-ui,sans-serif;color:var(--ink)}" +
+    "font-family:Onest,system-ui,sans-serif;color:var(--ink)}" +
     '#keby-cookie p{margin:0;flex:1;min-width:240px;font-size:14px;line-height:1.5;color:var(--ink-2)}' +
     '#keby-cookie a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px}' +
     '#keby-cookie .keby-cookie-actions{display:flex;gap:10px;flex-wrap:wrap}' +

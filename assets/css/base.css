@@ -2,8 +2,8 @@
    Оформление лендинга Кэби.
 
    Основа — белый лист. Секции разделены серой линией в один пиксель, а не
-   цветными плашками. Палитра взята из логотипа: оранжевый на акцентах и
-   кнопках, жёлтый — второй цвет, он отвечает за «живое»: включённые
+   цветными плашками. Палитра взята из бренд-бука Кэби: оранжевый на акцентах
+   и кнопках, жёлтый — второй цвет, он отвечает за «живое»: включённые
    переключатели, галочки, рукописные пометки. Других цветов на странице
    нет. Тёмных блоков нет: с ними страница читалась мрачно.
 
@@ -16,28 +16,32 @@
    рядом с переменной. Обычный текст должен давать не меньше 4,5:1.
    ───────────────────────────────────────────────────────────────────────── */
 
+/* Цвета — из бренд-бука Кэби, значение в значение. Серая лесенка идёт
+   шагами по 100: у бренд-бука названы Gray 100, 200, 400 и 500. */
 :root {
-  /* Тёмный взят холодный, сине-графитовый: рядом с тёплой лесенкой он
-     работает противовесом, которого не хватало после мятного. */
-  --ink: #26303f;          /* заголовки, основной текст — 13,3:1 */
-  --ink-2: #59637a;        /* пояснения — 6,0:1 */
-  --ink-3: #868fa0;        /* подписи, плейсхолдеры */
-  --line: #e8eaef;         /* разделители и границы, всегда 1px */
-  --line-2: #d8dbe3;       /* граница при наведении */
+  --ink: #1e2939;          /* Black — заголовки, основной текст, 14,7:1 */
+  --blue: #2d4059;         /* Blue — кнопки и функциональные элементы, 10,6:1 */
+  --blue-2: #223145;       /* тот же синий темнее — наведение */
+  --ink-2: #6a7282;        /* Gray 500 — пояснения, 4,8:1 */
+  --ink-3: #99a1af;        /* Gray 400 — плейсхолдеры, писать текстом нельзя */
+  --line: #e5e7eb;         /* Gray 200 — разделители и границы, всегда 1px */
+  --line-2: #d1d5dc;       /* ступень между Gray 200 и 400 — граница при наведении */
   --paper: #ffffff;
-  --surface: #f6f7f9;      /* подложка служебных плашек */
+  --surface: #f3f4f6;      /* Gray 100 — подложка служебных плашек */
 
   /* Тёплая лесенка в три ясно различимые ступени: жёлтый → оранжевый →
-     красно-оранжевый. Раньше оттенков было четыре и все в одном
-     жёлто-коричневом промежутке — рядом они спорили друг с другом. */
-  --sun: #ffc93c;          /* жёлтый: только заливки, писать им нельзя */
-  --sun-soft: #fff8e1;     /* метка секции, панель «как это с Кэби» */
-  --accent: #f5821f;       /* оранжевый: заливки, росчерк под словом */
-  --accent-soft: #fff4e6;  /* квадраты под иконки, тёплые плашки */
-  --accent-ink: #d6421c;   /* красно-оранжевый текстом и стрелками — 4,5:1 */
+     тёмно-оранжевый. Первые два — только заливки: на белом они дают 1,5:1 и
+     3,2:1, текстом ими писать нельзя. Всё, что должно читаться, — на
+     Dark Orange. */
+  --sun: #ffc93c;          /* Yellow — только заливки */
+  --sun-soft: #fffaed;     /* Yellow, разбавленный белым — крупные плашки */
+  --accent: #ff5500;       /* Orange — заливки, росчерк под словом, иконки */
+  --accent-soft: #faf3f0;  /* Light Orange — квадраты под иконки, полоска подсказки */
+  --tint-warm: #fdfaf9;    /* тот же Light Orange разбавленный — крупные плашки */
+  --accent-ink: #d14000;   /* Dark Orange — текст, стрелки и кнопки, 4,7:1 */
 
-  --cta: #d6421c;          /* кнопка: тот же цвет, надпись белая */
-  --cta-2: #b8380f;        /* наведение — 5,8:1 */
+  --cta: #d14000;          /* кнопка: Dark Orange, надпись белая */
+  --cta-2: #a83300;        /* наведение — 6,7:1 */
 
   --danger: #e05252;
 
@@ -59,7 +63,7 @@ section[id] { scroll-margin-top: 76px }
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Onest', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -74,7 +78,7 @@ button { font-family: inherit }
 
 /* ── Типографика ──────────────────────────────────────────────────────── */
 h1, h2, h3, .display {
-  font-family: 'Unbounded', 'Inter', system-ui, sans-serif;
+  font-family: 'Unbounded', 'Onest', system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
@@ -89,7 +93,7 @@ a:hover { color: var(--accent-ink) }
 .lead { font-size: 17px; line-height: 1.55; color: var(--ink-2) }
 .muted { color: var(--ink-2) }
 .small { font-size: 14px; color: var(--ink-2) }
-.tiny { font-size: 13px; color: var(--ink-3) }
+.tiny { font-size: 13px; color: var(--ink-2) }
 .mono { font-family: 'JetBrains Mono', monospace }
 .accent { color: var(--accent-ink) }
 
@@ -111,7 +115,7 @@ a:hover { color: var(--accent-ink) }
    выбора тарифа, так метки и кнопки читаются как одна система. */
 .kicker {
   display: inline-flex; align-items: center; gap: 7px;
-  background: transparent;
+  background: var(--paper);
   border: 1px solid var(--accent-ink);
   color: var(--accent-ink);
   border-radius: 999px;
@@ -127,7 +131,7 @@ a:hover { color: var(--accent-ink) }
 .hand {
   /* Shantell Sans — тот же шрифт, что на референсе. У него крупнее очко,
      чем у прежнего Caveat, поэтому кегль меньше, а читается так же. */
-  font-family: 'Shantell Sans', 'Inter', cursive;
+  font-family: 'Shantell Sans', 'Onest', cursive;
   font-size: 17px;
   font-weight: 600;
   line-height: 1.25;
@@ -195,11 +199,11 @@ a:hover { color: var(--accent-ink) }
   border-radius: var(--r-lg);
   padding: 26px;
 }
-.tint-warm { background: var(--accent-soft) }
+.tint-warm { background: var(--tint-warm) }
 .tint-sun { background: var(--sun-soft) }
 .block-tint {
   position: relative;
-  background: var(--accent-soft);
+  background: var(--tint-warm);
   border-radius: var(--r-xl);
   padding: 72px 24px;
   overflow: hidden;          /* знак в углу не должен вылезать за скругление */
@@ -230,11 +234,13 @@ a:hover { color: var(--accent-ink) }
   transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
   white-space: nowrap;
 }
-/* Белая надпись на густом оранжевом. Светлый #ff9633 остался для заливок */
+/* Белая надпись на Dark Orange. Светлый Orange остался для заливок:
+   белым по нему всего 3,2:1, надпись на кнопке так писать нельзя */
 .btn--primary { background: var(--cta); color: #fff }
 .btn--primary:hover { background: var(--cta-2); color: #fff; transform: translateY(-1px) }
-.btn--ink { background: var(--ink); color: #fff }
-.btn--ink:hover { background: #3c3b48; color: #fff; transform: translateY(-1px) }
+/* Синий из бренд-бука — он назначен кнопкам и функциональным элементам */
+.btn--ink { background: var(--blue); color: #fff }
+.btn--ink:hover { background: var(--blue-2); color: #fff; transform: translateY(-1px) }
 .btn--ghost { background: var(--paper); border-color: var(--line); color: var(--ink-2) }
 .btn--ghost:hover { border-color: var(--line-2); color: var(--ink) }
 /* Кнопка выбора: обводка и надпись одного цвета, при наведении заливается.
@@ -304,7 +310,7 @@ a:hover { color: var(--accent-ink) }
 }
 .lang button {
   padding: 5px 11px; border: none; border-radius: 999px; cursor: pointer;
-  background: transparent; color: var(--ink-3);
+  background: transparent; color: var(--ink);
   transition: background 0.15s, color 0.15s;
 }
 .lang button:hover { color: var(--ink) }
@@ -385,7 +391,7 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 .browser { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--paper) }
 .browser-bar { display: flex; align-items: center; gap: 7px; padding: 11px 16px; background: var(--surface); border-bottom: 1px solid var(--line) }
 .browser-dot { width: 10px; height: 10px; border-radius: 50%; background: #dcdce2 }
-.browser-url { margin-left: 10px; display: flex; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 5px 12px; font-size: 12.5px; color: var(--ink-3); flex: 1; max-width: 340px }
+.browser-url { margin-left: 10px; display: flex; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 5px 12px; font-size: 12.5px; color: var(--ink-2); flex: 1; max-width: 340px }
 
 /* ── Тарифы ───────────────────────────────────────────────────────────── */
 .plan {
@@ -410,7 +416,7 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 }
 .plan-users { font-size: 13.5px; font-weight: 600; color: var(--ink-2) }
 .plan-price { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.03em; line-height: 1; color: var(--ink) }
-.plan-per { display: block; margin-top: 7px; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500; color: var(--ink-3); letter-spacing: 0 }
+.plan-per { display: block; margin-top: 7px; font-family: 'Onest', sans-serif; font-size: 13.5px; font-weight: 500; color: var(--ink-2); letter-spacing: 0 }
 .plan-row { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--ink-2); padding-block: 8px; border-top: 1px solid var(--line) }
 .plan--star .plan-row { border-color: rgba(214,66,28,0.14) }
 .plan-row .ico-sm { color: var(--accent-ink); width: 16px; height: 16px }
@@ -473,17 +479,17 @@ input:-webkit-autofill { transition: background-color 0s 600000s }
 .avatar {
   flex: none; width: 40px; height: 40px; border-radius: 50%;
   display: grid; place-items: center;
-  background: var(--accent-soft); color: var(--accent-ink);
+  background: var(--paper); border: 1px solid var(--accent-ink); color: var(--accent-ink);
   font-weight: 700; font-size: 14.5px;
 }
 
 /* ── Подвал ───────────────────────────────────────────────────────────── */
-.foot { background: var(--surface); border-radius: var(--r-xl); padding: 48px 32px; margin-bottom: 28px }
+.foot { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 48px 32px; margin-bottom: 28px }
 .foot-cols { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 32px }
-.foot-title { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px }
+.foot-title { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 14px }
 .foot-link { display: block; font-size: 14.5px; color: var(--ink-2); margin-bottom: 10px }
 .foot-link:hover { color: var(--ink) }
-.foot-legal { border-top: 1px solid var(--line); margin-top: 36px; padding-top: 22px; font-size: 12.5px; line-height: 1.6; color: var(--ink-3); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap }
+.foot-legal { border-top: 1px solid var(--line); margin-top: 36px; padding-top: 22px; font-size: 12.5px; line-height: 1.6; color: var(--ink-2); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap }
 
 /* ── Анимации ─────────────────────────────────────────────────────────── */
 @keyframes wv { 0%,100% { transform: scaleY(0.35) } 50% { transform: scaleY(1) } }

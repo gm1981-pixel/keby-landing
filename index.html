@@ -112,7 +112,9 @@
           <button sc-camel-on-click="{{ setRu }}" class="{{ ruBtnCls }}">RU</button>
           <button sc-camel-on-click="{{ setEn }}" class="{{ enBtnCls }}">EN</button>
         </div>
-        <a href="#cta" class="btn btn--primary btn--sm"><span data-l="ru">Создать аккаунт</span><span data-l="en">Sign up</span></a>
+        <!-- Синяя, как в бренд-буке: оранжевая кнопка на странице одна — та,
+             что отправляет форму. Иначе главное действие не выделяется -->
+        <a href="#cta" class="btn btn--ink btn--sm"><span data-l="ru">Создать аккаунт</span><span data-l="en">Sign up</span></a>
       </div>
     </div>
   </header>
@@ -123,7 +125,7 @@
       <div class="split-grid" style="display:grid;grid-template-columns:1.08fr 0.92fr;gap:28px;align-items:center">
 
         <div style="position:relative;z-index:2">
-          <div class="row" style="display:inline-flex;gap:8px;background:var(--accent-soft);border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;color:var(--accent-ink)">
+          <div class="row" style="display:inline-flex;gap:8px;background:var(--tint-warm);border:1px solid var(--accent-ink);border-radius:999px;padding:6px 15px;font-size:13px;font-weight:600;color:var(--accent-ink)">
             <svg class="ico-sm"><use href="#i-spark"></use></svg>
             <span data-l="ru">ИИ-конфигуратор CRM · без программистов</span><span data-l="en">AI CRM configurator · no developers</span>
           </div>
@@ -358,7 +360,7 @@
               <button class="{{ md.cls }}" sc-camel-on-click="{{ md.toggle }}" title="toggle"><i></i></button>
             </div>
           </sc-for>
-          <button class="btn-link row" sc-camel-on-click="{{ addModule }}" style="width:100%;padding:14px 16px;color:var(--ink-3);font-size:15px">
+          <button class="btn-link row" sc-camel-on-click="{{ addModule }}" style="width:100%;padding:14px 16px;color:var(--ink-2);font-size:15px">
             <span class="ico-box ico-box--sm" style="border-style:dashed;border-color:var(--line-2);background:transparent;color:var(--ink-3)"><svg class="ico-sm"><use href="#i-plus"></use></svg></span>
             <span data-l="ru">Добавить модуль</span><span data-l="en">Add module</span>
           </button>
@@ -1125,7 +1127,7 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // при пустом пуле бриф уезжает в query string — см. README
 
-  BUILD = '2026-09-24.16';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-09-28.17';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
