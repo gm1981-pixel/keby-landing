@@ -30,10 +30,10 @@
 <!-- Версия в адресе обязательна: без неё браузер отдаёт свой старый файл, и
      после выкладки страница приезжает новая, а оформление остаётся прежним.
      Поднимайте вместе с BUILD в конце файла. -->
-<script src="assets/js/consent.js?v=2026-10-02.19"></script>
+<script src="assets/js/consent.js?v=2026-10-02.20"></script>
 
-<link rel="stylesheet" href="assets/css/fonts.css?v=2026-10-02.19">
-<link rel="stylesheet" href="assets/css/base.css?v=2026-10-02.19">
+<link rel="stylesheet" href="assets/css/fonts.css?v=2026-10-02.20">
+<link rel="stylesheet" href="assets/css/base.css?v=2026-10-02.20">
 <script>window.__resources = {
   "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js",
   "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js",
@@ -42,7 +42,7 @@
   // если однажды JSX появится, запрос упрётся в 404 у нас, а не уйдёт на unpkg.
   "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js": "assets/js/babel-not-bundled.js"
 };</script>
-<script src="assets/js/dc-runtime.js?v=2026-10-02.19"></script>
+<script src="assets/js/dc-runtime.js?v=2026-10-02.20"></script>
 </head>
 <body>
 <!-- noscript-пикселя Метрики здесь нет намеренно: без JavaScript негде спросить
@@ -1162,15 +1162,19 @@ class Component extends DCLogic {
   BRIEF_MIN = 15;
   BRIEF_MAX = 1000;        // предел поля ввода: столько человек набирает руками
 
-  // Предел того, что уходит в регистрацию. Пока на manage не стоит `exit` с
-  // кодом 307, при пустом пуле бриф уезжает в строку запроса и упирается в
-  // лимит заголовков nginx — см. README. Как только манеж обновят, здесь
-  // ставится BRIEF_FILE_MAX, и ТЗ доезжает целиком.
-  BRIEF_SEND_MAX = 1000;
+  // Предел того, что уходит в регистрацию. На manage стоит `exit` с кодом 307,
+  // поэтому при пустом пуле поля едут в теле запроса, а не в адресе, и предел
+  // длины адреса больше ни при чём. Остаток — предел самого поля f14992: оно
+  // переведено в увеличенный размер и держит до 4 ГБ, так что упираемся мы
+  // только в то, сколько отдаёт api/brief.php.
+  // Запас над BRIEF_FILE_MAX: к тексту из файла добавляются набранное руками
+  // (не больше BRIEF_MAX) и строка «Файл «имя»:». Без запаса документ ровно на
+  // сто тысяч знаков обрезался бы из-за одной этой строки.
+  BRIEF_SEND_MAX = 102000;
   BRIEF_FILE_MAX = 100000;  // столько отдаёт api/brief.php
   FILE_API = 'api/brief.php';
 
-  BUILD = '2026-10-02.19';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-10-02.20';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
