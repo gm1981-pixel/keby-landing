@@ -369,6 +369,40 @@ input::placeholder, textarea::placeholder { color: var(--ink-3); opacity: 1 }
 .form-split > .form-row { flex: 1; min-width: 0; border-top: none }
 .form-sep { width: 1px; flex: none; align-self: stretch; background: var(--line) }
 .form-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border-top: 1px solid var(--line) }
+
+/* Кнопка «Прикрепить ТЗ» — это <label> поверх скрытого поля файла: так выбор
+   открывается без единой строки на клик, и с клавиатуры тоже. Выглядит как
+   соседняя кнопка «Наговорить», поэтому классы у них общие. */
+.file-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none }
+label.btn { cursor: pointer }
+label.btn:focus-within { outline: 2px solid var(--cta); outline-offset: 2px }
+
+/* Плашка прикреплённого файла. Имя длинное, поэтому обрезается многоточием, а
+   не растягивает строку кнопок. */
+.file-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  max-width: 100%;
+  padding: 6px 8px 6px 11px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--paper); color: var(--ink-2);
+  font-size: 13.5px;
+}
+.file-chip .ico-sm { color: var(--accent-ink); flex: none }
+.file-chip-name {
+  color: var(--ink); font-weight: 600;
+  max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.file-chip-x {
+  flex: none; display: grid; place-items: center;
+  width: 22px; height: 22px; padding: 0;
+  border: none; border-radius: 50%;
+  background: var(--surface); color: var(--ink-2); cursor: pointer;
+}
+.file-chip-x:hover { background: var(--line); color: var(--ink) }
+/* Крестик — служебный, оранжевый ему не нужен: цвет берём у кнопки, а не у
+   соседней иконки документа */
+.file-chip-x .ico-sm { color: inherit }
+@media (max-width: 560px) { .file-chip-name { max-width: 120px } }
 .consents { display: flex; flex-direction: column; gap: 9px; padding: 14px 18px; border-top: 1px solid var(--line) }
 .consent { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 12.5px; line-height: 1.45; color: var(--ink-2) }
 .consent a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--line) }
