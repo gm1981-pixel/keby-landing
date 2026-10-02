@@ -32,7 +32,8 @@ const BRIEF_TYPES = ['txt', 'md', 'rtf', 'docx', 'pdf'];
 if (($_GET['action'] ?? '') === 'check') {
     respond(200, [
         'ok'          => true,
-        'docx'        => class_exists('ZipArchive'),
+        'docx'        => class_exists('ZipArchive') || function_exists('gzinflate'),
+        'docx_via'    => class_exists('ZipArchive') ? 'ext-zip' : (function_exists('gzinflate') ? 'zlib' : '—'),
         'pdf'         => brief_pdftotext() !== null,
         'mbstring'    => function_exists('mb_chr'),
         'iconv'       => function_exists('iconv'),
@@ -84,17 +85,74 @@ function brief_to_utf8(string $raw): string {
     return $out === false ? mb_convert_encoding($raw, 'UTF-8', $enc) : $out;
 }
 
+// Достаёт один файл из zip-архива, когда расширения zip в PHP нет. Формат
+// простой: в конце лежит «центральный каталог» со списком файлов, в нём —
+// смещение каждого; по смещению стоит заголовок, за ним сжатые данные.
+// Разжимает их gzinflate из zlib — оно есть почти в любой сборке PHP, в
+// отличие от ext-zip.
+function brief_zip_entry(string $path, string $want): ?string {
+    if (!function_exists('gzinflate')) return null;
+    $fh = @fopen($path, 'rb');
+    if (!$fh) return null;
+
+    // Подпись конца каталога ищем с хвоста: после неё может идти комментарий
+    // длиной до 64 КБ, поэтому столько и читаем
+    $size = filesize($path);
+    $tail = max(0, $size - 65557);
+    fseek($fh, $tail);
+    $buf = stream_get_contents($fh);
+    $eocd = strrpos($buf, "PK\x05\x06");
+    if ($eocd === false) { fclose($fh); return null; }
+
+    $end = unpack('vdisk/vcddisk/vcdnum/vcdtotal/Vcdsize/Vcdoff', substr($buf, $eocd + 4, 18));
+    fseek($fh, $end['cdoff']);
+    $cd = fread($fh, $end['cdsize']);
+
+    $pos = 0;
+    $found = null;
+    for ($i = 0; $i < $end['cdtotal']; $i++) {
+        if (substr($cd, $pos, 4) !== "PK\x01\x02") break;
+        $h = unpack('vver/vminver/vflag/vmethod/vtime/vdate/Vcrc/Vcsize/Vusize/' .
+                    'vnamelen/vextralen/vcommentlen/vdisk/vattr/Vext/Voffset',
+                    substr($cd, $pos + 4, 42));
+        $name = substr($cd, $pos + 46, $h['namelen']);
+        if ($name === $want) { $found = $h; break; }
+        $pos += 46 + $h['namelen'] + $h['extralen'] + $h['commentlen'];
+    }
+    if (!$found) { fclose($fh); return null; }
+
+    // В заголовке у самих данных длины имени и дополнительного поля свои —
+    // в центральном каталоге они могут отличаться
+    fseek($fh, $found['offset']);
+    if (fread($fh, 4) !== "PK\x03\x04") { fclose($fh); return null; }
+    $lh = unpack('vver/vflag/vmethod/vtime/vdate/Vcrc/Vcsize/Vusize/vnamelen/vextralen',
+                 fread($fh, 26));
+    fseek($fh, $found['offset'] + 30 + $lh['namelen'] + $lh['extralen']);
+    $data = fread($fh, max(1, $found['csize']));
+    fclose($fh);
+
+    if ($found['method'] === 0) return $data;          // без сжатия
+    if ($found['method'] !== 8) return null;           // не deflate — не наш случай
+    $out = @gzinflate($data);
+    return $out === false ? null : $out;
+}
+
 // .docx — это zip, внутри word/document.xml. Сторонние библиотеки не нужны:
 // абзацы размечены </w:p>, разрывы строк <w:br/>, табуляции <w:tab/>.
 function brief_from_docx(string $path): ?string {
-    // Без расширения zip .docx не вскрыть. Это отдельная причина отказа:
-    // «в файле нет текста» здесь было бы неправдой
-    if (!class_exists('ZipArchive')) fail(501, 'no_zip');
-    $zip = new ZipArchive();
-    if ($zip->open($path) !== true) return null;
-    $xml = $zip->getFromName('word/document.xml');
-    $zip->close();
-    if ($xml === false || $xml === '') return null;
+    if (class_exists('ZipArchive')) {
+        $zip = new ZipArchive();
+        if ($zip->open($path) !== true) return null;
+        $xml = $zip->getFromName('word/document.xml');
+        $zip->close();
+    } else {
+        // Расширения zip на сервере нет — вскрываем архив сами
+        $xml = brief_zip_entry($path, 'word/document.xml');
+    }
+    if ($xml === false || $xml === null || $xml === '') {
+        if (!class_exists('ZipArchive') && !function_exists('gzinflate')) fail(501, 'no_zip');
+        return null;
+    }
 
     $xml = preg_replace('~<w:(?:tab)\b[^>]*/?>~', "\t", $xml);
     $xml = preg_replace('~<w:(?:br|cr)\b[^>]*/?>~', "\n", $xml);
