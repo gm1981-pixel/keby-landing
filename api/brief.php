@@ -26,6 +26,23 @@ require __DIR__ . '/_lib.php';
 
 const BRIEF_TYPES = ['txt', 'md', 'rtf', 'docx', 'pdf'];
 
+// Самопроверка: что этот сервер умеет. Отвечает без разбора файлов и без
+// доступа к данным, поэтому открывается прямо в браузере —
+// https://keby.ai/api/brief.php?action=check
+if (($_GET['action'] ?? '') === 'check') {
+    respond(200, [
+        'ok'          => true,
+        'docx'        => class_exists('ZipArchive'),
+        'pdf'         => brief_pdftotext() !== null,
+        'mbstring'    => function_exists('mb_chr'),
+        'iconv'       => function_exists('iconv'),
+        'max_bytes'   => brief_max_bytes(),
+        'max_chars'   => brief_max_chars(),
+        'php_upload'  => ini_get('upload_max_filesize'),
+        'php_post'    => ini_get('post_max_size'),
+    ]);
+}
+
 require_post();
 require_same_origin();
 
@@ -70,7 +87,9 @@ function brief_to_utf8(string $raw): string {
 // .docx — это zip, внутри word/document.xml. Сторонние библиотеки не нужны:
 // абзацы размечены </w:p>, разрывы строк <w:br/>, табуляции <w:tab/>.
 function brief_from_docx(string $path): ?string {
-    if (!class_exists('ZipArchive')) return null;
+    // Без расширения zip .docx не вскрыть. Это отдельная причина отказа:
+    // «в файле нет текста» здесь было бы неправдой
+    if (!class_exists('ZipArchive')) fail(501, 'no_zip');
     $zip = new ZipArchive();
     if ($zip->open($path) !== true) return null;
     $xml = $zip->getFromName('word/document.xml');
@@ -206,7 +225,8 @@ switch ($ext) {
 @unlink($f['tmp_name']);   // оригинал не храним
 
 if ($text === null || trim($text) === '') {
-    log_line('brief: не извлечён текст, ' . $ext . ', ' . (int)($f['size'] ?? 0) . ' байт');
+    log_line('brief: не извлечён текст, ' . $ext . ', ' . (int)($f['size'] ?? 0) . ' байт, ' .
+             'сигнатура ' . bin2hex(substr($head, 0, 4)));
     fail(422, $ext === 'pdf' ? 'pdf_empty' : 'empty');
 }
 

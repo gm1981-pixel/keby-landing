@@ -27,10 +27,13 @@
      уходит и ни один файл cookie не пишется (152-ФЗ ст. 6, ст. 9).
      Запуск — в assets/js/consent.js, по сохранённому выбору или по кнопке. -->
 <script>window.KEBY_METRIKA_ID = 19963723;</script>
-<script src="assets/js/consent.js"></script>
+<!-- Версия в адресе обязательна: без неё браузер отдаёт свой старый файл, и
+     после выкладки страница приезжает новая, а оформление остаётся прежним.
+     Поднимайте вместе с BUILD в конце файла. -->
+<script src="assets/js/consent.js?v=2026-10-02.19"></script>
 
-<link rel="stylesheet" href="assets/css/fonts.css">
-<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/fonts.css?v=2026-10-02.19">
+<link rel="stylesheet" href="assets/css/base.css?v=2026-10-02.19">
 <script>window.__resources = {
   "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/js/react.production.min.js",
   "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/js/react-dom.production.min.js",
@@ -39,7 +42,7 @@
   // если однажды JSX появится, запрос упрётся в 404 у нас, а не уйдёт на unpkg.
   "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js": "assets/js/babel-not-bundled.js"
 };</script>
-<script src="assets/js/dc-runtime.js"></script>
+<script src="assets/js/dc-runtime.js?v=2026-10-02.19"></script>
 </head>
 <body>
 <!-- noscript-пикселя Метрики здесь нет намеренно: без JavaScript негде спросить
@@ -221,7 +224,7 @@
                     <label class="{{ fileCls }}" title="file">
                       <svg class="ico-sm"><use href="#i-clip"></use></svg>
                       <span data-l="ru">{{ fileLabelRu }}</span><span data-l="en">{{ fileLabelEn }}</span>
-                      <input type="file" class="file-input" sc-camel-on-change="{{ onFile }}" accept=".txt,.md,.rtf,.docx,.pdf,text/plain,text/markdown,application/rtf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
+                      <input type="file" class="file-input" style="position:absolute;width:1px;height:1px;opacity:0" sc-camel-on-change="{{ onFile }}" accept=".txt,.md,.rtf,.docx,.pdf,text/plain,text/markdown,application/rtf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
                     </label>
                     <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ false }}">
                     <span class="file-chip">
@@ -760,7 +763,7 @@
                   <label class="{{ fileCls }}" title="file">
                     <svg class="ico-sm"><use href="#i-clip"></use></svg>
                     <span data-l="ru">{{ fileLabelRu }}</span><span data-l="en">{{ fileLabelEn }}</span>
-                    <input type="file" class="file-input" sc-camel-on-change="{{ onFile }}" accept=".txt,.md,.rtf,.docx,.pdf,text/plain,text/markdown,application/rtf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
+                    <input type="file" class="file-input" style="position:absolute;width:1px;height:1px;opacity:0" sc-camel-on-change="{{ onFile }}" accept=".txt,.md,.rtf,.docx,.pdf,text/plain,text/markdown,application/rtf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
                   </label>
                   <sc-if value="{{ hasFile }}" hint-placeholder-val="{{ false }}">
                   <span class="file-chip">
@@ -1167,7 +1170,7 @@ class Component extends DCLogic {
   BRIEF_FILE_MAX = 100000;  // столько отдаёт api/brief.php
   FILE_API = 'api/brief.php';
 
-  BUILD = '2026-10-02.18';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
+  BUILD = '2026-10-02.19';  // номер сборки, видно в подвале — поднимайте при каждой выкладке
   METRIKA_ID = 19963723;
   GOAL = 'freeaccount';
   SLOW_CREATE_MS = 30000;  // для type: 'standard' аккаунт готов примерно через полминуты
@@ -1212,8 +1215,8 @@ class Component extends DCLogic {
   // текст и возвращает строку. Наружу, в регистрацию, уходит только текст:
   // чужие документы на систему управления аккаунтами мы не отправляем.
   FILE_ERRORS = {
-    too_big:   ['Файл больше 10 МБ. Пришлите документ полегче или вставьте текст прямо в поле.',
-                'The file is over 10 MB. Send a lighter document or paste the text into the field.'],
+    too_big:   ['Файл слишком большой. Пришлите документ полегче или вставьте текст прямо в поле.',
+                'The file is too large. Send a lighter document or paste the text into the field.'],
     type:      ['Такой формат не читается. Подойдут docx, txt, md, rtf и pdf с текстовым слоем.',
                 'That format cannot be read. Try docx, txt, md, rtf or a pdf with a text layer.'],
     old_doc:   ['Старый формат .doc не читается. Откройте файл и пересохраните как .docx.',
@@ -1222,7 +1225,9 @@ class Component extends DCLogic {
                 'This PDF has no text layer — it looks like a scan. Send the original document or describe the task in the field.'],
     empty:     ['В файле не нашлось текста.', 'No text was found in the file.'],
     rate:      ['Слишком много файлов подряд. Попробуйте через несколько минут.',
-                'Too many files in a row. Please try again in a few minutes.']
+                'Too many files in a row. Please try again in a few minutes.'],
+    no_zip:    ['На сервере не включено чтение .docx. Пришлите txt или rtf, либо напишите на info@clientbase.ru.',
+                'Reading .docx is not enabled on the server. Send a txt or rtf, or write to info@clientbase.ru.']
   };
 
   onFile = async (e) => {
