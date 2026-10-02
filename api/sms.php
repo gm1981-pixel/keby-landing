@@ -77,6 +77,19 @@ if ($action === 'send') {
         fail(400, 'bad_challenge');
     }
 
+    // Служебный код вместо настоящей SMS: со своих адресов, на свои тестовые
+    // номера (адрес при этом любой — удобно, когда выходим через VPN с
+    // меняющимся IP) и целиком в режиме отладки.
+    //
+    // Считаем это здесь, до лимитов: служебный код ничего не стоит и никуда не
+    // уходит, поэтому в счётчики он попадать не должен. Иначе день проверок из
+    // офиса съедает дневной лимит номера, и вечером с обычного адреса SMS уже
+    // не отправить — а по сообщению «слишком много кодов» догадаться об этом
+    // невозможно.
+    $office = in_array($phone, test_phones(), true)
+           || in_array($ip, $C['office_ips'] ?? [], true)
+           || !empty($C['dry_run']);
+
     $db = db();
     $db->exec('BEGIN IMMEDIATE');   // лимиты считаем и записываем атомарно
     try {
@@ -97,7 +110,7 @@ if ($action === 'send') {
             ['send_global', '*',    3600,  $L['global_per_hour'], 'busy'],
             ['send_global', '*',    86400, $L['global_per_day'],  'busy'],
         ];
-        foreach ($checks as [$kind, $key, $window, $max, $error]) {
+        foreach ($office ? [] : $checks as [$kind, $key, $window, $max, $error]) {
             if (count_events($db, $kind, $key, $window) >= $max) {
                 $retry = retry_after($db, $kind, $key, $window);
                 $db->exec('ROLLBACK');
@@ -107,12 +120,6 @@ if ($action === 'send') {
             }
         }
 
-        // Служебный код вместо настоящей SMS: со своих адресов, на свои
-        // тестовые номера (адрес при этом любой — удобно, когда выходим через
-        // VPN с меняющимся IP) и целиком в режиме отладки.
-        $office = in_array($phone, test_phones(), true)
-               || in_array($ip, $C['office_ips'] ?? [], true)
-               || !empty($C['dry_run']);
         $code = $office ? (string)($C['office_code'] ?? '363636') : str_pad((string)random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $db->prepare('INSERT INTO codes (phone, code_hash, created_at, expires_at, attempts, verified_at, ip)
@@ -121,9 +128,12 @@ if ($action === 'send') {
                           created_at = excluded.created_at, expires_at = excluded.expires_at,
                           attempts = 0, verified_at = NULL, ip = excluded.ip')
            ->execute([$phone, code_hash($phone, $code), $now, $now + $L['code_ttl'], $ip]);
-        add_event($db, 'send_phone', $phone);
-        add_event($db, 'send_ip', $ip);
-        add_event($db, 'send_global', '*');
+        // Служебные коды в счётчики не пишем: они ничего не стоят
+        if (!$office) {
+            add_event($db, 'send_phone', $phone);
+            add_event($db, 'send_ip', $ip);
+            add_event($db, 'send_global', '*');
+        }
         $db->exec('COMMIT');
     } catch (Throwable $e) {
         if ($db->inTransaction()) $db->exec('ROLLBACK');
