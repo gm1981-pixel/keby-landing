@@ -1,11 +1,12 @@
 <?php
 // Журнал согласий.
 //
-//   POST action=cookie  choice=yes|no  version=…  page=…
+//   POST action=cookie  choice=yes|no  categories=…  version=…  page=…
 //
 // Пишет строку в consents.log рядом с базой SMS-модуля: дата и время, IP,
-// адрес страницы, тип согласия, версия текста. Этого достаточно, чтобы
-// подтвердить факт согласия, если его оспорят (152-ФЗ ст. 9 ч. 3).
+// адрес страницы, тип согласия, затронутые категории cookie и редакция
+// текста баннера. Этого достаточно, чтобы подтвердить факт согласия, если
+// его оспорят (152-ФЗ ст. 9 ч. 3).
 //
 // Ответ всегда пустой и быстрый: страница не ждёт результата.
 
@@ -26,6 +27,7 @@ $line = json_encode([
     'ip'      => client_ip(),
     'type'    => $clean($_POST['action'] ?? 'cookie', 32),
     'choice'  => $choice,
+    'cats'    => $clean($_POST['categories'] ?? '', 64),
     'version' => $clean($_POST['version'] ?? '', 32),
     'page'    => $clean($_POST['page'] ?? '', 300),
     'form'    => $clean($_POST['form'] ?? '', 64),
